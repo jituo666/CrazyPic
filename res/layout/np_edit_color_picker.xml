@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main_toolbar"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.xjt.crazypic.colorpicker.ColorCompareView
+                android:id="@+id/btnSelect"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp" />
+
+            <com.xjt.crazypic.colorpicker.ColorSVRectView
+                android:id="@+id/colorRectView"
+                android:layout_width="match_parent"
+                android:layout_height="256dp" />
+
+            <com.xjt.crazypic.colorpicker.ColorHueView
+                android:id="@+id/ColorHueView"
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+            <com.xjt.crazypic.colorpicker.ColorOpacityView
+                android:id="@+id/colorOpacityView"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/filtershow_vertical_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/applyColorPick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/np_common_pressed_bg"
+            android:gravity="center"
+            android:src="@drawable/ic_menu_done_holo_light" />
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/filtershow_vertical_bar" />
+
+        <ImageButton
+            android:id="@+id/cancelColorPick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/np_common_pressed_bg"
+            android:gravity="center"
+            android:src="@drawable/ic_menu_cancel_holo_light" />
+    </LinearLayout>
+
+</LinearLayout>

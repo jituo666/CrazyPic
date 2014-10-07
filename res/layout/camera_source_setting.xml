@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/np_main_bg"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/camera_source_list"
+        style="@style/MyWidget.ListView"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.xjt.crazypic.view.NpLoadingView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/local_media_empty_view"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/common_btn_bkg"
+        android:text="@string/common_save"
+        android:textColor="@color/np_main_text_color_normal"
+        android:textSize="@dimen/letool_action_bar_text_size1"
+        android:visibility="gone" />
+
+</LinearLayout>

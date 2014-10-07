@@ -1,0 +1,49 @@
+keytool genkey -alias debugCrazyPic -keyalg RSA -validity 20000 -keystore crazypic.keystore
+keytool error: java.lang.RuntimeException: Usage error, genkey is not a legal command
+jetoo@jetoo-pc:~/workspace/CrazyPic$ keytool -genkey -alias debugCrazyPic -keyalg RSA -validity 20000 -keystore crazypic.keystore
+Enter keystore password:  
+Re-enter new password: 
+What is your first and last name?
+  [Unknown]:  xuanjituo
+What is the name of your organizational unit?
+  [Unknown]:  personal
+What is the name of your organization?
+  [Unknown]:  jetoo
+What is the name of your City or Locality?
+  [Unknown]:  chengdu
+What is the name of your State or Province?
+  [Unknown]:  sichuan
+What is the two-letter country code for this unit?
+  [Unknown]:  86
+Is CN=xuanjituo, OU=personal, O=jetoo, L=chengdu, ST=sichuan, C=86 correct?
+  [no]:  yes
+
+Enter key password for <debugCrazyPic>
+	(RETURN if same as keystore password):  
+Re-enter new password: 
+jetoo@jetoo-pc:~/workspace/CrazyPic$ 
+jetoo@jetoo-pc:~/workspace/CrazyPic$ 
+jetoo@jetoo-pc:~/workspace/CrazyPic$ 
+jetoo@jetoo-pc:~/workspace/CrazyPic$ 
+jetoo@jetoo-pc:~/workspace/CrazyPic$ 
+jetoo@jetoo-pc:~/workspace/CrazyPic$ keytool -genkey -alias releaseCrazyPic -keyalg RSA -validity 20000 -keystore crazypic.keystore
+Enter keystore password:  
+What is your first and last name?
+  [Unknown]:  xuanjituo
+What is the name of your organizational unit?
+  [Unknown]:  personal
+What is the name of your organization?
+  [Unknown]:  jetoo
+What is the name of your City or Locality?
+  [Unknown]:  chengdu
+What is the name of your State or Province?
+  [Unknown]:  sichuan
+What is the two-letter country code for this unit?
+  [Unknown]:  86
+Is CN=xuanjituo, OU=personal, O=jetoo, L=chengdu, ST=sichuan, C=86 correct?
+  [no]:  yes
+
+Enter key password for <releaseCrazyPic>
+	(RETURN if same as keystore password):  
+Re-enter new password: 
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Category Panel Height -->
+    <dimen name="category_panel_height">88dip</dimen>
+
+    <!-- Category Panel Icon Width -->
+    <dimen name="category_panel_icon_size">66dip</dimen>
+
+    <!-- Category Panel Text Size -->
+    <dimen name="category_panel_text_size">13dip</dimen>
+
+    <!-- Category Panel margin -->
+    <dimen name="category_panel_margin">4dip</dimen>
+
+    <!-- Grad filter dot size -->
+    <dimen name="gradcontrol_dot_size">20dip</dimen>
+
+    <!-- Grad filter minimum touch distance -->
+    <dimen name="gradcontrol_min_touch_dist">80dip</dimen>
+
+    <!-- Grad filter minimum touch distance -->
+    <dimen name="draw_rect_border">20dip</dimen>
+
+    <!-- Grad filter minimum touch distance -->
+    <dimen name="draw_rect_shadow">8dip</dimen>
+
+    <!-- Grad filter minimum touch distance -->
+    <dimen name="draw_rect_border_edge">2dip</dimen>
+
+    <!-- Grad filter minimum touch distance -->
+    <dimen name="draw_rect_round">10dip</dimen>
+
+    <!-- draw color icon size -->
+    <dimen name="draw_style_icon_dim">42dip</dimen>
+
+    <!-- draw color icon size -->
+    <dimen name="draw_color_icon_dim">42dip</dimen>
+
+    <!-- draw check UI size -->
+    <dimen name="draw_color_check_dim">5dip</dimen>
+
+    <!-- draw check UI size -->
+    <dimen name="draw_ui_width">192dip</dimen>
+
+    <!-- Glow effect size -->
+    <dimen name="edge_glow_size">50dip</dimen>
+
+    <!-- configuration for filtershow UI -->
+    <dimen name="thumbnail_size">96dip</dimen>
+    <dimen name="thumbnail_margin">3dip</dimen>
+    <dimen name="action_item_height">175dip</dimen>
+    <dimen name="touch_circle_size">8dp</dimen>
+
+    <!-- configuration for preview in editor -->
+    <dimen name="photoeditor_text_size">12dp</dimen>
+    <dimen name="photoeditor_text_padding">10dp</dimen>
+    <dimen name="photoeditor_original_text_size">18dp</dimen>
+    <dimen name="photoeditor_original_text_margin">4dp</dimen>
+    <dimen name="switcher_size">72dp</dimen>
+    <dimen name="setting_popup_right_margin">5dp</dimen>
+
+    
+    <dimen name="notification_large_icon_width">64dp</dimen>
+</resources>

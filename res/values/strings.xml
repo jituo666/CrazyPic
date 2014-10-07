@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Used to format short video duration in Details dialog. minutes:seconds e.g. 00:30 -->
+    <string name="details_ms">%1$02d:%2$02d</string>
+    <!-- Used to format video duration in Details dialog. hours:minutes:seconds e.g. 0:21:30 -->
+    <string name="details_hms">%1$d:%2$02d:%3$02d</string>
+
+    <!-- Displayed in the title of those albums that are being loaded -->
+    <string name="loading">Loading\u2026</string>
+    <string name="no_thumbnail">No thumbnail</string>
+    <string name="unknown">Unknown</string>
+    <!-- each ui strings -->
+    <string name="loading_video">Loading video\u2026</string>
+    <string name="resume_playing_title">Resume video</string>
+    <string name="resume_playing_restart">Start over</string>
+    <string name="resume_playing_message">Resume playing from %s ?</string>
+    <string name="resume_playing_resume">Resume playing</string>
+    <string name="camera_source_dirs">Camera source</string>
+    <string name="camera_source_dirs_desc">Set photo and video source directories</string>
+    <string name="camera_source_dirs_title">Camera source</string>
+    <string name="camera_source_dirs_tip">By default, photos or videos is read from the directory [/DCIM/Camera], but photos or videos may not in this directory as the phone compatibility issues, this situation, you can own set one or more directories as the photos or videos directory.</string>
+    <string name="anim_switch_title">Animation Switch</string>
+    <string name="anim_switch_desc">Close Animation to accelerate application</string>
+    <string name="remember_ui_switch_title">Remember UI</string>
+    <string name="remember_ui_switch_desc">when leving,remember user interface for next enter</string>
+    <string name="clear_cache_title">Clear cache</string>
+    <string name="clear_cache_desc">Cache size %1$s，Available space %2$s</string>
+    <string name="clear_cache_finished">Caches Cleared!</string>
+    <string name="version_update_check_title">Update Check</string>
+    <string name="version_update_check_desc">Current Version:%1$s,Install time：%2$s</string>
+    <string name="app_about">About</string>
+    <string name="app_about_desc">About NewPic CopyRight</string>
+    <string name="app_communication_platfrom">Communication</string>
+    <string name="app_QQ_group">"QQ group:248706772,click to join!"</string>
+    <string name="app_QQ_group_failed">Join refused!</string>
+    <string name="app_QQ_to_clipboard">QQ:2518545630 copied to clipboard!</string>
+    <string name="app_no_update">No update!</string>
+    <string name="app_update_only_wifi">No wifi</string>
+    <string name="full_image_browse">Full image(%1$d/%2$d)</string>
+    <string name="full_image_browse_empty">No photoes</string>
+    <!-- common strings -->
+    <string name="app_name">CrazyPic</string>
+    <string name="common_state_on">On</string>
+    <string name="common_state_off">Off</string>
+    <string name="common_picture">Picture</string>
+    <string name="common_photo">Photo</string>
+    <string name="common_video">Video</string>
+    <string name="common_movies">Movie</string>
+    <string name="common_gallery">Gallery</string>
+    <string name="common_settings">Setting</string>
+    <string name="common_feedback">About</string>
+    <string name="common_exit">Exit</string>
+    <string name="common_reset">Reset</string>
+    <string name="common_save">Save</string>
+    <string name="common_loading">Loading</string>
+    <string name="common_connect_timeout">time out</string>
+    <string name="common_share_to">Share to</string>
+    <string name="common_share">Share</string>
+    <string name="common_edit">Edit</string>
+    <string name="common_detail">Detail</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_delete_tip">Are you sure to delete?</string>
+    <string name="common_delete_cur_pic_tip">Are you sure to delete picture ?</string>
+    <string name="common_delete_cur_video_tip">Are you sure to delete video [&lt;font color=\"#e62e2e\"&gt;%1$s&lt;/font&gt;] ?</string>
+    <string name="common_delete_cur_movie_tip">Are you sure to delete movie [&lt;font color=\"#e62e2e\"&gt;%1$s&lt;/font&gt;] ?</string>
+    <string name="common_delete_waiting">"Deleting\u2026"</string>
+    <string name="common_update_checking">"Checking\u2026"</string>
+    <string name="common_selection_tip">Please select something</string>
+    <string name="common_clear_cache">Cache Clear</string>
+    <string name="common_clear_cache_waitting">Clearing\u2026</string>
+    <string name="common_exit_tip">Press once more to exit Leool？</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_ok">OK</string>
+    <string name="common_close">Close</string>
+    <string name="common_recommend">Recommend</string>
+    <string name="common_error_nosdcard">No SDcard！</string>
+    <string name="common_error_nodcim_photo">No valid photos directories！</string>
+    <string name="common_error_nodcim_video">No valid videos directories！</string>
+    <string name="common_error_no_photos">No photo found！</string>
+    <string name="common_error_no_gallery">No picture found！</string>
+    <string name="common_error_no_movies">No movie file found！</string>
+    <string name="common_error_no_video">No video file found！</string>
+    <string name="common_video_set">(%d Video(s))</string>
+    <string name="common_error_no_dirs">No picture or video directory!</string>
+    <string name="common_screenshot">Screenshots</string>
+    <string name="common_download">Download</string>
+    <string name="common_weixin">WeiXin</string>
+    <string name="about_version">Version: %s</string>
+    <string name="about_weixin">WeiXin:niutu666</string>
+    <string name="about_qgroup">QQ Group:248706772</string>
+    <string name="about_declare">All Rights Reserved</string>
+    <string name="share_app_install_tip">Please install QQ </string>
+    <string name="friendly_tips">Friendly tip</string>
+    <string name="friendly_tip_cotent">1. Long press thumbnail to enter selection mode \n2. Press menu key or the upper left corner button to enter main menu</string>
+    <string name="close_tip">I known</string>
+    <string name="pic_size_tip">Sorry,this picture size  is too small to edit!</string>
+    <string name="pick_picture_dir">Select a directory</string>
+    <string name="pick_picture_item">Select a picture</string>
+    <string name="system_gallery">Gallery</string>
+    <!-- Text indicating the title of a media item in details window [CHAR LIMIT=14] -->
+    <string name="title">Title</string>
+    <!-- Text indicating the description of a media item in details window [CHAR LIMIT=14] -->
+    <string name="description">Description</string>
+    <!-- Text indicating the creation time of a media item in details window [CHAR LIMIT=14] -->
+    <string name="time">Time</string>
+    <!-- Text indicating the location of a media item in details window [CHAR LIMIT=14] -->
+    <string name="location">Location</string>
+    <!-- Text indicating the path of a media item in details window [CHAR LIMIT=14] -->
+    <string name="path">Path</string>
+    <!-- Text indicating the width of a media item in details window [CHAR LIMIT=14] -->
+    <string name="width">Width</string>
+    <!-- Text indicating the height of a media item in details window [CHAR LIMIT=14] -->
+    <string name="height">Height</string>
+    <!-- Text indicating the orientation of a media item in details window [CHAR LIMIT=14] -->
+    <string name="orientation">Orientation</string>
+    <!-- Text indicating the duration of a video item in details window [CHAR LIMIT=14] -->
+    <string name="duration">Duration</string>
+    <!-- Text indicating the mime type of a media item in details window [CHAR LIMIT=14] -->
+    <string name="mimetype">MIME type</string>
+    <!-- Text indicating the file size of a media item in details window [CHAR LIMIT=14] -->
+    <string name="file_size">File size</string>
+    <!-- Text indicating the maker of a media item in details window [CHAR LIMIT=14] -->
+    <string name="maker">Maker</string>
+    <!-- Text indicating the model of a media item in details window [CHAR LIMIT=14] -->
+    <string name="model">Mode</string>
+    <!-- Text indicating flash info of a media item in details window [CHAR LIMIT=14] -->
+    <string name="flash">Flash</string>
+    <!-- Text indicating aperture of a media item in details window [CHAR LIMIT=14] -->
+    <string name="aperture">Aperture</string>
+    <!-- Text indicating the focal length of a media item in details window [CHAR LIMIT=14] -->
+    <string name="focal_length">Focal_length</string>
+    <!-- Text indicating the white balance of a media item in details window [CHAR LIMIT=14] -->
+    <string name="white_balance">White_balance</string>
+    <!-- Text indicating the exposure time of a media item in details window [CHAR LIMIT=14] -->
+    <string name="exposure_time">Exposure_time</string>
+    <!-- Text indicating the ISO speed rating of a media item in details window [CHAR LIMIT=14] -->
+    <string name="iso">ISO</string>
+    <!-- String indicating the time units in seconds. [CHAR LIMIT=8] -->
+    <!-- String indicating the length units in milli-meters. [CHAR LIMIT=8] -->
+    <string name="unit_mm">mm</string>
+    <!-- String indicating how camera shooting feature is used. [CHAR LIMIT=8] -->
+    <string name="manual">Manual</string>
+    <!-- String indicating how camera shooting feature is used. [CHAR LIMIT=8] -->
+    <string name="auto">Auto</string>
+    <!-- String indicating camera flash is fired. [CHAR LIMIT=14] -->
+    <string name="flash_on">Flash On</string>
+    <!-- String indicating camera flash is not used. [CHAR LIMIT=14] -->
+    <string name="flash_off">Flash Off</string>
+    <string name="details_title">The %1$d,Total %2$d</string>
+    <string name="close">Close</string>
+    <string name="test_channel_id">test_channel_id</string>
+
+    <plurals name="number_of_items">
+        <item quantity="zero">%1$d item</item>
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+
+    <string-array name="share_to_title">
+        <item>"Weixin"</item>
+        <item>"WX friends"</item>
+        <item>"QQ friends"</item>
+        <item>"My computer"</item>
+        <item>"QQ zone"</item>
+        <item>"Sina weibo"</item>
+        <item>"Tencent weibO"</item>
+    </string-array>
+
+</resources>

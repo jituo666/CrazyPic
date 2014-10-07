@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xjt.crazypic"
+    android:versionCode="1"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name="com.xjt.crazypic.NpAppImpl"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true" >
+        <activity
+            android:name="com.xjt.crazypic.activities.CpMainActvity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.activities.NpMainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainTheme" >
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.activities.CpPictureActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainTheme" >
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.activities.CpSettingsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainTheme" >
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.activities.AboutActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainTheme" >
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.activities.NpGuideActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainTheme" >
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.activities.NpMoviePlayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" >
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.edit.NpEditActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_filter_show"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.EDIT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xjt.crazypic.edit" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xjt.crazypic.edit.crop.CropActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/crop"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainTheme" >
+            <intent-filter>
+                <action android:name="com.android.camera.action.CROP" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+                <data android:scheme="" />
+                <data android:mimeType="image/*" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.xjt.crazypic.edit.pipeline.ProcessingService"
+            android:exported="false" />
+
+        <!-- Umeng sdk requirement -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="54320e78fd98c548170d8160" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="LETOOL0000001000" />
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"
+            android:theme="@style/MainTheme" />
+        <activity
+            android:name="com.umeng.fb.ContactActivity"
+            android:theme="@style/MainTheme" />
+
+        <!-- End Umeng sdk requirement -->
+    </application>
+
+</manifest>

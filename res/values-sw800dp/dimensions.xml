@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  configuration for filtershow UI -->
+    <dimen name="thumbnail_size">128dip</dimen>
+    <dimen name="thumbnail_margin">3dip</dimen>
+</resources>

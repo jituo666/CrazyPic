@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/action_bar_normal"
+    style="@style/MyWidget.ActionBarPanel" >
+
+    <LinearLayout
+        android:id="@+id/action_navi"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/np_common_pressed_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/action_navi_tip"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_previous_item" />
+
+        <ImageView
+            android:id="@+id/app_logo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:scaleType="center"
+            android:src="@drawable/np_logo_navi" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/operation_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/action_undo"
+            style="@style/MyWidget.ActionBarIconStyle"
+            android:enabled="false"
+            android:src="@drawable/filtershow_button_undo" />
+
+        <ImageView
+            android:id="@+id/action_redo"
+            style="@style/MyWidget.ActionBarIconStyle"
+            android:layout_marginRight="8dp"
+            android:enabled="false"
+            android:src="@drawable/filtershow_button_redo" />
+
+        <TextView
+            android:id="@+id/action_reset"
+            android:layout_width="@dimen/common_action_view_width"
+            android:layout_height="match_parent"
+            android:background="@drawable/np_common_pressed_bg"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/common_reset"
+            android:textSize="@dimen/common_text_size_middle" />
+
+        <TextView
+            android:id="@+id/action_save"
+            android:layout_width="@dimen/common_action_view_width"
+            android:layout_height="match_parent"
+            android:background="@drawable/np_common_pressed_bg"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/common_save"
+            android:textSize="@dimen/common_text_size_middle" />
+    </LinearLayout>
+
+</RelativeLayout>

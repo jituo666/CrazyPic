@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CrazyPic" default="help">
+
+    <!-- The local.properties file is created and updated by the 'android' tool.
+         It contains the path to the SDK. It should *NOT* be checked into
+         Version Control Systems. -->
+    <loadproperties srcFile="local.properties" />
+
+    <!-- The ant.properties file can be created by you. It is only edited by the
+         'android' tool to add properties to it.
+         This is the place to change some Ant specific build properties.
+         Here are some properties you may want to change/update:
+
+         source.dir
+             The name of the source directory. Default is 'src'.
+         out.dir
+             The name of the output directory. Default is 'bin'.
+
+         For other overridable properties, look at the beginning of the rules
+         files in the SDK, at tools/ant/build.xml
+
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
+
+         -->
+    <property file="ant.properties" />
+
+    <!-- The project.properties file is created and updated by the 'android'
+         tool, as well as ADT.
+
+         This contains project specific properties such as project target, and library
+         dependencies. Lower level build properties are stored in ant.properties
+         (or in .classpath for Eclipse projects).
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
+    <loadproperties srcFile="project.properties" />
+
+    <!-- quick check on sdk.dir -->
+    <fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project'"
+            unless="sdk.dir"
+    />
+
+
+    <!-- version-tag: custom -->
+    <import file="${sdk.dir}/tools/ant/build.xml" />
+
+    <!-- XJT modification DEGIN -->
+
+
+    <target name="-set-crazy-debugkey" >
+        <property name="key.alias" value="debugCrazyPic" />
+    </target>
+
+    <target name="-set-crazy-releasekey" >
+        <property name="key.alias" value="releaseCrazyPic" />
+    </target>
+
+    <target name="-set-mode-check">
+        <echo>Disable -set-mode-check</echo>
+    </target>
+
+    <!-- Disable verbose output -->
+    <target name="-crunch">
+        <exec executable="${aapt}" taskName="crunch">
+            <arg value="crunch" />
+            <arg value="-S" />
+            <arg path="${resource.absolute.dir}" />
+            <arg value="-C" />
+            <arg path="${out.res.absolute.dir}" />
+        </exec>
+    </target>
+
+    <target name="debugkey" depends="-set-crazy-debugkey, debug" />
+
+    <target name="releasekey" depends="-set-crazy-releasekey, release" />
+
+    <target name="cleanp" depends="clean" />
+
+    <target name="installpd" depends="installd" />
+
+    <target name="installpr" depends="installr" />
+
+    <target name="uninstallp" depends="uninstall" />
+
+    <target name="help">
+        <echo>Targets for Xjt:</echo>
+        <echo>   debugkey:       	Sign apk using debug key.</echo>
+	<echo>   releasekey:       	Sign apk using release key.</echo>
+        <echo>   installp:         	Install the apk.</echo>
+        <echo>   uninstallp:       	Uninstall the apk.</echo>
+        <echo>   cleanp:           	Clean the build output.</echo>
+    </target>
+
+    <!-- Deploy Directories and files -->
+    <tstamp>
+        <format property="TIME.BEIJING" pattern="yyyyMMdd" locale="CHINA"/>
+    </tstamp>
+
+    <xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName"
+            output="manifest.versionName" />
+
+    <property name="deploy.dir" location="bin/out" />
+    <property name="deploy.file.prefix" value="${TIME.BEIJING}_${manifest.versionName}" />
+
+    <property name="deploy.file.name" value="${ant.project.name}-release_${deploy.file.prefix}.apk" />
+    <property name="deploy.file" location="${deploy.dir}/${deploy.file.name}" />
+
+
+    <!-- XJT modification END -->
+</project>

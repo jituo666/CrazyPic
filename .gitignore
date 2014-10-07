@@ -1,0 +1,10 @@
+bin/
+gen/
+out/
+obj/
+.classpath
+.project
+.settings/*
+
+local.properties
+

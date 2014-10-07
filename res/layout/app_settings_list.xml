@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/np_main_bg"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        layout="@layout/cp_title_bar" />
+
+    <ScrollView
+        style="@style/MyWidget.ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/anim_switch"
+                layout="@layout/app_settings_list_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/np_list_divider_bg" />
+
+            <include
+                android:id="@+id/remember_ui_switch"
+                layout="@layout/app_settings_list_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/np_list_divider_bg" />
+
+            <include
+                android:id="@+id/clear_cache"
+                layout="@layout/app_settings_list_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/np_list_divider_bg" />
+
+            <include
+                android:id="@+id/version_update_check"
+                layout="@layout/app_settings_list_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/np_list_divider_bg" />
+
+            <include
+                android:id="@+id/app_about"
+                layout="@layout/app_settings_list_item" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/np_list_divider_bg" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

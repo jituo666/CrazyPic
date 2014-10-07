@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <style name="FilterShowHistoryButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dip</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/filtershow_action_fx_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">2dip</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dip</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FilterShowTopButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/filtershow_action_fx_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dip</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="FilterShowBottomButton">
+        <item name="android:layout_width">96dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/filtershow_action_fx_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">16dip</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="FilterShowSlider">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/filtershow_slider</item>
+        <item name="android:indeterminateDrawable">@drawable/filtershow_slider</item>
+        <item name="android:minHeight">13dip</item>
+        <item name="android:maxHeight">13dip</item>
+        <item name="android:thumb">@drawable/filtershow_scrubber</item>
+        <item name="android:thumbOffset">16dip</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingLeft">16dip</item>
+        <item name="android:paddingRight">16dip</item>
+    </style>
+
+</resources>
