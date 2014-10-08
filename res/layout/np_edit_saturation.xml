@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:visibility="visible" >
 
-    <com.xjt.crazypic.colorpicker.ColorSaturationView
+    <com.xjt.crazypic.edit.colorpicker.ColorSaturationView
         android:id="@+id/saturationView"
         android:layout_width="match_parent"
         android:layout_height="90dp"

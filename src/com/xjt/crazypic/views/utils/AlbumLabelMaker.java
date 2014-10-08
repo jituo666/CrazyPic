@@ -1,5 +1,7 @@
+
 package com.xjt.crazypic.views.utils;
 
+import com.xjt.crazypic.common.LLog;
 import com.xjt.crazypic.common.ThreadPool;
 import com.xjt.crazypic.common.ThreadPool.JobContext;
 import com.xjt.crazypic.imagedata.utils.LetoolBitmapPool;
@@ -14,26 +16,26 @@ import android.text.TextUtils;
 
 public class AlbumLabelMaker {
 
+    private static final String TAG = AlbumLabelMaker.class.getSimpleName();
     // We keep a border around the album label to prevent aliasing
-    private static final int BORDER_SIZE = 1;
-    private static final int BACKGROUND_COLOR = Color.TRANSPARENT; // 为了显示底色,采取透明色
 
     private final ThumbnailSetRenderer.LabelSpec mSpec;
     private final TextPaint mTitlePaint;
-    private final TextPaint mCountPaint;
+    private final TextPaint mDescPaint;
 
+    private int mBorderSize;
     private int mLabelWidth;
     private int mLabelHeight;
 
     public AlbumLabelMaker(Context context, ThumbnailSetRenderer.LabelSpec spec) {
         mSpec = spec;
         mTitlePaint = getTextPaint(spec.titleFontSize, context.getResources().getColor(R.color.np_major_text_color), false);
-        mCountPaint = getTextPaint(spec.countFontSize, context.getResources().getColor(R.color.np_minor_text_color), false);
-
+        mDescPaint = getTextPaint(spec.countFontSize, context.getResources().getColor(R.color.np_minor_text_color), false);
+        mBorderSize = spec.borderSize;
     }
 
-    public static int getBorderSize() {
-        return BORDER_SIZE;
+    public int getBorderSize() {
+        return mBorderSize;
     }
 
     private static TextPaint getTextPaint(int textSize, int color, boolean isBold) {
@@ -54,12 +56,11 @@ public class AlbumLabelMaker {
         mLabelHeight = mSpec.labelHeight;
     }
 
-    public ThreadPool.Job<Bitmap> requestLabel(String title, String count) {
-        return new AlbumLabelJob(title, count);
+    public ThreadPool.Job<Bitmap> requestLabel(String title, String desc) {
+        return new AlbumLabelJob(title, desc);
     }
 
-    static void drawText(Canvas canvas, int x, int y, String text,
-            int lengthLimit, TextPaint p) {
+    static void drawText(Canvas canvas, int x, int y, String text, int lengthLimit, TextPaint p) {
         synchronized (p) {
             text = TextUtils.ellipsize(text, p, lengthLimit, TextUtils.TruncateAt.END).toString();
             x = (lengthLimit - Math.round(p.measureText(text))) / 2;
@@ -70,49 +71,47 @@ public class AlbumLabelMaker {
     private class AlbumLabelJob implements ThreadPool.Job<Bitmap> {
 
         private String mTitle;
-        private String mCount;
+        private String mDesc;
 
         public AlbumLabelJob(String title, String count) {
             mTitle = title;
-            mCount = count;
+            mDesc = count;
         }
 
         @Override
         public Bitmap run(JobContext jc) {
-            Bitmap bitmap;
             int labelWidth;
-
+            labelWidth = mLabelWidth;
+            Bitmap bitmap;
             synchronized (this) {
                 labelWidth = mLabelWidth;
                 bitmap = LetoolBitmapPool.getInstance().get(mLabelWidth, mLabelHeight);
             }
 
             if (bitmap == null) {
+                LLog.i(TAG, "--------AlbumLabelJob:createBitmap" + mTitle + " labelWidth:" + labelWidth + " mLabelHeight:" + mLabelHeight);
                 bitmap = Bitmap.createBitmap(labelWidth, mLabelHeight, Config.ARGB_8888);
             }
 
             // 新生成一个位图，在里面绘制标签内容
             Canvas canvas = new Canvas(bitmap);
-            canvas.clipRect(BORDER_SIZE, BORDER_SIZE, bitmap.getWidth() - BORDER_SIZE, bitmap.getHeight() - BORDER_SIZE);
-            canvas.drawColor(BACKGROUND_COLOR, PorterDuff.Mode.SRC);
-            canvas.translate(BORDER_SIZE, BORDER_SIZE);
+            canvas.drawColor(mSpec.backgroundColor, PorterDuff.Mode.SRC);
 
             // draw title
             if (jc.isCancelled())
                 return null;
-            int x = (mLabelWidth - mSpec.titleOffset) / 2;
-            int y = mLabelHeight - mSpec.labelHeight * 7 / 12 + 2;
-            mTitlePaint.setTextAlign(Paint.Align.CENTER);
-            mTitle = TextUtils.ellipsize(mTitle, mTitlePaint, mLabelWidth - 2 * BORDER_SIZE, TextUtils.TruncateAt.END).toString();
-            canvas.drawText(mTitle, x, y, mTitlePaint);
+
+            canvas.translate(2 * mBorderSize, (mLabelHeight) / 2 - 2 * mBorderSize);
+            mTitlePaint.setTextAlign(Paint.Align.LEFT);
+            mTitle = TextUtils.ellipsize(mTitle, mTitlePaint, mLabelWidth - 2 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
+            canvas.drawText(mTitle, 0, 0, mTitlePaint);
             if (jc.isCancelled())
                 return null;
-            // draw count
-            x = (mLabelWidth - mSpec.countOffset) / 2;
-            y = (mLabelHeight) / 2 + mSpec.countOffset * 3 / 2;
-            mCountPaint.setTextAlign(Paint.Align.CENTER);
-            mCount = TextUtils.ellipsize(mCount, mCountPaint, mLabelWidth - 2 * BORDER_SIZE, TextUtils.TruncateAt.END).toString();
-            canvas.drawText(mCount, x, y, mCountPaint);
+            // draw desc
+            canvas.translate(0, (mLabelHeight / 2));
+            mDescPaint.setTextAlign(Paint.Align.LEFT);
+            mDesc = TextUtils.ellipsize(mDesc, mDescPaint, mLabelWidth - 2 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
+            canvas.drawText(mDesc, 0, 0, mDescPaint);
             return bitmap;
         }
     }

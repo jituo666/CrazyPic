@@ -1,4 +1,4 @@
-package com.xjt.crazypic.colorpicker;
+package com.xjt.crazypic.edit.colorpicker;
 
 public interface ColorListener {
     void setColor(float[] hsvo);

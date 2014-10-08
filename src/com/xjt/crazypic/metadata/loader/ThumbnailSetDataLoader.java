@@ -1,4 +1,3 @@
-
 package com.xjt.crazypic.metadata.loader;
 
 import android.os.Handler;

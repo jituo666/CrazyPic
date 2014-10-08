@@ -1,5 +1,7 @@
 
-package com.xjt.crazypic.adapters;
+package com.xjt.crazypic.imagedata.adapters;
+
+import java.io.File;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,29 +10,30 @@ import android.os.Message;
 import com.xjt.crazypic.NpContext;
 import com.xjt.crazypic.common.Future;
 import com.xjt.crazypic.common.FutureListener;
+import com.xjt.crazypic.common.JobLimiter;
 import com.xjt.crazypic.common.LLog;
 import com.xjt.crazypic.common.SynchronizedHandler;
 import com.xjt.crazypic.common.ThreadPool;
 import com.xjt.crazypic.imagedata.utils.BitmapLoader;
+import com.xjt.crazypic.metadata.DataSourceType;
 import com.xjt.crazypic.metadata.MediaItem;
 import com.xjt.crazypic.metadata.MediaObject;
 import com.xjt.crazypic.metadata.MediaPath;
 import com.xjt.crazypic.metadata.MediaSet;
-import com.xjt.crazypic.metadata.loader.ThumbnailDataLoader;
-import com.xjt.crazypic.metadata.video.LocalVideo;
-import com.xjt.crazypic.utils.StringUtils;
+import com.xjt.crazypic.metadata.loader.ThumbnailSetDataLoader;
 import com.xjt.crazypic.utils.Utils;
 import com.xjt.crazypic.views.opengl.BitmapTexture;
 import com.xjt.crazypic.views.opengl.TiledTexture;
-import com.xjt.crazypic.views.render.ThumbnailVideoRenderer;
-import com.xjt.crazypic.views.utils.VideoLabelMaker;
+import com.xjt.crazypic.views.render.ThumbnailSetRenderer;
+import com.xjt.crazypic.views.utils.AlbumLabelMaker;
 import com.xjt.crazypic.R;
 
-public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChangedListener {
+public class ThumbnailSetDataWindow implements ThumbnailSetDataLoader.DataChangedListener {
 
     private static final String TAG = "ThumbnailSetDataWindow";
     private static final int MSG_UPDATE_ALBUM_ENTRY = 1;
 
+    private static final int JOB_LIMIT = 2;
     public static interface Listener {
 
         public void onSizeChanged(int size);
@@ -38,7 +41,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
         public void onContentChanged();
     }
 
-    private final ThumbnailDataLoader mSource;
+    private final ThumbnailSetDataLoader mSource;
     private int mSize;
 
     private int mContentStart = 0;
@@ -49,45 +52,50 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
 
     private Listener mListener;
 
-    private final VideoEntry mData[];
+    private final AlbumSetEntry mData[];
     private final SynchronizedHandler mHandler;
-    private final ThreadPool mThreadPool;
-    private final VideoLabelMaker mLabelMaker;
+    private final JobLimiter mThreadPool;
+    private final AlbumLabelMaker mLabelMaker;
     private final String mLoadingText;
     //
     private int mActiveRequestCount = 0;
     private boolean mIsActive = false;
     private BitmapTexture mLoadingLabel;
-    private Context mContext;
+    private NpContext mLetoolContext;
 
-    private int mSlotWidth;
+    private int mThumbnailWidth;
 
-    public static class VideoEntry {
+    public static class AlbumSetEntry {
 
-        public MediaItem item;
+        public MediaSet album;
+        public MediaItem coverItem;
         public BitmapTexture labelTexture;
         public BitmapTexture bitmapTexture;
         public MediaPath setPath;
         public String title;
-        public long duration;
+        public String desc;
+        public int sourceType;
+        public int cacheFlag;
+        public int cacheStatus;
         public int rotation;
         public boolean isWaitLoadingDisplayed;
+        public long setDataVersion;
         public long coverDataVersion;
         private BitmapLoader labelLoader;
         private BitmapLoader coverLoader;
     }
 
-    public ThumbnailVideoDataWindow(NpContext context, ThumbnailDataLoader source, ThumbnailVideoRenderer.LabelSpec labelSpec, int cacheSize) {
-        source.setDataChangedListener(this);
+    public ThumbnailSetDataWindow(NpContext c, ThumbnailSetDataLoader source, ThumbnailSetRenderer.LabelSpec labelSpec, int cacheSize) {
+        source.setModelListener(this);
         mSource = source;
-        mData = new VideoEntry[cacheSize];
+        mData = new AlbumSetEntry[cacheSize];
         mSize = source.size();
-        mThreadPool = context.getThreadPool();
-        mContext = context.getActivityContext();
-        mLabelMaker = new VideoLabelMaker(context.getActivityContext(), labelSpec);
-        mLoadingText = context.getActivityContext().getString(R.string.loading);
+        mThreadPool = new JobLimiter(c.getThreadPool(), JOB_LIMIT);
+        mLetoolContext = c;
+        mLabelMaker = new AlbumLabelMaker(c.getActivityContext(), labelSpec);
+        mLoadingText = c.getActivityContext().getString(R.string.loading);
 
-        mHandler = new SynchronizedHandler(context.getGLController()) {
+        mHandler = new SynchronizedHandler(c.getGLController()) {
 
             @Override
             public void handleMessage(Message message) {
@@ -101,7 +109,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
         mListener = listener;
     }
 
-    public VideoEntry get(int thumbnailIndex) {
+    public AlbumSetEntry get(int thumbnailIndex) {
         if (!isActiveThumbnail(thumbnailIndex)) {
             Utils.fail("invalid thumbnail: %s outsides (%s, %s)", thumbnailIndex, mActiveStart, mActiveEnd);
         }
@@ -126,7 +134,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
             }
             mSource.setActiveWindow(contentStart, contentEnd);
             for (int i = contentStart; i < contentEnd; ++i) {
-                prepareThumbnailContent(i);
+                prepareSlotContent(i);
             }
         } else {
             for (int i = mContentStart; i < contentStart; ++i) {
@@ -137,10 +145,10 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
             }
             mSource.setActiveWindow(contentStart, contentEnd);
             for (int i = contentStart, n = mContentStart; i < n; ++i) {
-                prepareThumbnailContent(i);
+                prepareSlotContent(i);
             }
             for (int i = mContentEnd; i < contentEnd; ++i) {
-                prepareThumbnailContent(i);
+                prepareSlotContent(i);
             }
         }
 
@@ -149,11 +157,12 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     }
 
     public void setActiveWindow(int start, int end) {
+        //LLog.i(TAG, "tart:" + start + " end :" + end);
         if (!(start <= end && end - start <= mData.length && end <= mSize)) {
             Utils.fail("start = %s, end = %s, length = %s, size = %s", start, end, mData.length, mSize);
         }
 
-        VideoEntry data[] = mData;
+        AlbumSetEntry data[] = mData;
         mActiveStart = start;
         mActiveEnd = end;
         int contentStart = Utils.clamp((start + end) / 2 - data.length / 2, 0, Math.max(0, mSize - data.length));
@@ -189,7 +198,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     private void requestImagesInSlot(int thumbnailIndex) {
         if (thumbnailIndex < mContentStart || thumbnailIndex >= mContentEnd)
             return;
-        VideoEntry entry = mData[thumbnailIndex % mData.length];
+        AlbumSetEntry entry = mData[thumbnailIndex % mData.length];
         if (entry.coverLoader != null)
             entry.coverLoader.startLoad();
         if (entry.labelLoader != null)
@@ -199,7 +208,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     private void cancelImagesInSlot(int thumbnailIndex) {
         if (thumbnailIndex < mContentStart || thumbnailIndex >= mContentEnd)
             return;
-        VideoEntry entry = mData[thumbnailIndex % mData.length];
+        AlbumSetEntry entry = mData[thumbnailIndex % mData.length];
         if (entry.coverLoader != null)
             entry.coverLoader.cancelLoad();
         if (entry.labelLoader != null)
@@ -207,11 +216,13 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     }
 
     private static long getDataVersion(MediaObject object) {
-        return object == null ? MediaSet.INVALID_DATA_VERSION : object.getDataVersion();
+        return object == null
+                ? MediaSet.INVALID_DATA_VERSION
+                : object.getDataVersion();
     }
 
     private void freeSlotContent(int thumbnailIndex) {
-        VideoEntry entry = mData[thumbnailIndex % mData.length];
+        AlbumSetEntry entry = mData[thumbnailIndex % mData.length];
         if (entry.coverLoader != null)
             entry.coverLoader.recycle();
         if (entry.labelLoader != null)
@@ -223,47 +234,72 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
         mData[thumbnailIndex % mData.length] = null;
     }
 
-    private boolean isLabelChanged(
-            VideoEntry entry, String title, long duration) {
-        return !Utils.equals(entry.title, title) || entry.duration != duration;
+    private boolean isLabelChanged(AlbumSetEntry entry, String title, String desc, int sourceType) {
+        return !Utils.equals(entry.title, title)
+                || !Utils.equals(entry.desc, desc)
+                || entry.sourceType != sourceType;
     }
 
-    private void updateVideoEntry(VideoEntry entry, int thumbnailIndex) {
-        MediaItem item = mSource.get(thumbnailIndex);
-        entry.item = item;
-        entry.setPath = (item == null) ? null : item.getPath();
-        String title = (item == null) ? "" : Utils.ensureNotNull(item.getName());
-        long duration = (item == null) ? 0 : ((LocalVideo) item).getDuration();
-        if (isLabelChanged(entry, title, duration)) {
+    private void updateAlbumSetEntry(AlbumSetEntry entry, int thumbnailIndex) {
+        MediaSet album = mSource.getMediaSet(thumbnailIndex);
+        MediaItem cover = mSource.getCoverItem(thumbnailIndex);
+
+        entry.album = album;
+        entry.setDataVersion = getDataVersion(album);
+        entry.cacheFlag = identifyCacheFlag(album);
+        entry.cacheStatus = identifyCacheStatus(album);
+        entry.setPath = (album == null) ? null : album.getPath();
+        String title = "";
+        String desc = "";
+        int count = mSource.getTotalCount(thumbnailIndex);
+        Context c = mLetoolContext.getActivityContext();
+        String totalCount = "(" + String.format(c.getResources().getQuantityString(R.plurals.number_of_items, count), count) + ")";
+        if (mLetoolContext.isImagePicking()) {
+            title = ((album == null) ? "" : (Utils.ensureNotNull(album.getName()) + " ")) + totalCount; // 名字 + 张数
+            if (cover != null) {
+                File f = new File(cover.getFilePath());
+                if (f.exists()) {
+                    desc = f.getParent(); // 所在目录
+                }
+            }
+        } else {
+            title = (album == null) ? "" : Utils.ensureNotNull(album.getName()); // 名字
+            desc = totalCount; // 张书
+        }
+
+        int sourceType = DataSourceType.identifySourceType(album);
+        if (isLabelChanged(entry, title, desc, sourceType)) {
             entry.title = title;
-            entry.duration = duration;
+            entry.desc = desc;
+            entry.sourceType = sourceType;
             if (entry.labelLoader != null) {
                 entry.labelLoader.recycle();
                 entry.labelLoader = null;
                 entry.labelTexture = null;
             }
-            if (item != null) {
-                entry.labelLoader = new AlbumLabelLoader(thumbnailIndex, title, duration);
+            if (album != null) {
+                entry.labelLoader = new AlbumLabelLoader(thumbnailIndex, title, desc);
             }
         }
 
-        if (getDataVersion(entry.item) != entry.coverDataVersion) {
-            entry.coverDataVersion = getDataVersion(entry.item);
-            entry.rotation = (entry.item == null) ? 0 : entry.item.getRotation();
+        entry.coverItem = cover;
+        if (getDataVersion(cover) != entry.coverDataVersion) {
+            entry.coverDataVersion = getDataVersion(cover);
+            entry.rotation = (cover == null) ? 0 : cover.getRotation();
             if (entry.coverLoader != null) {
                 entry.coverLoader.recycle();
                 entry.coverLoader = null;
                 entry.bitmapTexture = null;
             }
-            if (entry.item != null) {
-                entry.coverLoader = new AlbumCoverLoader(thumbnailIndex, entry.item);
+            if (cover != null) {
+                entry.coverLoader = new AlbumCoverLoader(thumbnailIndex, cover);
             }
         }
     }
 
-    private void prepareThumbnailContent(int thumbnailIndex) {
-        VideoEntry entry = new VideoEntry();
-        updateVideoEntry(entry, thumbnailIndex);
+    private void prepareSlotContent(int thumbnailIndex) {
+        AlbumSetEntry entry = new AlbumSetEntry();
+        updateAlbumSetEntry(entry, thumbnailIndex);
         mData[thumbnailIndex % mData.length] = entry;
     }
 
@@ -277,7 +313,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     private void updateAllImageRequests() {
         mActiveRequestCount = 0;
         for (int i = mActiveStart, n = mActiveEnd; i < n; ++i) {
-            VideoEntry entry = mData[i % mData.length];
+            AlbumSetEntry entry = mData[i % mData.length];
             if (startLoadBitmap(entry.coverLoader))
                 ++mActiveRequestCount;
             if (startLoadBitmap(entry.labelLoader))
@@ -291,7 +327,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     }
 
     @Override
-    public void onSizeChanged(int size) {
+    public void onDataSizeChanged(int size) {
         if (mIsActive && mSize != size) {
             mSize = size;
             if (mListener != null)
@@ -304,7 +340,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     }
 
     @Override
-    public void onContentChanged(int index) {
+    public void onDataContentChanged(int index) {
         if (!mIsActive) {
             return; // paused, ignore thumbnail changed event
         }
@@ -315,8 +351,8 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
             return;
         }
 
-        VideoEntry entry = mData[index % mData.length];
-        updateVideoEntry(entry, index);
+        AlbumSetEntry entry = mData[index % mData.length];
+        updateAlbumSetEntry(entry, index);
         updateAllImageRequests();
         if (mListener != null && isActiveThumbnail(index)) {
             mListener.onContentChanged();
@@ -344,7 +380,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
         mIsActive = true;
         TiledTexture.prepareResources();
         for (int i = mContentStart, n = mContentEnd; i < n; ++i) {
-            prepareThumbnailContent(i);
+            prepareSlotContent(i);
         }
         updateAllImageRequests();
     }
@@ -355,28 +391,63 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
     }
 
     private static int identifyCacheFlag(MediaSet set) {
-        if (set == null || (set.getSupportedOperations() & MediaSet.SUPPORT_CACHE) == 0) {
+        if (set == null || (set.getSupportedOperations()
+                & MediaSet.SUPPORT_CACHE) == 0) {
             return MediaSet.CACHE_FLAG_NO;
         }
 
         return set.getCacheFlag();
     }
 
+    private static int identifyCacheStatus(MediaSet set) {
+        if (set == null || (set.getSupportedOperations()
+                & MediaSet.SUPPORT_CACHE) == 0) {
+            return MediaSet.CACHE_STATUS_NOT_CACHED;
+        }
+
+        return set.getCacheStatus();
+    }
+
+    public void onThumbnailSizeChanged(int width, int height) {
+        if (mThumbnailWidth == width)
+            return;
+
+        mThumbnailWidth = width;
+        mLoadingLabel = null;
+        mLabelMaker.setLabelWidth(mThumbnailWidth);
+
+        if (!mIsActive)
+            return;
+
+        for (int i = mContentStart, n = mContentEnd; i < n; ++i) {
+            AlbumSetEntry entry = mData[i % mData.length];
+            if (entry.labelLoader != null) {
+                entry.labelLoader.recycle();
+                entry.labelLoader = null;
+                entry.labelTexture = null;
+            }
+            if (entry.album != null) {
+                entry.labelLoader = new AlbumLabelLoader(i, entry.title, entry.desc);
+            }
+        }
+        updateAllImageRequests();
+    }
+
     private class AlbumLabelLoader extends BitmapLoader implements EntryUpdater {
 
         private final int mThumbnailIndex;
         private final String mTitle;
-        private final String mDuration;
+        private final String mDesc;
 
-        public AlbumLabelLoader(int thumbnailIndex, String title, long duration) {
+        public AlbumLabelLoader(int thumbnailIndex, String title, String desc) {
             mThumbnailIndex = thumbnailIndex;
             mTitle = title;
-            mDuration = StringUtils.formatTime(mContext, duration);
+            mDesc = desc;
         }
 
         @Override
         protected Future<Bitmap> submitBitmapTask(FutureListener<Bitmap> l) {
-            return mThreadPool.submit(mLabelMaker.requestLabel(mTitle, mDuration), l);
+            return mThreadPool.submit(mLabelMaker.requestLabel(mTitle, mDesc), l);
         }
 
         @Override
@@ -390,7 +461,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
             if (bitmap == null)
                 return; // Error or recycled
 
-            VideoEntry entry = mData[mThumbnailIndex % mData.length];
+            AlbumSetEntry entry = mData[mThumbnailIndex % mData.length];
             BitmapTexture texture = new BitmapTexture(bitmap);
             texture.setOpaque(false);
             entry.labelTexture = texture;
@@ -404,31 +475,6 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
             } else {
             }
         }
-    }
-
-    public void onThumbnailSizeChanged(int width, int height) {
-        if (mSlotWidth == width)
-            return;
-
-        mSlotWidth = width;
-        mLoadingLabel = null;
-        mLabelMaker.setLabelWidth(mSlotWidth);
-
-        if (!mIsActive)
-            return;
-
-        for (int i = mContentStart, n = mContentEnd; i < n; ++i) {
-            VideoEntry entry = mData[i % mData.length];
-            if (entry.labelLoader != null) {
-                entry.labelLoader.recycle();
-                entry.labelLoader = null;
-                entry.labelTexture = null;
-            }
-            if (entry.item != null) {
-                entry.labelLoader = new AlbumLabelLoader(i, entry.title, entry.duration);
-            }
-        }
-        updateAllImageRequests();
     }
 
     private class AlbumCoverLoader extends BitmapLoader implements EntryUpdater {
@@ -457,7 +503,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
             if (bitmap == null)
                 return; // error or recycled
 
-            VideoEntry entry = mData[mThumbnailIndex % mData.length];
+            AlbumSetEntry entry = mData[mThumbnailIndex % mData.length];
             entry.bitmapTexture = new BitmapTexture(bitmap);
 
             if (isActiveThumbnail(mThumbnailIndex)) {

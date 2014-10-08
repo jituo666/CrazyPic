@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <com.xjt.crazypic.colorpicker.ColorCompareView
+            <com.xjt.crazypic.edit.colorpicker.ColorCompareView
                 android:id="@+id/btnSelect"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
@@ -23,17 +23,17 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp" />
 
-            <com.xjt.crazypic.colorpicker.ColorSVRectView
+            <com.xjt.crazypic.edit.colorpicker.ColorSVRectView
                 android:id="@+id/colorRectView"
                 android:layout_width="match_parent"
                 android:layout_height="256dp" />
 
-            <com.xjt.crazypic.colorpicker.ColorHueView
+            <com.xjt.crazypic.edit.colorpicker.ColorHueView
                 android:id="@+id/ColorHueView"
                 android:layout_width="match_parent"
                 android:layout_height="32dp" />
 
-            <com.xjt.crazypic.colorpicker.ColorOpacityView
+            <com.xjt.crazypic.edit.colorpicker.ColorOpacityView
                 android:id="@+id/colorOpacityView"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"

@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.xjt.crazypic.colorpicker.ColorListener;
-import com.xjt.crazypic.colorpicker.ColorPickerDialog;
+import com.xjt.crazypic.edit.colorpicker.ColorListener;
+import com.xjt.crazypic.edit.colorpicker.ColorPickerDialog;
 import com.xjt.crazypic.edit.editors.Editor;
 import com.xjt.crazypic.R;
 

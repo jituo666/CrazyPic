@@ -1,5 +1,5 @@
 
-package com.xjt.crazypic.adapters;
+package com.xjt.crazypic.imagedata.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapRegionDecoder;

@@ -20,7 +20,8 @@ import com.xjt.crazypic.NpContext;
 import com.xjt.crazypic.common.LLog;
 import com.xjt.crazypic.common.OrientationManager;
 import com.xjt.crazypic.common.ThreadPool;
-import com.xjt.crazypic.fragment.GalleryFragment;
+import com.xjt.crazypic.fragment.GalleryGridFragment;
+import com.xjt.crazypic.fragment.GalleryListFragment;
 import com.xjt.crazypic.imagedata.utils.LetoolBitmapPool;
 import com.xjt.crazypic.metadata.DataManager;
 import com.xjt.crazypic.metadata.MediaItem;
@@ -60,6 +61,8 @@ public class CpPictureActivity extends FragmentActivity implements NpContext {
     protected void onCreate(Bundle b) {
         super.onCreate(b);
         setContentView(R.layout.local_media_main_view);
+        mImagePicking = this.getIntent().getBooleanExtra(KEY_PICKING, false);
+        //
         mTopBar = new NpTopBar(this, (ViewGroup) findViewById(R.id.letool_top_bar_container));
         mBottomBar = new NpBottomBar(this, (ViewGroup) findViewById(R.id.letool_bottom_bar_container));
         mMainView = (ViewGroup) findViewById(R.id.local_image_browse_main_view);
@@ -67,6 +70,7 @@ public class CpPictureActivity extends FragmentActivity implements NpContext {
         mSplashScreen = (ImageView) findViewById(R.id.splash_screen);
         mOrientationManager = new OrientationManager(this);
         startFirstFragment();
+        //
         if ((System.currentTimeMillis() - GlobalPreference.getLastSpashTime(this)) > SPLASH_INTERVAL) {
             GlobalPreference.setLastSpashTime(this, System.currentTimeMillis());
             mSplashScreen.setVisibility(View.VISIBLE);
@@ -78,11 +82,10 @@ public class CpPictureActivity extends FragmentActivity implements NpContext {
                 }
             }, 3000);
         }
-        mImagePicking = this.getIntent().getBooleanExtra(KEY_PICKING, false);
     }
 
     private void startFirstFragment() {
-        Fragment fragment = new GalleryFragment();
+        Fragment fragment = mImagePicking ? new GalleryListFragment() : new GalleryGridFragment();
         Bundle data = new Bundle();
         data.putString(CpPictureActivity.KEY_MEDIA_PATH, getDataManager().getTopSetPath(DataManager.INCLUDE_LOCAL_IMAGE_SET_ONLY));
         fragment.setArguments(data);

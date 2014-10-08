@@ -12,7 +12,6 @@ public abstract class ThumbnailLayout {
 
     private static final String TAG = ThumbnailLayout.class.getSimpleName();
 
-    public static final boolean WIDE = false;
     public static final int INDEX_NONE = -1;
 
     protected int mVisibleThumbnailStart;
@@ -54,7 +53,7 @@ public abstract class ThumbnailLayout {
     }
 
     public int getScrollLimit() {
-        int limit = WIDE ? mContentLengthInMajorDirection - mWidth : mContentLengthInMajorDirection - mHeight;
+        int limit = mContentLengthInMajorDirection - mHeight;
         return limit <= 0 ? 0 : limit;
     }
 

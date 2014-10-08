@@ -1,4 +1,4 @@
-package com.xjt.crazypic.adapters;
+package com.xjt.crazypic.imagedata.adapters;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;

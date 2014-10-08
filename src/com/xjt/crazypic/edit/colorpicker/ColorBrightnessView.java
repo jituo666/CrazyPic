@@ -1,4 +1,4 @@
-package com.xjt.crazypic.colorpicker;
+package com.xjt.crazypic.edit.colorpicker;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,7 +19,7 @@ import com.xjt.crazypic.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ColorSaturationView extends View implements ColorListener {
+public class ColorBrightnessView extends View implements ColorListener {
 
     private float mRadius;
     private float mWidth;
@@ -44,7 +44,7 @@ public class ColorSaturationView extends View implements ColorListener {
 
     private ArrayList<ColorListener> mColorListeners = new ArrayList<ColorListener>();
 
-    public ColorSaturationView(Context ctx, AttributeSet attrs) {
+    public ColorBrightnessView(Context ctx, AttributeSet attrs) {
         super(ctx, attrs);
         DisplayMetrics metrics = ctx.getResources().getDisplayMetrics();
         float mDpToPix = metrics.density;
@@ -132,13 +132,14 @@ public class ColorSaturationView extends View implements ColorListener {
     }
 
     private void updatePaint() {
-        float[]hsvo = Arrays.copyOf(mHSVO, 4);
-        hsvo[3] = 1;
+        float[] hsvo = Arrays.copyOf(mHSVO, 4);
         hsvo[2] = 1;
         hsvo[1] = 1;
+        hsvo[3] = 1;
         int color2 = Color.HSVToColor(hsvo);
-        hsvo[1] = 0;
+        hsvo[2] = 0;
         int color1 = Color.HSVToColor(hsvo);
+
         Shader sg = new LinearGradient(
                 mBorder, mBorder, mWidth - mBorder, mBorder,
                 color1, color2, Shader.TileMode.CLAMP);

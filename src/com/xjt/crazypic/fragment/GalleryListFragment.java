@@ -39,6 +39,7 @@ import com.xjt.crazypic.views.layout.ThumbnailLayout;
 import com.xjt.crazypic.views.layout.ThumbnailSetContractLayout;
 import com.xjt.crazypic.views.opengl.FadeTexture;
 import com.xjt.crazypic.views.opengl.GLESCanvas;
+import com.xjt.crazypic.views.render.ThumbnailSetListRenderer;
 import com.xjt.crazypic.views.render.ThumbnailSetRenderer;
 import com.xjt.crazypic.views.utils.ViewConfigs;
 import com.xjt.crazypic.R;
@@ -63,9 +64,9 @@ import android.widget.Toast;
  * @Date 9:40:26 PM Apr 20, 2014
  * @Comments:null
  */
-public class GalleryFragment extends Fragment implements OnActionModeListener, EyePosition.EyePositionListener, SelectionListener {
+public class GalleryListFragment extends Fragment implements OnActionModeListener, EyePosition.EyePositionListener, SelectionListener {
 
-    private static final String TAG = GalleryFragment.class.getSimpleName();
+    private static final String TAG = GalleryListFragment.class.getSimpleName();
 
     private static final int MSG_LAYOUT_CONFIRMED = 0;
     private static final int MSG_PICK_ALBUM = 1;
@@ -105,7 +106,7 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             mEyePosition.resetPosition();
             int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
-            ViewConfigs.AlbumSetPage config = ViewConfigs.AlbumSetPage.get(mLetoolContext.getActivityContext());
+            ViewConfigs.AlbumSetListPage config = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext());
             paddingLeft = config.paddingLeft;
             paddingRight = config.paddingRight;
             paddingTop = config.paddingTop;
@@ -214,14 +215,12 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         LLog.i(TAG, "onCreate");
         mLetoolContext = (NpContext) getActivity();
         mGLController = mLetoolContext.getGLController();
-
         mHandler = new SynchronizedHandler(mGLController) {
 
             @Override
             public void handleMessage(Message message) {
                 switch (message.what) {
                     case MSG_LAYOUT_CONFIRMED: {
-                        //                        mLoadingInsie.setVisibility(View.GONE);
                         break;
                     }
                     case MSG_PICK_ALBUM: {
@@ -240,40 +239,45 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
     }
 
     private void initializeViews() {
-        mSelector = new SelectionManager(mLetoolContext, true);
-        mSelector.setSelectionListener(this);
-        ThumbnailLayout layout = null;
-        ViewConfigs.AlbumSetPage config = ViewConfigs.AlbumSetPage.get(mLetoolContext.getActivityContext());
-        layout = new ThumbnailSetContractLayout(config.albumSetSpec);
+        // 布局
+        ViewConfigs.AlbumSetListPage config = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext());
+        ThumbnailLayout layout = new ThumbnailSetContractLayout(config.albumSetListSpec, true);
 
+        // 显示视图
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setBackgroundColor(
                 LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color))
                 );
-        mThumbnailViewRenderer = new ThumbnailSetRenderer(mLetoolContext, mThumbnailView, mSelector);
+        // 选择器
+        mSelector = new SelectionManager(mLetoolContext, true);
+        mSelector.setSelectionListener(this);
+        // 渲染
+        mThumbnailViewRenderer = new ThumbnailSetListRenderer(mLetoolContext, mThumbnailView, mSelector);
         layout.setRenderer(mThumbnailViewRenderer);
         mThumbnailView.setThumbnailRenderer(mThumbnailViewRenderer);
+        // 加入到根View
         mRootPane.addComponent(mThumbnailView);
+        // 设置View事件监听
         mThumbnailView.setListener(new ThumbnailView.SimpleListener() {
 
             @Override
             public void onDown(int index) {
-                GalleryFragment.this.onDown(index);
+                GalleryListFragment.this.onDown(index);
             }
 
             @Override
             public void onUp(boolean followedByLongPress) {
-                GalleryFragment.this.onUp(followedByLongPress);
+                GalleryListFragment.this.onUp(followedByLongPress);
             }
 
             @Override
             public void onSingleTapUp(int thumbnailIndex) {
-                GalleryFragment.this.onSingleTapUp(thumbnailIndex);
+                GalleryListFragment.this.onSingleTapUp(thumbnailIndex);
             }
 
             @Override
             public void onLongTap(int thumbnailIndex) {
-                GalleryFragment.this.onLongTap(thumbnailIndex);
+                GalleryListFragment.this.onLongTap(thumbnailIndex);
             }
         });
     }

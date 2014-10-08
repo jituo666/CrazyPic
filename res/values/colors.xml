@@ -6,7 +6,7 @@
     <color name="full_image_placeholder">#FF4C5357</color>
 
     <!-- configuration for album set page -->
-    <color name="albumset_label_background">#EE414143</color>
+    <color name="albumset_label_background">#00000000</color>
     <color name="albumset_label_title">#FBFBFB</color>
     <color name="albumset_label_count">#A9ABAD</color>
     <color name="video_label_background">#EE414143</color>

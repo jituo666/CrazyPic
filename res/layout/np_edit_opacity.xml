@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:visibility="visible" >
 
-    <com.xjt.crazypic.colorpicker.ColorOpacityView
+    <com.xjt.crazypic.edit.colorpicker.ColorOpacityView
         android:id="@+id/opacityView"
         android:layout_width="match_parent"
         android:layout_height="90dp"

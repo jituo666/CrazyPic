@@ -2,8 +2,8 @@
 package com.xjt.crazypic.views.render;
 
 import com.xjt.crazypic.NpContext;
-import com.xjt.crazypic.adapters.ThumbnailVideoDataWindow;
-import com.xjt.crazypic.adapters.ThumbnailVideoDataWindow.VideoEntry;
+import com.xjt.crazypic.imagedata.adapters.ThumbnailVideoDataWindow;
+import com.xjt.crazypic.imagedata.adapters.ThumbnailVideoDataWindow.VideoEntry;
 import com.xjt.crazypic.metadata.MediaPath;
 import com.xjt.crazypic.metadata.loader.ThumbnailDataLoader;
 import com.xjt.crazypic.view.ThumbnailView;
@@ -155,9 +155,8 @@ public class ThumbnailVideoRenderer extends AbstractThumbnailRender {
             content = mWaitLoadingTexture;
             return 0;
         }
-        int b = AlbumLabelMaker.getBorderSize();
         int h = mLabelSpec.labelHeight;
-        content.draw(canvas, -b, height - h + b, width + b + b, h);
+        content.draw(canvas, 0, height - h, width, h);
         return 0;
     }
 

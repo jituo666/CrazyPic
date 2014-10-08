@@ -1,4 +1,4 @@
-package com.xjt.crazypic.colorpicker;
+package com.xjt.crazypic.edit.colorpicker;
 
 import android.content.Context;
 import android.graphics.Canvas;

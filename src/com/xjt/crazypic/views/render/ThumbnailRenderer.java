@@ -2,8 +2,8 @@
 package com.xjt.crazypic.views.render;
 
 import com.xjt.crazypic.NpContext;
-import com.xjt.crazypic.adapters.ThumbnailDataWindow;
 import com.xjt.crazypic.common.LLog;
+import com.xjt.crazypic.imagedata.adapters.ThumbnailDataWindow;
 import com.xjt.crazypic.metadata.MediaPath;
 import com.xjt.crazypic.metadata.loader.ThumbnailDataLoader;
 import com.xjt.crazypic.selectors.SelectionManager;

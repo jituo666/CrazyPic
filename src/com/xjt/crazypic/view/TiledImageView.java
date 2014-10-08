@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.util.LongSparseArray;
 import android.util.DisplayMetrics;
-import android.util.FloatMath;
 import android.view.WindowManager;
 
 import com.xjt.crazypic.NpContext;

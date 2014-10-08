@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:visibility="visible" >
 
-    <com.xjt.crazypic.colorpicker.ColorHueView
+    <com.xjt.crazypic.edit.colorpicker.ColorHueView
         android:id="@+id/hueView"
         android:layout_width="match_parent"
         android:layout_height="90dp"
