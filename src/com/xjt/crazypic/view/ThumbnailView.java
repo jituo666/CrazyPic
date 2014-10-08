@@ -11,7 +11,7 @@ import com.xjt.crazypic.common.SynchronizedHandler;
 import com.xjt.crazypic.preference.GlobalPreference;
 import com.xjt.crazypic.utils.RelativePosition;
 import com.xjt.crazypic.utils.Utils;
-import com.xjt.crazypic.views.layout.ThumbnailLayout;
+import com.xjt.crazypic.views.layout.ThumbnailLayoutBase;
 import com.xjt.crazypic.views.opengl.GLESCanvas;
 import com.xjt.crazypic.views.utils.UIListener;
 import com.xjt.crazypic.views.utils.ViewScrollerHelper;
@@ -41,7 +41,7 @@ public class ThumbnailView extends GLView {
     public static final int RENDER_MORE_PASS = 1;
     public static final int RENDER_MORE_FRAME = 2;
 
-    private int mStartIndex = ThumbnailLayout.INDEX_NONE;
+    private int mStartIndex = ThumbnailLayoutBase.INDEX_NONE;
 
     private ThumbnailAnim mAnimation = null;
     private final Rect mTempRect = new Rect(); // to prevent allocating memory
@@ -51,7 +51,7 @@ public class ThumbnailView extends GLView {
     private UIListener mUIListener;
     private SynchronizedHandler mHandler;
     private Listener mListener;
-    private ThumbnailLayout mLayout;
+    private ThumbnailLayoutBase mLayout;
     private Renderer mRenderer;
 
     private ScrollBarView mScrollBar;
@@ -157,7 +157,7 @@ public class ThumbnailView extends GLView {
             if (mDownInScrolling)
                 return true;
             int index = mLayout.getThumbnailIndexByPosition(e.getX(), e.getY());
-            if (index != ThumbnailLayout.INDEX_NONE && mListener != null)
+            if (index != ThumbnailLayoutBase.INDEX_NONE && mListener != null)
                 mListener.onSingleTapUp(index);
             return true;
         }
@@ -184,7 +184,7 @@ public class ThumbnailView extends GLView {
             lockRendering();
             try {
                 int index = mLayout.getThumbnailIndexByPosition(e.getX(), e.getY());
-                if (index != ThumbnailLayout.INDEX_NONE && mListener != null)
+                if (index != ThumbnailLayoutBase.INDEX_NONE && mListener != null)
                     mListener.onLongTap(index);
             } finally {
                 unlockRendering();
@@ -199,7 +199,7 @@ public class ThumbnailView extends GLView {
                 if (isDown)
                     return;
                 int index = mLayout.getThumbnailIndexByPosition(e.getX(), e.getY());
-                if (index != ThumbnailLayout.INDEX_NONE) {
+                if (index != ThumbnailLayoutBase.INDEX_NONE) {
                     isDown = true;
                     if (mListener != null)
                         mListener.onDown(index);
@@ -303,7 +303,7 @@ public class ThumbnailView extends GLView {
 
     ////////////////////////////////////////////////////////////Layout////////////////////////////////////////////////////////////////////
 
-    public ThumbnailView(NpContext context, ThumbnailLayout layout) {
+    public ThumbnailView(NpContext context, ThumbnailLayoutBase layout) {
         Context cxt = context.getActivityContext();
         mLetoolContext = context;
         mGestureDetector = new GestureDetector(cxt, new MyGestureListener());
@@ -346,9 +346,9 @@ public class ThumbnailView extends GLView {
     public void setThumbnailCount(int thumbnailCount) {
         mLayout.setThumbnailCount(thumbnailCount);
         // mStartIndex is applied the first time setSlotCount is called.
-        if (mStartIndex != ThumbnailLayout.INDEX_NONE) {
+        if (mStartIndex != ThumbnailLayoutBase.INDEX_NONE) {
             setCenterIndex(mStartIndex);
-            mStartIndex = ThumbnailLayout.INDEX_NONE;
+            mStartIndex = ThumbnailLayoutBase.INDEX_NONE;
         }
         // Reset the scroll position to avoid scrolling over the updated limit.
         setScrollPosition(mScrollY);

@@ -1,7 +1,7 @@
 
 package com.xjt.crazypic.views.layout;
 
-public class ThumbnailLayoutSpec {
+public class ThumbnailLayoutParam {
 
     public int labelHeight = 0;
     public int rowsPort = -1;

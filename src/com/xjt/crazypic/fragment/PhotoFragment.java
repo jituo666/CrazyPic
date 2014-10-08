@@ -36,8 +36,8 @@ import com.xjt.crazypic.view.NpTopBar;
 import com.xjt.crazypic.view.ThumbnailView;
 import com.xjt.crazypic.view.BatchDeleteMediaListener.DeleteMediaProgressListener;
 import com.xjt.crazypic.view.NpTopBar.OnActionModeListener;
-import com.xjt.crazypic.views.layout.ThumbnailContractLayout;
 import com.xjt.crazypic.views.layout.ThumbnailLayout;
+import com.xjt.crazypic.views.layout.ThumbnailLayoutBase;
 import com.xjt.crazypic.views.opengl.FadeTexture;
 import com.xjt.crazypic.views.opengl.GLESCanvas;
 import com.xjt.crazypic.views.render.ThumbnailRenderer;
@@ -263,8 +263,8 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
         mSelector = new SelectionManager(mLetoolContext, false);
         mSelector.setSelectionListener(this);
         mConfig = ViewConfigs.AlbumPage.get(mLetoolContext.getActivityContext());
-        ThumbnailLayout layout;
-        layout = new ThumbnailContractLayout(mConfig.albumSpec);
+        ThumbnailLayoutBase layout;
+        layout = new ThumbnailLayout(mConfig.albumSpec);
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setBackgroundColor(LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color)));
         mThumbnailView.setListener(new ThumbnailView.SimpleListener() {

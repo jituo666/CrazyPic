@@ -35,10 +35,12 @@ import com.xjt.crazypic.view.ThumbnailView;
 import com.xjt.crazypic.view.BatchDeleteMediaListener.DeleteMediaProgressListener;
 import com.xjt.crazypic.view.DetailsHelper.CloseListener;
 import com.xjt.crazypic.view.NpTopBar.OnActionModeListener;
-import com.xjt.crazypic.views.layout.ThumbnailLayout;
-import com.xjt.crazypic.views.layout.ThumbnailSetContractLayout;
+import com.xjt.crazypic.views.layout.ThumbnailLayoutBase;
+import com.xjt.crazypic.views.layout.ThumbnailLayoutParam;
+import com.xjt.crazypic.views.layout.ThumbnailSetLayout;
 import com.xjt.crazypic.views.opengl.FadeTexture;
 import com.xjt.crazypic.views.opengl.GLESCanvas;
+import com.xjt.crazypic.views.render.ThumbnailSetGridRenderer;
 import com.xjt.crazypic.views.render.ThumbnailSetListRenderer;
 import com.xjt.crazypic.views.render.ThumbnailSetRenderer;
 import com.xjt.crazypic.views.utils.ViewConfigs;
@@ -64,9 +66,9 @@ import android.widget.Toast;
  * @Date 9:40:26 PM Apr 20, 2014
  * @Comments:null
  */
-public class GalleryListFragment extends Fragment implements OnActionModeListener, EyePosition.EyePositionListener, SelectionListener {
+public class GalleryFragment extends Fragment implements OnActionModeListener, EyePosition.EyePositionListener, SelectionListener {
 
-    private static final String TAG = GalleryListFragment.class.getSimpleName();
+    private static final String TAG = GalleryFragment.class.getSimpleName();
 
     private static final int MSG_LAYOUT_CONFIRMED = 0;
     private static final int MSG_PICK_ALBUM = 1;
@@ -106,7 +108,7 @@ public class GalleryListFragment extends Fragment implements OnActionModeListene
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             mEyePosition.resetPosition();
             int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
-            ViewConfigs.AlbumSetListPage config = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext());
+            ViewConfigs.AlbumSetGridPage config = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext());
             paddingLeft = config.paddingLeft;
             paddingRight = config.paddingRight;
             paddingTop = config.paddingTop;
@@ -215,12 +217,14 @@ public class GalleryListFragment extends Fragment implements OnActionModeListene
         LLog.i(TAG, "onCreate");
         mLetoolContext = (NpContext) getActivity();
         mGLController = mLetoolContext.getGLController();
+
         mHandler = new SynchronizedHandler(mGLController) {
 
             @Override
             public void handleMessage(Message message) {
                 switch (message.what) {
                     case MSG_LAYOUT_CONFIRMED: {
+                        //                        mLoadingInsie.setVisibility(View.GONE);
                         break;
                     }
                     case MSG_PICK_ALBUM: {
@@ -239,45 +243,49 @@ public class GalleryListFragment extends Fragment implements OnActionModeListene
     }
 
     private void initializeViews() {
-        // 布局
-        ViewConfigs.AlbumSetListPage config = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext());
-        ThumbnailLayout layout = new ThumbnailSetContractLayout(config.albumSetListSpec, true);
-
-        // 显示视图
+        mSelector = new SelectionManager(mLetoolContext, true);
+        mSelector.setSelectionListener(this);
+        boolean isListView = mLetoolContext.isImagePicking();
+        ThumbnailLayoutBase layout = null;
+        ThumbnailLayoutParam param = null;
+        if (isListView) {
+            param = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext()).albumSetListSpec;
+        } else {
+            param = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext()).albumSetGridSpec;
+        }
+        layout = new ThumbnailSetLayout(param, isListView);
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setBackgroundColor(
                 LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color))
                 );
-        // 选择器
-        mSelector = new SelectionManager(mLetoolContext, true);
-        mSelector.setSelectionListener(this);
-        // 渲染
-        mThumbnailViewRenderer = new ThumbnailSetListRenderer(mLetoolContext, mThumbnailView, mSelector);
+        if (isListView) {
+            mThumbnailViewRenderer = new ThumbnailSetListRenderer(mLetoolContext, mThumbnailView, mSelector);
+        } else {
+            mThumbnailViewRenderer = new ThumbnailSetGridRenderer(mLetoolContext, mThumbnailView, mSelector);
+        }
         layout.setRenderer(mThumbnailViewRenderer);
         mThumbnailView.setThumbnailRenderer(mThumbnailViewRenderer);
-        // 加入到根View
         mRootPane.addComponent(mThumbnailView);
-        // 设置View事件监听
         mThumbnailView.setListener(new ThumbnailView.SimpleListener() {
 
             @Override
             public void onDown(int index) {
-                GalleryListFragment.this.onDown(index);
+                GalleryFragment.this.onDown(index);
             }
 
             @Override
             public void onUp(boolean followedByLongPress) {
-                GalleryListFragment.this.onUp(followedByLongPress);
+                GalleryFragment.this.onUp(followedByLongPress);
             }
 
             @Override
             public void onSingleTapUp(int thumbnailIndex) {
-                GalleryListFragment.this.onSingleTapUp(thumbnailIndex);
+                GalleryFragment.this.onSingleTapUp(thumbnailIndex);
             }
 
             @Override
             public void onLongTap(int thumbnailIndex) {
-                GalleryListFragment.this.onLongTap(thumbnailIndex);
+                GalleryFragment.this.onLongTap(thumbnailIndex);
             }
         });
     }
@@ -316,16 +324,6 @@ public class GalleryListFragment extends Fragment implements OnActionModeListene
         actionBar.setContractSelectionManager(mSelector);
         String format = getResources().getQuantityString(R.plurals.number_of_items, 0);
         actionBar.setTitleText(String.format(format, 0));
-    }
-
-    private void getThumbnailCenter(int thumbnailIndex, int center[]) {
-        Rect offset = new Rect();
-        mRootPane.getBoundsOf(mThumbnailView, offset);
-        Rect r = mThumbnailView.getThumbnailRect(thumbnailIndex);
-        int scrollX = mThumbnailView.getScrollX();
-        int scrollY = mThumbnailView.getScrollY();
-        center[0] = offset.left + (r.left + r.right) / 2 - scrollX;
-        center[1] = offset.top + (r.top + r.bottom) / 2 - scrollY;
     }
 
     @Override

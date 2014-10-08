@@ -10,12 +10,13 @@ import com.xjt.crazypic.common.LLog;
  * @Date 8:17:32 PM Jul 24, 2014
  * @Comments:null
  */
-public class ThumbnailSetContractLayout extends ThumbnailLayout {
+public class ThumbnailSetLayout extends ThumbnailLayoutBase {
 
-    private static final String TAG = ThumbnailSetContractLayout.class.getSimpleName();
+    private static final String TAG = ThumbnailSetLayout.class.getSimpleName();
+
     private boolean mIsList = false;
 
-    public ThumbnailSetContractLayout(ThumbnailLayoutSpec spec, boolean isList) {
+    public ThumbnailSetLayout(ThumbnailLayoutParam spec, boolean isList) {
         mSpec = spec;
         mIsList = isList;
     }

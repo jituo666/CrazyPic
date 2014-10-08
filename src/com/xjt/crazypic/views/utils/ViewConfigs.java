@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.xjt.crazypic.common.LLog;
-import com.xjt.crazypic.views.layout.ThumbnailLayoutSpec;
+import com.xjt.crazypic.views.layout.ThumbnailLayoutParam;
 import com.xjt.crazypic.views.render.ThumbnailSetRenderer;
 import com.xjt.crazypic.views.render.ThumbnailVideoRenderer;
 import com.xjt.crazypic.R;
@@ -23,7 +23,7 @@ public final class ViewConfigs {
 
         private static AlbumSetGridPage sInstance;
 
-        public ThumbnailLayoutSpec albumSetGridSpec;
+        public ThumbnailLayoutParam albumSetGridSpec;
         public ThumbnailSetRenderer.LabelSpec labelSpec;
         public int paddingLeft;
         public int paddingTop;
@@ -39,7 +39,7 @@ public final class ViewConfigs {
 
         private AlbumSetGridPage(Context context) {
             Resources r = context.getResources();
-            albumSetGridSpec = new ThumbnailLayoutSpec();
+            albumSetGridSpec = new ThumbnailLayoutParam();
             albumSetGridSpec.rowsPort = r.getInteger(R.integer.albumset_grid_rows_port); // 每行有多少个缩略图
             albumSetGridSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.albumset_grid_thumbnail_gap); // 缩略图之间的间隔
             albumSetGridSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_grid_label_height); // 标签的高度
@@ -65,7 +65,7 @@ public final class ViewConfigs {
 
         private static AlbumSetListPage sInstance;
 
-        public ThumbnailLayoutSpec albumSetListSpec;
+        public ThumbnailLayoutParam albumSetListSpec;
         public ThumbnailSetRenderer.LabelSpec labelSpec;
         public int paddingLeft;
         public int paddingTop;
@@ -81,7 +81,7 @@ public final class ViewConfigs {
 
         private AlbumSetListPage(Context context) {
             Resources r = context.getResources();
-            albumSetListSpec = new ThumbnailLayoutSpec();
+            albumSetListSpec = new ThumbnailLayoutParam();
             albumSetListSpec.rowsPort = r.getInteger(R.integer.albumset_list_rows_port);
             albumSetListSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.albumset_list_thumbnail_gap);
             albumSetListSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_list_label_height);
@@ -107,7 +107,7 @@ public final class ViewConfigs {
 
         private static AlbumPage sInstance;
 
-        public ThumbnailLayoutSpec albumSpec;
+        public ThumbnailLayoutParam albumSpec;
         public int placeholderColor;
         public int paddingLeft;
         public int paddingTop;
@@ -124,7 +124,7 @@ public final class ViewConfigs {
         private AlbumPage(Context context) {
             Resources r = context.getResources();
 
-            albumSpec = new ThumbnailLayoutSpec();
+            albumSpec = new ThumbnailLayoutParam();
             albumSpec.rowsPort = r.getInteger(R.integer.album_rows_port);
             albumSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.album_thumbnail_gap);
             albumSpec.tagHeight = r.getDimensionPixelSize(R.dimen.album_label_height);
@@ -142,7 +142,7 @@ public final class ViewConfigs {
 
         private static VideoSetPage sInstance;
 
-        public ThumbnailLayoutSpec videoSetSpec;
+        public ThumbnailLayoutParam videoSetSpec;
         public ThumbnailVideoRenderer.LabelSpec labelSpec;
         public int paddingLeft;
         public int paddingTop;
@@ -158,7 +158,7 @@ public final class ViewConfigs {
 
         private VideoSetPage(Context context) {
             Resources r = context.getResources();
-            videoSetSpec = new ThumbnailLayoutSpec();
+            videoSetSpec = new ThumbnailLayoutParam();
             videoSetSpec.rowsPort = r.getInteger(R.integer.videoset_rows_port);
             videoSetSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.videoset_thumbnail_gap);
             videoSetSpec.labelHeight = r.getDimensionPixelSize(R.dimen.videoset_label_height);
@@ -187,7 +187,7 @@ public final class ViewConfigs {
 
         private static VideoPage sInstance;
 
-        public ThumbnailLayoutSpec videoSpec;
+        public ThumbnailLayoutParam videoSpec;
         public ThumbnailVideoRenderer.LabelSpec labelSpec;
         public int paddingLeft;
         public int paddingTop;
@@ -203,7 +203,7 @@ public final class ViewConfigs {
 
         private VideoPage(Context context) {
             Resources r = context.getResources();
-            videoSpec = new ThumbnailLayoutSpec();
+            videoSpec = new ThumbnailLayoutParam();
             videoSpec.rowsPort = r.getInteger(R.integer.video_rows_port);
             videoSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.video_thumbnail_gap);
             videoSpec.labelHeight = r.getDimensionPixelSize(R.dimen.video_label_height);

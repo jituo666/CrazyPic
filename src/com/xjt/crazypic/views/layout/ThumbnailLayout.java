@@ -1,114 +1,98 @@
 
 package com.xjt.crazypic.views.layout;
 
+import com.xjt.crazypic.common.LLog;
+
 import android.graphics.Rect;
 
-import com.xjt.crazypic.common.LLog;
-import com.xjt.crazypic.view.ThumbnailView;
-import com.xjt.crazypic.view.ThumbnailView.Renderer;
-
-
-public abstract class ThumbnailLayout {
+public class ThumbnailLayout extends ThumbnailLayoutBase {
 
     private static final String TAG = ThumbnailLayout.class.getSimpleName();
 
-    public static final int INDEX_NONE = -1;
-
-    protected int mVisibleThumbnailStart;
-    protected int mVisibleThumbnailEnd;
-
-    protected int mThumbnailCount;
-    protected int mThumbnailWidth;
-    protected int mThumbnailHeight;
-    protected int mThumbnailGap;
-
-    protected ThumbnailLayoutSpec mSpec;
-    protected Renderer mRenderer;
-
-    protected int mWidth;
-    protected int mHeight;
-
-    protected int mColumnInMinorDirection; // treat it as columns
-    protected int mContentLengthInMajorDirection;
-    protected int mScrollPosition;
-
-    public int getThumbnailCount() {
-        return mThumbnailCount;
+    public ThumbnailLayout(ThumbnailLayoutParam spec) {
+        mSpec = spec;
     }
 
-    public int getThumbnailWidth() {
-        return mThumbnailWidth;
+    private void initThumbnailLayoutParameters(int majorUnitSize) {
+        int count = ((mThumbnailCount + mColumnInMinorDirection - 1) / mColumnInMinorDirection);
+        mContentLengthInMajorDirection = count * majorUnitSize + (count - 1) * mThumbnailGap;
     }
 
-    public int getThumbnailHeight() {
-        return mThumbnailHeight;
-    }
+    @Override
+    protected void initThumbnailLayoutParameters() {
+        mThumbnailGap = mSpec.thumbnailGap;
+        mColumnInMinorDirection = mSpec.rowsPort;
+        mThumbnailWidth = Math.max(1, (mWidth - (mColumnInMinorDirection - 1) * mThumbnailGap) / mColumnInMinorDirection);
+        mThumbnailHeight = mThumbnailWidth + mSpec.labelHeight;
 
-    public int getVisibleThumbnailStart() {
-        return mVisibleThumbnailStart;
-    }
-
-    public int getVisibleThumbnailEnd() {
-        return mVisibleThumbnailEnd;
-    }
-
-    public int getScrollLimit() {
-        int limit = mContentLengthInMajorDirection - mHeight;
-        return limit <= 0 ? 0 : limit;
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    public void setThumbnailViewSize(int width, int height) {
-        mWidth = width;
-        mHeight = height;
-        initThumbnailLayoutParameters();
-    }
-
-    public void setRenderer(ThumbnailView.Renderer render) {
-        mRenderer = render;
-    }
-
-
-    public void setThumbnailCount(int thumbnailCount) {
-        if (thumbnailCount == mThumbnailCount)
-            return;
-        mThumbnailCount = thumbnailCount;
-        initThumbnailLayoutParameters();
-    }
-
-    public void setScrollPosition(int position) {
-        if (mScrollPosition == position)
-            return;
-        mScrollPosition = position;
-        updateVisibleTagRange();
-        updateVisibleThumbnailRange();
-    }
-
-    protected void setVisibleThumbnailRange(int start, int end) {
-        if (start == mVisibleThumbnailStart && end == mVisibleThumbnailEnd)
-            return;
-        if (start < end) {
-            mVisibleThumbnailStart = start;
-            mVisibleThumbnailEnd = end;
-        } else {
-            mVisibleThumbnailStart = mVisibleThumbnailEnd = 0;
-        }
         if (mRenderer != null) {
-            mRenderer.onVisibleThumbnailRangeChanged(mVisibleThumbnailStart, mVisibleThumbnailEnd);
+            mRenderer.onThumbnailSizeChanged(mThumbnailWidth, mThumbnailHeight);
+        }
+
+        initThumbnailLayoutParameters(mThumbnailHeight);
+        if (mThumbnailCount > 0) {
+            updateVisibleThumbnailRange();
+            LLog.i(TAG, "1 initLayoutParameters mContentLengthInMajorDirection:" + mContentLengthInMajorDirection + " column:" + mColumnInMinorDirection);
+        } else {
+            LLog.i(TAG, "0 initLayoutParameters mContentLengthInMajorDirection:" + mContentLengthInMajorDirection + " column:" + mColumnInMinorDirection);
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public abstract Rect getThumbnailRect(int thumbnailIndex, Rect rect);
+    @Override
+    protected void updateVisibleThumbnailRange() {
+        int position = mScrollPosition;
+        int startRow = position / (mThumbnailHeight + mThumbnailGap);
+        int start = Math.max(0, mColumnInMinorDirection * startRow);
+        int endRow = (position + mHeight + mThumbnailHeight + mThumbnailGap - 1) / (mThumbnailHeight + mThumbnailGap);
+        int end = Math.min(mThumbnailCount, mColumnInMinorDirection * endRow);
+        setVisibleThumbnailRange(start, end);
+    }
 
-    public abstract int getThumbnailIndexByPosition(float x, float y);
+    @Override
+    protected void updateVisibleTagRange() {
 
-    protected abstract void initThumbnailLayoutParameters();
+    }
 
-    protected abstract void updateVisibleThumbnailRange();
+    @Override
+    public Rect getThumbnailRect(int index, Rect rect) {
+        int col, row;
 
-    protected abstract void updateVisibleTagRange();
+        row = index / mColumnInMinorDirection;
+        col = index - row * mColumnInMinorDirection;
+
+        int x = col * (mThumbnailWidth + mThumbnailGap);
+        int y = row * (mThumbnailHeight + mThumbnailGap);
+        rect.set(x, y, x + mThumbnailWidth, y + mThumbnailHeight);
+        return rect;
+    }
+
+    @Override
+    public int getThumbnailIndexByPosition(float x, float y) {
+        int absoluteX = Math.round(x);
+        int absoluteY = Math.round(y) + mScrollPosition;
+
+        if (absoluteX < 0 || absoluteY < 0) {
+            return INDEX_NONE;
+        }
+
+        int columnIdx = absoluteX / (mThumbnailWidth + mThumbnailGap);
+        int rowIdx = absoluteY / (mThumbnailHeight + mThumbnailGap);
+
+        if (columnIdx >= mColumnInMinorDirection) {
+            return INDEX_NONE;
+        }
+
+        if (absoluteX % (mThumbnailWidth + mThumbnailGap) >= mThumbnailWidth) {
+            return INDEX_NONE;
+        }
+
+        if (absoluteY % (mThumbnailHeight + mThumbnailGap) >= mThumbnailHeight) {
+            return INDEX_NONE;
+        }
+
+        int index = (rowIdx * mColumnInMinorDirection + columnIdx);
+
+        return index >= mThumbnailCount ? INDEX_NONE : index;
+    }
 
 }

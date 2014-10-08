@@ -20,8 +20,7 @@ import com.xjt.crazypic.NpContext;
 import com.xjt.crazypic.common.LLog;
 import com.xjt.crazypic.common.OrientationManager;
 import com.xjt.crazypic.common.ThreadPool;
-import com.xjt.crazypic.fragment.GalleryGridFragment;
-import com.xjt.crazypic.fragment.GalleryListFragment;
+import com.xjt.crazypic.fragment.GalleryFragment;
 import com.xjt.crazypic.imagedata.utils.LetoolBitmapPool;
 import com.xjt.crazypic.metadata.DataManager;
 import com.xjt.crazypic.metadata.MediaItem;
@@ -85,7 +84,7 @@ public class CpPictureActivity extends FragmentActivity implements NpContext {
     }
 
     private void startFirstFragment() {
-        Fragment fragment = mImagePicking ? new GalleryListFragment() : new GalleryGridFragment();
+        Fragment fragment = new GalleryFragment();
         Bundle data = new Bundle();
         data.putString(CpPictureActivity.KEY_MEDIA_PATH, getDataManager().getTopSetPath(DataManager.INCLUDE_LOCAL_IMAGE_SET_ONLY));
         fragment.setArguments(data);
