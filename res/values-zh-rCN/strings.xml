@@ -152,7 +152,7 @@
     <string name="test_channel_id">测试渠道</string>
 
     <plurals name="number_of_items">
-        <item quantity="other"> %1$d 张</item>
+        <item quantity="other"> (%1$d 张)</item>
     </plurals>
 
     <string-array name="share_to_title">

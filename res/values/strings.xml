@@ -152,9 +152,9 @@
     <string name="test_channel_id">test_channel_id</string>
 
     <plurals name="number_of_items">
-        <item quantity="zero">%1$d item</item>
-        <item quantity="one">%1$d item</item>
-        <item quantity="other">%1$d items</item>
+        <item quantity="zero">(%1$d item)</item>
+        <item quantity="one">(%1$d item)</item>
+        <item quantity="other">(%1$d items)</item>
     </plurals>
 
     <string-array name="share_to_title">

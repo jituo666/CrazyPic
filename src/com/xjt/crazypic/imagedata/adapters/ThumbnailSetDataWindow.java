@@ -21,6 +21,7 @@ import com.xjt.crazypic.metadata.MediaObject;
 import com.xjt.crazypic.metadata.MediaPath;
 import com.xjt.crazypic.metadata.MediaSet;
 import com.xjt.crazypic.metadata.loader.ThumbnailSetDataLoader;
+import com.xjt.crazypic.preference.GlobalPreference;
 import com.xjt.crazypic.utils.Utils;
 import com.xjt.crazypic.views.opengl.BitmapTexture;
 import com.xjt.crazypic.views.opengl.TiledTexture;
@@ -253,8 +254,8 @@ public class ThumbnailSetDataWindow implements ThumbnailSetDataLoader.DataChange
         String desc = "";
         int count = mSource.getTotalCount(thumbnailIndex);
         Context c = mLetoolContext.getActivityContext();
-        String totalCount = "(" + String.format(c.getResources().getQuantityString(R.plurals.number_of_items, count), count) + ")";
-        if (mLetoolContext.isImagePicking()) {
+        String totalCount = String.format(c.getResources().getQuantityString(R.plurals.number_of_items, count), count);
+        if (mLetoolContext.isImagePicking() || GlobalPreference.isGalleryListMode(mLetoolContext.getActivityContext())) {
             title = ((album == null) ? "" : (Utils.ensureNotNull(album.getName()) + " ")) + totalCount; // 名字 + 张数
             if (cover != null) {
                 File f = new File(cover.getFilePath());

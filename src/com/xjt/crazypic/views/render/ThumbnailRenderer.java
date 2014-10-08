@@ -19,7 +19,7 @@ import com.xjt.crazypic.R;
  * @Date 8:17:20 PM Jul 24, 2014
  * @Comments:null
  */
-public class ThumbnailRenderer extends AbstractThumbnailRender {
+public class ThumbnailRenderer extends ThumbnailBaseRender {
 
     private static final String TAG = ThumbnailRenderer.class.getSimpleName();
 

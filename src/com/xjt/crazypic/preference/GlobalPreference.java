@@ -21,6 +21,7 @@ public class GlobalPreference {
     private static final String PREFS_KEY_GUIDE_TIP_SHOW = "guide_tip_shown";
     private static final String PREFS_KEY_SPASH_TIME = "spash_time";
     private static final String PREFS_KEY_GUIDE_CODE = "np_guide_code";
+    private static final String PREFS_KEY_GALLERY_LIST_SHOW = "gallery_list_shown";
 
     private static final String PREFS_KEY_LAST_UI = "last_ui";
 
@@ -119,5 +120,15 @@ public class GlobalPreference {
     public static boolean isGuideTipShown(Context ctx) {
         SharedPreferences prefs = initSharedPreferences(ctx);
         return prefs.getBoolean(PREFS_KEY_GUIDE_TIP_SHOW, true);
+    }
+
+    public static void setGalleryListMode(Context ctx, boolean listMode) {
+        SharedPreferences prefs = initSharedPreferences(ctx);
+        SharedPreferencesCompat.apply(prefs.edit().putBoolean(PREFS_KEY_GALLERY_LIST_SHOW, listMode));
+    }
+
+    public static boolean isGalleryListMode(Context ctx) {
+        SharedPreferences prefs = initSharedPreferences(ctx);
+        return prefs.getBoolean(PREFS_KEY_GALLERY_LIST_SHOW, false);
     }
 }

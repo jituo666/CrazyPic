@@ -47,7 +47,6 @@ import com.xjt.crazypic.views.utils.ViewConfigs;
 import com.xjt.crazypic.R;
 
 import android.app.Activity;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -58,7 +57,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -248,17 +247,18 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         boolean isListView = mLetoolContext.isImagePicking();
         ThumbnailLayoutBase layout = null;
         ThumbnailLayoutParam param = null;
-        if (isListView) {
+        if (isListView || GlobalPreference.isGalleryListMode(getActivity())) {
             param = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext()).albumSetListSpec;
+            layout = new ThumbnailSetLayout(param, true);
         } else {
             param = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext()).albumSetGridSpec;
+            layout = new ThumbnailSetLayout(param, false);
         }
-        layout = new ThumbnailSetLayout(param, isListView);
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setBackgroundColor(
                 LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color))
                 );
-        if (isListView) {
+        if (isListView || GlobalPreference.isGalleryListMode(getActivity())) {
             mThumbnailViewRenderer = new ThumbnailSetListRenderer(mLetoolContext, mThumbnailView, mSelector);
         } else {
             mThumbnailViewRenderer = new ThumbnailSetGridRenderer(mLetoolContext, mThumbnailView, mSelector);
@@ -310,11 +310,18 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
             topBar.setTitleText(R.string.system_gallery);
         }
         mNativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.navi_buttons);
-        mNativeButtons.setVisibility(View.INVISIBLE);
-
-        TextView naviToPhoto = (TextView) mNativeButtons.findViewById(R.id.gallery_action);
-        naviToPhoto.setText(R.string.common_photo);
-        naviToPhoto.setOnClickListener(this);
+        if (mLetoolContext.isImagePicking()) {
+            mNativeButtons.setVisibility(View.INVISIBLE);
+        } else {
+            mNativeButtons.setVisibility(View.VISIBLE);
+            ImageView naviToPhoto = (ImageView) mNativeButtons.findViewById(R.id.gallery_action);
+            if (GlobalPreference.isGalleryListMode(getActivity())) {
+                naviToPhoto.setImageResource(R.drawable.ic_action_feedback);
+            } else {
+                naviToPhoto.setImageResource(R.drawable.ic_action_delete);
+            }
+            naviToPhoto.setOnClickListener(this);
+        }
 
     }
 
@@ -509,7 +516,8 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
             } else if (v.getId() == R.id.selection_finished) {
                 mSelector.leaveSelectionMode();
             } else if (v.getId() == R.id.gallery_action) {
-
+                GlobalPreference.setGalleryListMode(getActivity(), !GlobalPreference.isGalleryListMode(getActivity()));
+                mLetoolContext.pushContentFragment(new GalleryFragment(), this, false);
             }
         }
     }
