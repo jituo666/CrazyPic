@@ -62,6 +62,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -76,6 +77,10 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
     private static final int BIT_LOADING_RELOAD = 1;
     private static final int MSG_LAYOUT_CONFIRMED = 0;
     private static final int MSG_PICK_PHOTO = 1;
+    //
+    private static final int CURRENT_MODE_BROWSE = 0;
+    private static final int CURRENT_MODE_DELETE = 1;
+    private static final int CURRENT_MODE_SHARE = 2;
 
     private NpContext mLetoolContext;
 
@@ -95,6 +100,7 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
 
     private String mAlbumTitle;
     private boolean mIsSDCardMountedCorreclty = false;
+    private int mCurrentOperationMode = CURRENT_MODE_BROWSE;
 
     private SynchronizedHandler mHandler;
     protected SelectionManager mSelector;
@@ -198,16 +204,16 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
 
     public void onLongTap(int thumbnailIndex) {
         hideGuideTip();
-        MobclickAgent.onEvent(mLetoolContext.getActivityContext(), StatConstants.EVENT_KEY_PHOTO_LONG_PRESSED);
-        if (mLetoolContext.isImagePicking())
-            return;
-        MediaItem item = mAlbumDataSetLoader.get(thumbnailIndex);
-        if (item == null)
-            return;
-        MediaPath p = item.getPath();
-        p.setFilePath(item.getFilePath());
-        mSelector.toggle(p);
-        mThumbnailView.invalidate();
+//        MobclickAgent.onEvent(mLetoolContext.getActivityContext(), StatConstants.EVENT_KEY_PHOTO_LONG_PRESSED);
+//        if (mLetoolContext.isImagePicking())
+//            return;
+//        MediaItem item = mAlbumDataSetLoader.get(thumbnailIndex);
+//        if (item == null)
+//            return;
+//        MediaPath p = item.getPath();
+//        p.setFilePath(item.getFilePath());
+//        mSelector.toggle(p);
+//        mThumbnailView.invalidate();
     }
 
     @Override
@@ -266,7 +272,8 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
         ThumbnailLayoutBase layout;
         layout = new ThumbnailLayout(mConfig.albumSpec);
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
-        mThumbnailView.setBackgroundColor(LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color)));
+        mThumbnailView.setOverscrollEffect(ThumbnailView.OVERSCROLL_3D);
+        mThumbnailView.setBackgroundColor(LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.cp_main_background_color)));
         mThumbnailView.setListener(new ThumbnailView.SimpleListener() {
 
             @Override
@@ -304,23 +311,30 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
 
         if (mLetoolContext.isImagePicking()) {
             topBar.setTitleText(R.string.pick_picture_item);
+            nativeButtons.setVisibility(View.INVISIBLE);
         } else {
-
             topBar.setTitleText(mAlbumTitle);
+            nativeButtons.setVisibility(View.VISIBLE);
+            ImageView share = (ImageView) nativeButtons.findViewById(R.id.action_share);
+            share.setVisibility(View.VISIBLE);
+            ImageView delete = (ImageView) nativeButtons.findViewById(R.id.action_delete);
+            delete.setVisibility(View.VISIBLE);
         }
-
-        nativeButtons.setVisibility(View.INVISIBLE);
         NpBottomBar bottomBar = mLetoolContext.getLetoolBottomBar();
         bottomBar.setVisible(View.GONE, false);
+        mCurrentOperationMode = CURRENT_MODE_BROWSE;
     }
 
     private void initSelectionBar() {
         NpTopBar actionBar = mLetoolContext.getLetoolTopBar();
         actionBar.setOnActionMode(NpTopBar.ACTION_BAR_MODE_SELECTION, this);
         actionBar.setContractSelectionManager(mSelector);
-        actionBar.getActionPanel().findViewById(R.id.operation_multi_share).setVisibility(View.VISIBLE);
         String format = getResources().getQuantityString(R.plurals.number_of_items, 0);
-        actionBar.setTitleText(String.format(format, 0));
+        if (mCurrentOperationMode == CURRENT_MODE_SHARE) {
+            mLetoolContext.getLetoolTopBar().setTitleText(getResources().getString(R.string.common_share) + String.format(format, 0));
+        } else if (mCurrentOperationMode == CURRENT_MODE_DELETE) {
+            mLetoolContext.getLetoolTopBar().setTitleText(getResources().getString(R.string.common_delete) + String.format(format, 0));
+        }
     }
 
     @Override
@@ -429,62 +443,80 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
     public void onClick(View v) {
         hideGuideTip();
         if (v.getId() == R.id.navi_button) {
-            mLetoolContext.popContentFragment();
+            if (mSelector.inSelectionMode()) {
+                mSelector.leaveSelectionMode();
+            } else {
+                mLetoolContext.popContentFragment();
+            }
         } else {
             if (!mIsSDCardMountedCorreclty)
                 return;
-            if (v.getId() == R.id.operation_delete) {
-                int count = mSelector.getSelectedCount();
-                if (count <= 0) {
-                    Toast t = Toast.makeText(getActivity(), R.string.common_selection_tip, Toast.LENGTH_SHORT);
-                    t.setGravity(Gravity.CENTER, 0, 0);
-                    t.show();
-                    return;
-                }
-                BatchDeleteMediaListener cdl = new BatchDeleteMediaListener(
-                        getActivity(), mLetoolContext.getDataManager(),
-                        new DeleteMediaProgressListener() {
-
-                            @Override
-                            public void onConfirmDialogDismissed(boolean confirmed) {
-                                if (confirmed) {
-                                    MobclickAgent.onEvent(mLetoolContext.getActivityContext(), StatConstants.EVENT_KEY_PHOTO_DELETE);
-                                    mSelector.leaveSelectionMode();
-                                }
-                            }
-
-                            @Override
-                            public ArrayList<MediaPath> onGetDeleteItem() {
-                                return mSelector.getSelected(false);
-                            }
-
-                        });
-                final NpDialog dlg = new NpDialog(getActivity());
-                dlg.setTitle(R.string.common_recommend);
-                dlg.setOkBtn(R.string.common_ok, cdl, R.drawable.np_common_pressed_left_bg);
-                dlg.setCancelBtn(R.string.common_cancel, cdl, R.drawable.np_common_pressed_right_bg);
-                dlg.setMessage(R.string.common_delete_tip);
-                dlg.show();
-
-            } else if (v.getId() == R.id.selection_finished) {
+            if (v.getId() == R.id.action_delete) {
+                mCurrentOperationMode = CURRENT_MODE_DELETE;
+                mSelector.enterSelectionMode();
+            } else if (v.getId() == R.id.action_accept) {
                 MobclickAgent.onEvent(mLetoolContext.getActivityContext(), StatConstants.EVENT_KEY_SELECT_OK);
-                mSelector.leaveSelectionMode();
-            } else if (v.getId() == R.id.operation_multi_share) {
-                ArrayList<Uri> uris = new ArrayList<Uri>();
-                for (MediaPath p : mSelector.getSelected(false)) {
-                    if (p.getFilePath().length() > 0) {
-                        uris.add(Uri.parse("file://" + p.getFilePath()));
+                if (mCurrentOperationMode == CURRENT_MODE_DELETE) {
+                    int count = mSelector.getSelectedCount();
+                    if (count <= 0) {
+                        Toast t = Toast.makeText(getActivity(), R.string.common_selection_delete_tip, Toast.LENGTH_SHORT);
+                        t.setGravity(Gravity.CENTER, 0, 0);
+                        t.show();
+                        return;
                     }
-                }
-                ShareManager.showAllShareDialog(getActivity(), GlobalConstants.MIMI_TYPE_IMAGE, uris,
-                        new ShareListener() {
+                    BatchDeleteMediaListener cdl = new BatchDeleteMediaListener(
+                            getActivity(), mLetoolContext.getDataManager(),
+                            new DeleteMediaProgressListener() {
 
-                            @Override
-                            public void shareTriggered() {
-                                if (mSelector.inSelectionMode())
-                                    mSelector.leaveSelectionMode();
-                            }
-                        });
+                                @Override
+                                public void onConfirmDialogDismissed(boolean confirmed) {
+                                    if (confirmed) {
+                                        MobclickAgent.onEvent(mLetoolContext.getActivityContext(), StatConstants.EVENT_KEY_PHOTO_DELETE);
+                                        mSelector.leaveSelectionMode();
+                                    }
+                                }
+
+                                @Override
+                                public ArrayList<MediaPath> onGetDeleteItem() {
+                                    return mSelector.getSelected(false);
+                                }
+
+                            });
+                    final NpDialog dlg = new NpDialog(getActivity());
+                    dlg.setTitle(R.string.common_recommend);
+                    dlg.setOkBtn(R.string.common_ok, cdl, R.drawable.np_common_pressed_left_bg);
+                    dlg.setCancelBtn(R.string.common_cancel, cdl, R.drawable.np_common_pressed_right_bg);
+                    dlg.setMessage(R.string.common_delete_tip);
+                    dlg.show();
+                } else if (mCurrentOperationMode == CURRENT_MODE_SHARE) {
+                    int count = mSelector.getSelectedCount();
+                    if (count <= 0) {
+                        Toast t = Toast.makeText(getActivity(), R.string.common_selection_share_tip, Toast.LENGTH_SHORT);
+                        t.setGravity(Gravity.CENTER, 0, 0);
+                        t.show();
+                        return;
+                    }
+                    ArrayList<Uri> uris = new ArrayList<Uri>();
+                    for (MediaPath p : mSelector.getSelected(false)) {
+                        if (p.getFilePath().length() > 0) {
+                            uris.add(Uri.parse("file://" + p.getFilePath()));
+                        }
+                    }
+                    ShareManager.showAllShareDialog(getActivity(), GlobalConstants.MIMI_TYPE_IMAGE, uris,
+                            new ShareListener() {
+
+                                @Override
+                                public void shareTriggered() {
+                                    if (mSelector.inSelectionMode()) {
+                                        mSelector.leaveSelectionMode();
+                                    }
+                                }
+                            });
+                }
+            } else if (v.getId() == R.id.action_share) {
+                mCurrentOperationMode = CURRENT_MODE_SHARE;
+                mSelector.enterSelectionMode();
+
             }
         }
     }
@@ -513,7 +545,11 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
     public void onSelectionChange(MediaPath path, boolean selected) {
         int count = mSelector.getSelectedCount();
         String format = getResources().getQuantityString(R.plurals.number_of_items, count);
-        mLetoolContext.getLetoolTopBar().setTitleText(String.format(format, count));
+        if (mCurrentOperationMode == CURRENT_MODE_SHARE) {
+            mLetoolContext.getLetoolTopBar().setTitleText(getResources().getString(R.string.common_share) + String.format(format, count));
+        } else if (mCurrentOperationMode == CURRENT_MODE_DELETE) {
+            mLetoolContext.getLetoolTopBar().setTitleText(getResources().getString(R.string.common_delete) + String.format(format, count));
+        }
     }
 
     private Rect getThumbnailRect(int index) {

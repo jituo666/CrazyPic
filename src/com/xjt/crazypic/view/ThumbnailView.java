@@ -1,4 +1,3 @@
-
 package com.xjt.crazypic.view;
 
 import com.xjt.crazypic.NpContext;
@@ -43,6 +42,8 @@ public class ThumbnailView extends GLView {
 
     private int mStartIndex = ThumbnailLayoutBase.INDEX_NONE;
 
+    private int mOverscrollEffect = OVERSCROLL_NONE;
+    private final Paper mPaper = new Paper();
     private ThumbnailAnim mAnimation = null;
     private final Rect mTempRect = new Rect(); // to prevent allocating memory
     private boolean mDownInScrolling;
@@ -145,7 +146,10 @@ public class ThumbnailView extends GLView {
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             cancelDown(false);
             float distance = distanceY;
-            mScroller.startScroll(Math.round(distance), 0, mLayout.getScrollLimit());
+            int overDistance = mScroller.startScroll(Math.round(distance), 0, mLayout.getScrollLimit());
+            if (mOverscrollEffect == OVERSCROLL_3D && overDistance != 0) {
+                mPaper.overScroll(overDistance);
+            }
             invalidate();
             return true;
         }
@@ -231,12 +235,14 @@ public class ThumbnailView extends GLView {
                 mScroller.forceFinished();
                 break;
             case MotionEvent.ACTION_UP:
+                mPaper.onRelease();
                 invalidate();
                 break;
         }
         return true;
     }
 
+    
     ////////////////////////////////////////////////////////////////Render/////////////////////////////////////////////////////////////////
 
     public static interface Renderer {
@@ -258,6 +264,11 @@ public class ThumbnailView extends GLView {
         }
     }
 
+    public void setOverscrollEffect(int kind) {
+        mOverscrollEffect = kind;
+        mScroller.setOverfling(kind == OVERSCROLL_SYSTEM);
+    }
+    
     @Override
     protected void render(GLESCanvas canvas) {
         super.render(canvas);
@@ -266,33 +277,52 @@ public class ThumbnailView extends GLView {
         mRenderer.prepareDrawing();
         long animTime = AnimationTime.get();
         boolean more = mScroller.advanceAnimation(animTime);
-        updateScrollPosition(mScroller.getPosition(), false);
         more |= advanceAnimation(animTime);
+        int oldX = mScrollX;
+        updateScrollPosition(mScroller.getPosition(), false);
+        boolean paperActive = false;
+        if (mOverscrollEffect == OVERSCROLL_3D) {
+            // Check if an edge is reached and notify mPaper if so.
+            int newX = mScrollX;
+            int limit = mLayout.getScrollLimit();
+            if (oldX > 0 && newX == 0 || oldX < limit && newX == limit) {
+                float v = mScroller.getCurrVelocity();
+                if (newX == limit)
+                    v = -v;
+                // I don't know why, but getCurrVelocity() can return NaN.
+                if (!Float.isNaN(v)) {
+                    mPaper.edgeReached(v);
+                }
+            }
+            paperActive = mPaper.advanceAnimation();
+        }
+        more |= paperActive;
         if (mAnimation != null) {
             more |= mAnimation.calculate(animTime);
         }
         canvas.translate(-mScrollX, -mScrollY);
         //LLog.i(TAG, "render item start:" + mLayout.getVisibleThumbnailStart() + " end:" + mLayout.getVisibleThumbnailEnd());
         for (int i = mLayout.getVisibleThumbnailEnd() - 1; i >= mLayout.getVisibleThumbnailStart(); --i) {
-            if ((renderItem(canvas, i, 0) & RENDER_MORE_FRAME) != 0) {
+            if ((renderItem(canvas, i, 0, paperActive) & RENDER_MORE_FRAME) != 0) {
                 more = true;
             }
         }
 
         canvas.translate(mScrollX, mScrollY);
-        renderChild(canvas, mScrollBar);
+        //renderChild(canvas, mScrollBar);
         if (more) {
             invalidate();
-        } else {
         }
     }
 
-    private int renderItem(GLESCanvas canvas, int index, int pass) {
+    private int renderItem(GLESCanvas canvas, int index, int pass, boolean paperActive) {
         canvas.save(GLESCanvas.SAVE_FLAG_ALPHA | GLESCanvas.SAVE_FLAG_MATRIX);
         Rect rect = mLayout.getThumbnailRect(index, mTempRect);
-
-        canvas.translate(rect.left, rect.top, 0);
-
+        if (paperActive) {
+            canvas.multiplyMatrix(mPaper.getTransform(rect, mScrollY), 0);
+        } else {
+            canvas.translate(rect.left, rect.top, 0);
+        }
         if (mAnimation != null && mAnimation.isActive()) {
             mAnimation.apply(canvas, index, rect);
         }
@@ -332,6 +362,9 @@ public class ThumbnailView extends GLView {
         LLog.i(TAG, " onLayout visibleCenterIndex:" + visibleCenterIndex);
         resetVisibleRange(visibleCenterIndex);
         showScrollBarView();
+        if (mOverscrollEffect == OVERSCROLL_3D) {
+            mPaper.setSize(r - l, b - t);
+        }
     }
 
     private void showScrollBarView() {
@@ -339,7 +372,8 @@ public class ThumbnailView extends GLView {
         if (mLayout.getThumbnailCount() > 0 && mLayout.getScrollLimit() <= 0) {
             mScrollBar.setVisibility(View.INVISIBLE);
         } else if (mLayout.getVisibleThumbnailEnd() > 0) {
-            mScrollBar.setVisibility(View.VISIBLE);
+            //mScrollBar.setVisibility(View.VISIBLE);
+            mScrollBar.setVisibility(View.INVISIBLE); // 暂时不显示scroll bar
         }
     }
 

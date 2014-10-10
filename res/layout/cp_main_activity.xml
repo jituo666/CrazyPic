@@ -1,15 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/ic_main_screen_bg" >
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/main_screen_bg_1"
+            android:scaleType="center" />
+
+        <RelativeLayout
+            android:id="@+id/main_functions"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@drawable/main_screen_bg_2"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/main_functions_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/main_functions_beautify"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:background="@drawable/ic_main_fun_beautify"
+                        android:scaleType="center" />
+
+                    <ImageView
+                        android:id="@+id/main_functions_browse"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/ic_main_fun_browse"
+                        android:scaleType="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main_functions_34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/main_functions_interest"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:background="@drawable/ic_main_fun_interest"
+                        android:scaleType="center" />
+
+                    <ImageView
+                        android:id="@+id/main_functions_guide"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="8dp"
+                        android:background="@drawable/ic_main_fun_guide"
+                        android:scaleType="center" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/assist_functions"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="24dp"
         android:orientation="horizontal" >
 
         <ImageView
@@ -25,63 +100,9 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
-            android:scaleType="center"
             android:layout_toLeftOf="@+id/assist_functions_settings"
+            android:scaleType="center"
             android:src="@drawable/cp_asist_fun_fb_bg" />
     </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/main_functions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_above="@+id/assist_functions"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp" >
-
-        <LinearLayout
-            android:id="@+id/main_functions_12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/main_functions_beautify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_main_fun_beautify" />
-
-            <ImageView
-                android:id="@+id/main_functions_browse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/ic_main_fun_browse" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/main_functions_34"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/main_functions_interest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_main_fun_interest" />
-
-            <ImageView
-                android:id="@+id/main_functions_guide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/ic_main_fun_guide" />
-        </LinearLayout>
-    </LinearLayout>
 
 </RelativeLayout>

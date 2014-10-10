@@ -75,7 +75,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:gravity="center"
-                android:text="@string/common_selection_tip"
                 android:textColor="@color/np_major_text_color"
                 android:textSize="16dp" />
 

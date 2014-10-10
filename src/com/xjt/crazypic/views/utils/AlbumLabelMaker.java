@@ -103,14 +103,14 @@ public class AlbumLabelMaker {
 
             canvas.translate(2 * mBorderSize, (mLabelHeight) / 2 - mBorderSize/2);
             mTitlePaint.setTextAlign(Paint.Align.LEFT);
-            mTitle = TextUtils.ellipsize(mTitle, mTitlePaint, mLabelWidth - 4 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
+            mTitle = TextUtils.ellipsize(mTitle, mTitlePaint, mLabelWidth - 4 * mBorderSize, TextUtils.TruncateAt.END).toString();
             canvas.drawText(mTitle, mSpec.gravity < 0 ? 0 : (mLabelWidth - mTitlePaint.measureText(mTitle)) / 2, 0, mTitlePaint);
             if (jc.isCancelled())
                 return null;
             // draw desc
             canvas.translate(0, (mLabelHeight / 2));
             mDescPaint.setTextAlign(Paint.Align.LEFT);
-            mDesc = TextUtils.ellipsize(mDesc, mDescPaint, mLabelWidth - 4 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
+            mDesc = TextUtils.ellipsize(mDesc, mDescPaint, mLabelWidth - 4 * mBorderSize, TextUtils.TruncateAt.END).toString();
             canvas.drawText(mDesc, mSpec.gravity < 0 ? 0 : (mLabelWidth - mDescPaint.measureText(mDesc)) / 2, 0, mDescPaint);
             return bitmap;
         }

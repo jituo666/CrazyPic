@@ -32,6 +32,11 @@ public abstract class ThumbnailLayoutBase {
     protected int mContentLengthInMajorDirection;
     protected int mScrollPosition;
 
+
+    public int getThumbnailGap() {
+        return mThumbnailGap;
+    }
+    
     public int getThumbnailCount() {
         return mThumbnailCount;
     }

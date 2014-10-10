@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="gl_background_color">#FFF4F4F4</color>
     <color name="full_image_placeholder">#FF4C5357</color>
 
     <!-- configuration for album set page -->
@@ -41,5 +40,6 @@
     <color name="cp_gallery_gallery_border">#FF383030</color>
     <color name="cp_navi_text_color">#FFFFFFFF</color>
     
+    <color name="cp_main_background_color">#FFF4F4F4</color>
     <color name="cp_thumbnail_placehoder">#FFEEEEEE</color>
 </resources>

@@ -129,7 +129,7 @@ public class FullImageFragment extends Fragment implements OnActionModeListener,
 
         @Override
         protected void render(GLESCanvas canvas) {
-            canvas.clearBuffer(LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color)));
+            canvas.clearBuffer(LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.cp_main_background_color)));
             super.render(canvas);
         }
     };

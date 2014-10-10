@@ -66,7 +66,8 @@
     <string name="common_delete_cur_movie_tip">Are you sure to delete movie [&lt;font color=\"#e62e2e\"&gt;%1$s&lt;/font&gt;] ?</string>
     <string name="common_delete_waiting">"Deleting\u2026"</string>
     <string name="common_update_checking">"Checking\u2026"</string>
-    <string name="common_selection_tip">Please select something</string>
+    <string name="common_selection_delete_tip">Please select picture(s)</string>
+    <string name="common_selection_share_tip">Please select picture(s)</string>
     <string name="common_clear_cache">Cache Clear</string>
     <string name="common_clear_cache_waitting">Clearing\u2026</string>
     <string name="common_exit_tip">Press once more to exit Leool？</string>
@@ -86,6 +87,7 @@
     <string name="common_screenshot">Screenshots</string>
     <string name="common_download">Download</string>
     <string name="common_weixin">WeiXin</string>
+    <string name="common_camera_source">Camera</string>
     <string name="about_version">Version: %s</string>
     <string name="about_weixin">WeiXin:niutu666</string>
     <string name="about_qgroup">QQ Group:248706772</string>
@@ -152,6 +154,11 @@
     <string name="test_channel_id">test_channel_id</string>
 
     <plurals name="number_of_items">
+        <item quantity="zero">(%1$d item)</item>
+        <item quantity="one">(%1$d item)</item>
+        <item quantity="other">(%1$d items)</item>
+    </plurals>
+    <plurals name="label_number_of_items">
         <item quantity="zero">(%1$d item)</item>
         <item quantity="one">(%1$d item)</item>
         <item quantity="other">(%1$d items)</item>

@@ -45,7 +45,7 @@ public class NpTopBar {
 
     public static final int ACTION_MODE_TITLE_VIEW_ID[] = {
             R.id.navi_button,
-            R.id.selection_counter,
+            R.id.navi_button,
             R.id.navi_button,
             R.id.navi_button
     };
@@ -53,11 +53,10 @@ public class NpTopBar {
     public static final int ACTION_BUTTON_IDS[] = {
             R.id.navi_button,
             R.id.action_navi,
-            R.id.operation_multi_share,
-            R.id.operation_delete,
-            R.id.action_navi,
-            R.id.action_navi,
-            R.id.selection_finished,
+            R.id.action_share,
+            R.id.action_delete,
+            R.id.action_style,
+            R.id.action_accept,
             R.id.action_undo,
             R.id.action_redo,
             R.id.action_reset,

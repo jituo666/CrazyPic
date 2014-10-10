@@ -269,8 +269,9 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         }
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setBackgroundColor(
-                LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.gl_background_color))
+                LetoolUtils.intColorToFloatARGBArray(getResources().getColor(R.color.cp_main_background_color))
                 );
+        mThumbnailView.setOverscrollEffect(ThumbnailView.OVERSCROLL_3D);
         if (isListView || GlobalPreference.isGalleryListMode(getActivity())) {
             mThumbnailViewRenderer = new ThumbnailSetListRenderer(mLetoolContext, mThumbnailView, mSelector);
         } else {
@@ -326,14 +327,13 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
             mNativeButtons.setVisibility(View.INVISIBLE);
         } else {
             mNativeButtons.setVisibility(View.VISIBLE);
-            ImageView changeStyle = (ImageView) mNativeButtons.findViewById(R.id.action_gallery_style);
+            ImageView changeStyle = (ImageView) mNativeButtons.findViewById(R.id.action_style);
             if (GlobalPreference.isGalleryListMode(getActivity())) {
                 changeStyle.setImageResource(R.drawable.ic_gallery_show_grid);
             } else {
                 changeStyle.setImageResource(R.drawable.ic_gallery_show_list);
             }
             changeStyle.setVisibility(View.VISIBLE);
-            changeStyle.setOnClickListener(this);
         }
 
     }
@@ -497,10 +497,10 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         } else {
             if (!mIsSDCardMountedCorreclty)
                 return;
-            if (v.getId() == R.id.operation_delete) {
+            if (v.getId() == R.id.action_delete) {
                 int count = mSelector.getSelectedCount();
                 if (count <= 0) {
-                    Toast t = Toast.makeText(getActivity(), R.string.common_selection_tip, Toast.LENGTH_SHORT);
+                    Toast t = Toast.makeText(getActivity(), R.string.common_selection_delete_tip, Toast.LENGTH_SHORT);
                     t.setGravity(Gravity.CENTER, 0, 0);
                     t.show();
                     return;
@@ -526,9 +526,9 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
                 dlg.setCancelBtn(R.string.common_cancel, cdl, R.drawable.np_common_pressed_right_bg);
                 dlg.setMessage(R.string.common_delete_tip);
                 dlg.show();
-            } else if (v.getId() == R.id.selection_finished) {
+            } else if (v.getId() == R.id.action_accept) {
                 mSelector.leaveSelectionMode();
-            } else if (v.getId() == R.id.action_gallery_style) {
+            } else if (v.getId() == R.id.action_style) {
                 GlobalPreference.setGalleryListMode(getActivity(), !GlobalPreference.isGalleryListMode(getActivity()));
                 GalleryFragment f = new GalleryFragment();
                 Bundle data = new Bundle();

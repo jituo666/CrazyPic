@@ -12,6 +12,7 @@
         android:drawableLeft="@drawable/ic_action_back"
         android:gravity="center_vertical"
         android:singleLine="true"
+        android:ellipsize="end"
         android:textColor="@color/cp_navi_text_color"
         android:textSize="@dimen/common_title_text_size" />
 
@@ -30,20 +31,24 @@
             android:layout_height="match_parent"
             android:background="@drawable/np_common_pressed_bg"
             android:scaleType="center"
+            android:src="@drawable/ic_action_share"
             android:visibility="gone" />
 
         <ImageView
             android:id="@+id/action_delete"
             android:layout_width="48dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
             android:background="@drawable/np_common_pressed_bg"
             android:scaleType="center"
+            android:src="@drawable/ic_action_delete"
             android:visibility="gone" />
 
         <ImageView
-            android:id="@+id/action_gallery_style"
+            android:id="@+id/action_style"
             android:layout_width="48dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
             android:background="@drawable/np_common_pressed_bg"
             android:scaleType="center"
             android:visibility="gone" />

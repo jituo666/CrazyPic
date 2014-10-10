@@ -254,7 +254,7 @@ public class ThumbnailSetDataWindow implements ThumbnailSetDataLoader.DataChange
         String desc = "";
         int count = mSource.getTotalCount(thumbnailIndex);
         Context c = mLetoolContext.getActivityContext();
-        String totalCount = String.format(c.getResources().getQuantityString(R.plurals.number_of_items, count), count);
+        String totalCount = String.format(c.getResources().getQuantityString(R.plurals.label_number_of_items, count), count);
         if (mLetoolContext.isImagePicking() || GlobalPreference.isGalleryListMode(mLetoolContext.getActivityContext())) {
             title = ((album == null) ? "" : (Utils.ensureNotNull(album.getName()) + " ")) + totalCount; // 名字 + 张数
             if (cover != null) {

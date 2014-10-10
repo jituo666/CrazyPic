@@ -32,9 +32,10 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
         AlbumSetEntry entry = mDataWindow.get(index);
         int renderRequestFlags = 0;
         if (entry != null) {
-            // 缩小绘制整体大小
-            canvas.translate(mThumbnailLabelParam.labelHeight / 4, mThumbnailLabelParam.labelHeight / 4);
-            width = width - mThumbnailLabelParam.labelHeight / 2; 
+            // 缩小绘制整体padding大小
+            canvas.translate(mThumbnailLabelParam.labelHeight / 4 + mThumbnailLabelParam.labelHeight / 6, mThumbnailLabelParam.labelHeight / 4);
+            width = width - mThumbnailLabelParam.labelHeight / 2 - mThumbnailLabelParam.labelHeight / 3; 
+            //
             height = height - mThumbnailLabelParam.labelHeight / 2;
             //开始绘制
             mBorderTexture.draw(canvas, 0, 0, width, height - mThumbnailLabelParam.labelHeight); // 相框

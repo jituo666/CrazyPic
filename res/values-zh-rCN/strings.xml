@@ -67,7 +67,8 @@
     <string name="common_delete_cur_movie_tip">确定删除视频文件[&lt;font color=\"#e62e2e\"&gt;%1$s&lt;/font&gt;] ?</string>
     <string name="common_delete_waiting">"正在删除,请稍候\u2026"</string>
     <string name="common_update_checking">"正在检查更新\u2026"</string>
-    <string name="common_selection_tip">请选择所要删除的内容!</string>
+    <string name="common_selection_delete_tip">请选择所要删除的图片!</string>
+    <string name="common_selection_share_tip">请选择所要分享的图片!</string>
     <string name="common_clear_cache">清理缓存</string>
     <string name="common_clear_cache_waitting">正在清理缓存,请稍候\u2026</string>
     <string name="common_exit_tip">再按一次退出牛图？</string>
@@ -84,9 +85,10 @@
     <string name="common_error_no_movies">没有视频文件.</string>
     <string name="common_error_no_video">没有录像文件.</string>
     <string name="common_error_no_dirs">没有检测到图片和视频目录!</string>
-    <string name="common_screenshot">截屏</string>
+    <string name="common_screenshot">屏幕截图</string>
     <string name="common_download">下载</string>
     <string name="common_weixin">微信</string>
+    <string name="common_camera_source">相机拍摄</string>
     <string name="friendly_tips">温馨提示</string>
     <string name="about_version">版本: %s</string>
     <string name="about_weixin">微信: niutu666</string>
@@ -152,6 +154,9 @@
     <string name="test_channel_id">测试渠道</string>
 
     <plurals name="number_of_items">
+        <item quantity="other"> (已选 %1$d 张)</item>
+    </plurals>
+    <plurals name="label_number_of_items">
         <item quantity="other"> (%1$d 张)</item>
     </plurals>
 

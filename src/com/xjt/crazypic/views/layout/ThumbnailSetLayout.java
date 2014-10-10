@@ -37,7 +37,7 @@ public class ThumbnailSetLayout extends ThumbnailLayoutBase {
             mThumbnailHeight = mSpec.labelHeight * 2;
         } else {
             mThumbnailWidth = Math.max(1, (mWidth - (mColumnInMinorDirection - 1) * mThumbnailGap) / mColumnInMinorDirection);
-            mThumbnailHeight = mThumbnailWidth + mSpec.labelHeight;
+            mThumbnailHeight = mThumbnailWidth + (mSpec.labelHeight * 2) / 3; // 这是在一屏幕为了多显示图片
         }
 
         if (mRenderer != null) {

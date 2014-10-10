@@ -163,11 +163,18 @@ public class LocalAlbumSet extends MediaSet implements FutureListener<ArrayList<
             if (jc.isCancelled())
                 return null;
             int offset = 0;
-            int index = findBucket(entries, MediaSetUtils.DOWNLOAD_BUCKET_ID);
+            int index = findBucket(entries, MediaSetUtils.CAMERA_BUCKET_ID);
             if (index != -1) {
                 circularShiftRight(entries, offset++, index);
             }
-
+            index = findBucket(entries, MediaSetUtils.DOWNLOAD_BUCKET_ID);
+            if (index != -1) {
+                circularShiftRight(entries, offset++, index);
+            }
+            index = findBucket(entries, MediaSetUtils.SNAPSHOT_BUCKET_ID);
+            if (index != -1) {
+                circularShiftRight(entries, offset++, index);
+            }
             ArrayList<MediaSet> albums = new ArrayList<MediaSet>();
             DataManager dataManager = mApplication.getDataManager();
             for (BucketEntry entry : entries) {

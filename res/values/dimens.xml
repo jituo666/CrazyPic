@@ -6,7 +6,7 @@
     <integer name="albumset_grid_gravity">0</integer>
 
     <dimen name="albumset_grid_thumbnail_padding">32dp</dimen>
-    <dimen name="albumset_grid_thumbnail_gap">8dp</dimen>
+    <dimen name="albumset_grid_thumbnail_gap">2dp</dimen>
     <dimen name="albumset_grid_padding_left">16dp</dimen>
     <dimen name="albumset_grid_padding_top">16dp</dimen>
     <dimen name="albumset_grid_padding_bottom">16dp</dimen>
