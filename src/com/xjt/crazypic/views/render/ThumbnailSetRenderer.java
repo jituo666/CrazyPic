@@ -7,6 +7,7 @@ import com.xjt.crazypic.imagedata.adapters.ThumbnailSetDataWindow;
 import com.xjt.crazypic.metadata.MediaPath;
 import com.xjt.crazypic.metadata.loader.ThumbnailSetDataLoader;
 import com.xjt.crazypic.view.ThumbnailView;
+import com.xjt.crazypic.views.layout.ThumbnailLayoutParam;
 import com.xjt.crazypic.views.opengl.ColorTexture;
 import com.xjt.crazypic.views.opengl.GLESCanvas;
 import com.xjt.crazypic.views.opengl.ResourceTexture;
@@ -36,9 +37,10 @@ public abstract class ThumbnailSetRenderer extends ThumbnailBaseRender {
     protected boolean mAnimatePressedUp;
     protected MediaPath mHighlightItemPath = null;
 
-    protected LabelSpec mLabelSpec;
+    protected ThumbnailLabelParam mThumbnailLabelParam;
+    protected ThumbnailLayoutParam mThumbnailParam;
 
-    public static class LabelSpec {
+    public static class ThumbnailLabelParam {
 
         public int labelHeight;
         public int backgroundColor;
@@ -67,7 +69,7 @@ public abstract class ThumbnailSetRenderer extends ThumbnailBaseRender {
         super(activity.getActivityContext());
         mLetoolContext = activity;
         mThumbnailView = thumbnailView;
-        mDefaulTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.thumbnail_placehoder));
+        mDefaulTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_thumbnail_placehoder));
         mDefaulTexture.setSize(1, 1);
         mVideoPlayIcon = new ResourceTexture(activity.getActivityContext(), R.drawable.ic_video_folder);
         mVideoOverlay = new ResourceTexture(activity.getActivityContext(), R.drawable.ic_video_thumb);
@@ -80,7 +82,7 @@ public abstract class ThumbnailSetRenderer extends ThumbnailBaseRender {
             mThumbnailView.setThumbnailCount(0);
         }
         if (model != null) {
-            mDataWindow = new ThumbnailSetDataWindow(mLetoolContext, model, mLabelSpec, CACHE_SIZE);
+            mDataWindow = new ThumbnailSetDataWindow(mLetoolContext, model, mThumbnailLabelParam, CACHE_SIZE);
             mDataWindow.setListener(new MyCacheListener());
             mThumbnailView.setThumbnailCount(mDataWindow.size());
         }

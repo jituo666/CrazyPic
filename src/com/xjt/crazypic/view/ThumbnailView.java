@@ -60,9 +60,9 @@ public class ThumbnailView extends GLView {
 
     //////////////////////////////////////////////////////////////Animations////////////////////////////////////////////////////////////////////
 
-    public void startScatteringAnimation(RelativePosition position) {
+    public void startScatteringAnimation(RelativePosition position, boolean scatterX, boolean scatterY, boolean scatterZ) {
         if (GlobalPreference.isAnimationOpen(mLetoolContext.getActivityContext())) {
-            mAnimation = new ThumbnailScatteringAnim(position);
+            mAnimation = new ThumbnailScatteringAnim(position, scatterX, scatterY, scatterZ);
             mAnimation.start();
             if (mLayout.getThumbnailHeight() != 0)
                 invalidate();

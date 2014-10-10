@@ -18,7 +18,8 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
 
     public ThumbnailSetGridRenderer(NpContext activity, ThumbnailView thumbnailView, SelectionManager selector) {
         super(activity, thumbnailView);
-        mLabelSpec = ViewConfigs.AlbumSetGridPage.get(activity.getActivityContext()).labelSpec;
+        mThumbnailLabelParam = ViewConfigs.AlbumSetGridPage.get(activity.getActivityContext()).labelSpec;
+        mThumbnailParam = ViewConfigs.AlbumSetGridPage.get(activity.getActivityContext()).albumSetGridSpec;
         mBorderTexture = new ResourceTexture(activity.getActivityContext(), R.drawable.ic_gallery_border);
     }
 
@@ -31,12 +32,15 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
         AlbumSetEntry entry = mDataWindow.get(index);
         int renderRequestFlags = 0;
         if (entry != null) {
-            canvas.translate(mLabelSpec.labelHeight / 4, mLabelSpec.labelHeight / 4);
-            width = width - mLabelSpec.labelHeight / 2;
-            height = height - mLabelSpec.labelHeight / 2;
-            renderRequestFlags |= renderOverlay(canvas, entry, index, width, height - mLabelSpec.labelHeight);
-            renderRequestFlags |= renderContent(canvas, entry, width, height - mLabelSpec.labelHeight);
-            renderRequestFlags |= renderLabel(canvas, entry, width, height);
+            // 缩小绘制整体大小
+            canvas.translate(mThumbnailLabelParam.labelHeight / 4, mThumbnailLabelParam.labelHeight / 4);
+            width = width - mThumbnailLabelParam.labelHeight / 2; 
+            height = height - mThumbnailLabelParam.labelHeight / 2;
+            //开始绘制
+            mBorderTexture.draw(canvas, 0, 0, width, height - mThumbnailLabelParam.labelHeight); // 相框
+            renderRequestFlags |= renderContent(canvas, entry, width, height - mThumbnailLabelParam.labelHeight); // 图片内容
+            renderRequestFlags |= renderLabel(canvas, entry, width, height); // 标签
+            renderRequestFlags |= renderOverlay(canvas, entry, index, width, height - mThumbnailLabelParam.labelHeight); // 按下效果
         }
         return renderRequestFlags;
     }
@@ -48,7 +52,8 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
             content = mDefaulTexture;
             entry.isWaitLoadingDisplayed = true;
         }
-        drawContent(canvas, content, width - mLabelSpec.labelHeight, height - mLabelSpec.labelHeight, entry.rotation, mLabelSpec.labelHeight);
+        drawContent(canvas, content, width - mThumbnailParam.thumbnailPadding, height - mThumbnailParam.thumbnailPadding, entry.rotation,
+                mThumbnailParam.thumbnailPadding);
         return renderRequestFlags;
     }
 
@@ -58,27 +63,26 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
             content = mDefaulTexture;
             return 0;
         }
-        int h = mLabelSpec.labelHeight;
+        int h = mThumbnailLabelParam.labelHeight;
         content.draw(canvas, 0, height - h, width, h);
         return 0;
     }
 
     protected int renderOverlay(GLESCanvas canvas, AlbumSetEntry entry, int index, int width, int height) {
         int renderRequestFlags = 0;
-
-        mBorderTexture.draw(canvas, 0, 0, width, height);
-
         if (mPressedIndex == index) {
+            canvas.translate(mThumbnailParam.thumbnailPadding/2, mThumbnailParam.thumbnailPadding/2);
             if (mAnimatePressedUp) {
-                drawPressedUpFrame(canvas, width, height);
+                drawPressedUpFrame(canvas, width -  mThumbnailParam.thumbnailPadding, height -  mThumbnailParam.thumbnailPadding);
                 renderRequestFlags |= ThumbnailView.RENDER_MORE_FRAME;
                 if (isPressedUpFrameFinished()) {
                     mAnimatePressedUp = false;
                     mPressedIndex = -1;
                 }
             } else {
-                drawPressedFrame(canvas, width, height);
+                drawPressedFrame(canvas, width - mThumbnailParam.thumbnailPadding, height -  mThumbnailParam.thumbnailPadding);
             }
+            canvas.translate(-mThumbnailParam.thumbnailPadding/2, -mThumbnailParam.thumbnailPadding/2);
         }
         return renderRequestFlags;
     }

@@ -62,7 +62,7 @@ public class ThumbnailRenderer extends ThumbnailBaseRender {
         mFragment = context;
         mThumbnailView = slotView;
         mMediaSelector = selector;
-        mWaitLoadingTexture = new ColorTexture(context.getActivityContext().getResources().getColor(R.color.thumbnail_placehoder));
+        mWaitLoadingTexture = new ColorTexture(context.getActivityContext().getResources().getColor(R.color.cp_thumbnail_placehoder));
         mWaitLoadingTexture.setSize(1, 1);
         mFramePreSelected = new ResourceTexture(context.getActivityContext(), R.drawable.common_check_off);
         mFrameSelected = new ResourceTexture(context.getActivityContext(), R.drawable.common_check_on);

@@ -18,14 +18,14 @@ public class VideoLabelMaker {
     private static final int BORDER_SIZE = 1;
     private static final int BACKGROUND_COLOR = Color.TRANSPARENT; // 为了显示底色,采取透明色
 
-    private final ThumbnailVideoRenderer.LabelSpec mSpec;
+    private final ThumbnailVideoRenderer.ThumbnailLabelParam mSpec;
     private final TextPaint mTitlePaint;
     private final TextPaint mCountPaint;
 
     private int mLabelWidth;
     private int mLabelHeight;
 
-    public VideoLabelMaker(Context context, ThumbnailVideoRenderer.LabelSpec spec) {
+    public VideoLabelMaker(Context context, ThumbnailVideoRenderer.ThumbnailLabelParam spec) {
         mSpec = spec;
         mTitlePaint = getTextPaint(spec.titleFontSize, context.getResources().getColor(R.color.np_major_text_color), false);
         mCountPaint = getTextPaint(spec.countFontSize, context.getResources().getColor(R.color.np_minor_text_color), false);

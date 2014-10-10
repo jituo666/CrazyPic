@@ -87,6 +87,7 @@ public class CpPictureActivity extends FragmentActivity implements NpContext {
         Fragment fragment = new GalleryFragment();
         Bundle data = new Bundle();
         data.putString(CpPictureActivity.KEY_MEDIA_PATH, getDataManager().getTopSetPath(DataManager.INCLUDE_LOCAL_IMAGE_SET_ONLY));
+        data.putBoolean(GalleryFragment.GALLERY_AINMATION_FROM_CENTER, true);
         fragment.setArguments(data);
         pushContentFragment(fragment, null, false);
     }

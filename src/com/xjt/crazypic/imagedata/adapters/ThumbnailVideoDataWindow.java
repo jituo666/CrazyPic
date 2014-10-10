@@ -77,7 +77,7 @@ public class ThumbnailVideoDataWindow implements ThumbnailDataLoader.DataChanged
         private BitmapLoader coverLoader;
     }
 
-    public ThumbnailVideoDataWindow(NpContext context, ThumbnailDataLoader source, ThumbnailVideoRenderer.LabelSpec labelSpec, int cacheSize) {
+    public ThumbnailVideoDataWindow(NpContext context, ThumbnailDataLoader source, ThumbnailVideoRenderer.ThumbnailLabelParam labelSpec, int cacheSize) {
         source.setDataChangedListener(this);
         mSource = source;
         mData = new VideoEntry[cacheSize];

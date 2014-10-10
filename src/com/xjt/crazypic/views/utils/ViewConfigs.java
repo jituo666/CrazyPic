@@ -24,7 +24,7 @@ public final class ViewConfigs {
         private static AlbumSetGridPage sInstance;
 
         public ThumbnailLayoutParam albumSetGridSpec;
-        public ThumbnailSetRenderer.LabelSpec labelSpec;
+        public ThumbnailSetRenderer.ThumbnailLabelParam labelSpec;
         public int paddingLeft;
         public int paddingTop;
         public int paddingRight;
@@ -39,17 +39,12 @@ public final class ViewConfigs {
 
         private AlbumSetGridPage(Context context) {
             Resources r = context.getResources();
-            albumSetGridSpec = new ThumbnailLayoutParam();
-            albumSetGridSpec.rowsPort = r.getInteger(R.integer.albumset_grid_rows_port); // 每行有多少个缩略图
-            albumSetGridSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.albumset_grid_thumbnail_gap); // 缩略图之间的间隔
-            albumSetGridSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_grid_label_height); // 标签的高度
-
             paddingLeft = r.getDimensionPixelSize(R.dimen.albumset_grid_padding_left); // 整个屏幕左边距
             paddingTop = r.getDimensionPixelSize(R.dimen.albumset_grid_padding_top);  // 整个屏幕上边距
             paddingRight = r.getDimensionPixelSize(R.dimen.albumset_grid_padding_right); // 整个屏幕右边距
             paddingBottom = r.getDimensionPixelSize(R.dimen.albumset_grid_padding_bottom); // 整个屏幕下边距
 
-            labelSpec = new ThumbnailSetRenderer.LabelSpec();
+            labelSpec = new ThumbnailSetRenderer.ThumbnailLabelParam();
             labelSpec.gravity = r.getInteger(R.integer.albumset_grid_gravity);
             labelSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_grid_label_height); // 标签的高度
             labelSpec.titleFontSize = r.getDimensionPixelSize(R.dimen.albumset_grid_title_font_size);
@@ -58,6 +53,12 @@ public final class ViewConfigs {
             labelSpec.backgroundColor = r.getColor(R.color.albumset_label_background);
             labelSpec.titleColor = r.getColor(R.color.albumset_label_title);
             labelSpec.countColor = r.getColor(R.color.albumset_label_count);
+            //
+            albumSetGridSpec = new ThumbnailLayoutParam();
+            albumSetGridSpec.rowsPort = r.getInteger(R.integer.albumset_grid_rows_port); // 每行有多少个缩略图
+            albumSetGridSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.albumset_grid_thumbnail_gap); // 缩略图之间的间隔
+            albumSetGridSpec.thumbnailPadding = r.getDimensionPixelSize(R.dimen.albumset_grid_thumbnail_padding); // 标签的高度
+            albumSetGridSpec.labelHeight = labelSpec.labelHeight;
             LLog.i(TAG, " ---set grid rowsPort:" + albumSetGridSpec.rowsPort + " labelHeight:" + labelSpec.labelHeight);
         }
     }
@@ -67,7 +68,7 @@ public final class ViewConfigs {
         private static AlbumSetListPage sInstance;
 
         public ThumbnailLayoutParam albumSetListSpec;
-        public ThumbnailSetRenderer.LabelSpec labelSpec;
+        public ThumbnailSetRenderer.ThumbnailLabelParam labelSpec;
         public int paddingLeft;
         public int paddingTop;
         public int paddingRight;
@@ -82,17 +83,13 @@ public final class ViewConfigs {
 
         private AlbumSetListPage(Context context) {
             Resources r = context.getResources();
-            albumSetListSpec = new ThumbnailLayoutParam();
-            albumSetListSpec.rowsPort = r.getInteger(R.integer.albumset_list_rows_port);
-            albumSetListSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.albumset_list_thumbnail_gap);
-            albumSetListSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_list_label_height);
 
             paddingLeft = r.getDimensionPixelSize(R.dimen.albumset_list_padding_left);
             paddingTop = r.getDimensionPixelSize(R.dimen.albumset_list_padding_top);
             paddingRight = r.getDimensionPixelSize(R.dimen.albumset_list_padding_right);
             paddingBottom = r.getDimensionPixelSize(R.dimen.albumset_list_padding_bottom);
 
-            labelSpec = new ThumbnailSetRenderer.LabelSpec();
+            labelSpec = new ThumbnailSetRenderer.ThumbnailLabelParam();
             labelSpec.gravity = r.getInteger(R.integer.albumset_list_gravity);
             labelSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_list_label_height);// 标签的高度，这个高度决定了缩略图的绘制范围（宽和高）
             labelSpec.titleFontSize = r.getDimensionPixelSize(R.dimen.albumset_list_title_font_size);
@@ -101,6 +98,12 @@ public final class ViewConfigs {
             labelSpec.backgroundColor = r.getColor(R.color.albumset_label_background);
             labelSpec.titleColor = r.getColor(R.color.albumset_label_title);
             labelSpec.countColor = r.getColor(R.color.albumset_label_count);
+            //
+            albumSetListSpec = new ThumbnailLayoutParam();
+            albumSetListSpec.rowsPort = r.getInteger(R.integer.albumset_list_rows_port);
+            albumSetListSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.albumset_list_thumbnail_gap);
+            albumSetListSpec.thumbnailPadding = r.getDimensionPixelSize(R.dimen.albumset_list_thumbnail_padding);
+            albumSetListSpec.labelHeight = labelSpec.labelHeight;
             LLog.i(TAG, " ---set list rowsPort:" + albumSetListSpec.rowsPort + " labelHeight:" + labelSpec.labelHeight);
         }
     }
@@ -129,8 +132,6 @@ public final class ViewConfigs {
             albumSpec = new ThumbnailLayoutParam();
             albumSpec.rowsPort = r.getInteger(R.integer.album_rows_port);
             albumSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.album_thumbnail_gap);
-            albumSpec.tagHeight = r.getDimensionPixelSize(R.dimen.album_label_height);
-            albumSpec.tagWidth = r.getDimensionPixelSize(R.dimen.album_label_width);
             //
             paddingLeft = r.getDimensionPixelSize(R.dimen.album_padding_left);
             paddingTop = r.getDimensionPixelSize(R.dimen.album_padding_top);
@@ -145,7 +146,7 @@ public final class ViewConfigs {
         private static VideoSetPage sInstance;
 
         public ThumbnailLayoutParam videoSetSpec;
-        public ThumbnailVideoRenderer.LabelSpec labelSpec;
+        public ThumbnailVideoRenderer.ThumbnailLabelParam labelSpec;
         public int paddingLeft;
         public int paddingTop;
         public int paddingRight;
@@ -163,14 +164,14 @@ public final class ViewConfigs {
             videoSetSpec = new ThumbnailLayoutParam();
             videoSetSpec.rowsPort = r.getInteger(R.integer.videoset_rows_port);
             videoSetSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.videoset_thumbnail_gap);
-            videoSetSpec.labelHeight = r.getDimensionPixelSize(R.dimen.videoset_label_height);
+            videoSetSpec.thumbnailPadding = r.getDimensionPixelSize(R.dimen.videoset_label_height);
 
             paddingLeft = r.getDimensionPixelSize(R.dimen.videoset_padding_left);
             paddingTop = r.getDimensionPixelSize(R.dimen.videoset_padding_top);
             paddingRight = r.getDimensionPixelSize(R.dimen.videoset_padding_right);
             paddingBottom = r.getDimensionPixelSize(R.dimen.videoset_padding_bottom);
 
-            labelSpec = new ThumbnailVideoRenderer.LabelSpec();
+            labelSpec = new ThumbnailVideoRenderer.ThumbnailLabelParam();
             labelSpec.labelHeight = r.getDimensionPixelSize(R.dimen.video_label_height);
             labelSpec.titleOffset = r.getDimensionPixelSize(R.dimen.videoset_title_offset);
             labelSpec.countOffset = r.getDimensionPixelSize(R.dimen.videoset_count_offset);
@@ -190,7 +191,7 @@ public final class ViewConfigs {
         private static VideoPage sInstance;
 
         public ThumbnailLayoutParam videoSpec;
-        public ThumbnailVideoRenderer.LabelSpec labelSpec;
+        public ThumbnailVideoRenderer.ThumbnailLabelParam labelSpec;
         public int paddingLeft;
         public int paddingTop;
         public int paddingRight;
@@ -208,14 +209,14 @@ public final class ViewConfigs {
             videoSpec = new ThumbnailLayoutParam();
             videoSpec.rowsPort = r.getInteger(R.integer.video_rows_port);
             videoSpec.thumbnailGap = r.getDimensionPixelSize(R.dimen.video_thumbnail_gap);
-            videoSpec.labelHeight = r.getDimensionPixelSize(R.dimen.video_label_height);
+            videoSpec.thumbnailPadding = r.getDimensionPixelSize(R.dimen.video_label_height);
 
             paddingLeft = r.getDimensionPixelSize(R.dimen.video_padding_left);
             paddingTop = r.getDimensionPixelSize(R.dimen.video_padding_top);
             paddingRight = r.getDimensionPixelSize(R.dimen.video_padding_right);
             paddingBottom = r.getDimensionPixelSize(R.dimen.video_padding_bottom);
 
-            labelSpec = new ThumbnailVideoRenderer.LabelSpec();
+            labelSpec = new ThumbnailVideoRenderer.ThumbnailLabelParam();
             labelSpec.labelHeight = r.getDimensionPixelSize(R.dimen.video_label_height);
             labelSpec.titleOffset = r.getDimensionPixelSize(R.dimen.video_title_offset);
             labelSpec.countOffset = r.getDimensionPixelSize(R.dimen.video_count_offset);

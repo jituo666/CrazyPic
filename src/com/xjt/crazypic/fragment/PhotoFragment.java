@@ -1,3 +1,4 @@
+
 package com.xjt.crazypic.fragment;
 
 import com.android.gallery3d.common.Utils;
@@ -243,7 +244,7 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
             }
         };
         mEyePosition = new EyePosition(mLetoolContext.getActivityContext(), this);
-        mThumbnailView.startScatteringAnimation(mOpenCenter);
+        mThumbnailView.startScatteringAnimation(mOpenCenter, true, true, true);
     }
 
     private void initializeData() {

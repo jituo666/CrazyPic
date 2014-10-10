@@ -69,6 +69,8 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
 
     private static final String TAG = GalleryFragment.class.getSimpleName();
 
+    public static final String GALLERY_AINMATION_FROM_CENTER = "g_anim_center";
+
     private static final int MSG_LAYOUT_CONFIRMED = 0;
     private static final int MSG_PICK_ALBUM = 1;
 
@@ -121,7 +123,6 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
                 paddingBottom = config.paddingBottom;
             }
 
-
             NpTopBar actionBar = mLetoolContext.getLetoolTopBar();
             int thumbnailViewLeft = left + paddingLeft;
             int thumbnailViewRight = right - left - paddingRight;
@@ -133,9 +134,13 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
                 mThumbnailViewRenderer.setHighlightItemPath(null);
             }
 
-            mOpenCenter.setReferencePosition(0, thumbnailViewTop);
-            mOpenCenter.setAbsolutePosition((right - left) / 2, (bottom - top) / 2);
-
+            mOpenCenter.setReferencePosition(thumbnailViewLeft, thumbnailViewTop);
+            Bundle d = getArguments();
+            if (d != null && d.getBoolean(GALLERY_AINMATION_FROM_CENTER, true)) {
+                mOpenCenter.setAbsolutePosition((right - left) / 2, (bottom - top) / 2);
+            } else {
+                mOpenCenter.setAbsolutePosition(0, top); // 从顶部中间开始
+            }
             mThumbnailView.layout(thumbnailViewLeft, thumbnailViewTop, thumbnailViewRight, thumbnailViewBottom);
         }
 
@@ -225,7 +230,6 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         LLog.i(TAG, "onCreate");
         mLetoolContext = (NpContext) getActivity();
         mGLController = mLetoolContext.getGLController();
-
         mHandler = new SynchronizedHandler(mGLController) {
 
             @Override
@@ -247,7 +251,7 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         initializeViews();
         initializeData();
         mEyePosition = new EyePosition(mLetoolContext.getActivityContext(), this);
-        mThumbnailView.startScatteringAnimation(mOpenCenter);
+        mThumbnailView.startScatteringAnimation(mOpenCenter, false, true, false);
     }
 
     private void initializeViews() {
@@ -322,13 +326,14 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
             mNativeButtons.setVisibility(View.INVISIBLE);
         } else {
             mNativeButtons.setVisibility(View.VISIBLE);
-            ImageView naviToPhoto = (ImageView) mNativeButtons.findViewById(R.id.gallery_action);
+            ImageView changeStyle = (ImageView) mNativeButtons.findViewById(R.id.action_gallery_style);
             if (GlobalPreference.isGalleryListMode(getActivity())) {
-                naviToPhoto.setImageResource(R.drawable.ic_gallery_show_grid);
+                changeStyle.setImageResource(R.drawable.ic_gallery_show_grid);
             } else {
-                naviToPhoto.setImageResource(R.drawable.ic_gallery_show_list);
+                changeStyle.setImageResource(R.drawable.ic_gallery_show_list);
             }
-            naviToPhoto.setOnClickListener(this);
+            changeStyle.setVisibility(View.VISIBLE);
+            changeStyle.setOnClickListener(this);
         }
 
     }
@@ -523,9 +528,13 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
                 dlg.show();
             } else if (v.getId() == R.id.selection_finished) {
                 mSelector.leaveSelectionMode();
-            } else if (v.getId() == R.id.gallery_action) {
+            } else if (v.getId() == R.id.action_gallery_style) {
                 GlobalPreference.setGalleryListMode(getActivity(), !GlobalPreference.isGalleryListMode(getActivity()));
-                mLetoolContext.pushContentFragment(new GalleryFragment(), this, false);
+                GalleryFragment f = new GalleryFragment();
+                Bundle data = new Bundle();
+                data.putBoolean(GALLERY_AINMATION_FROM_CENTER, false);
+                f.setArguments(data);
+                mLetoolContext.pushContentFragment(f, this, false);
             }
         }
     }

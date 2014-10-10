@@ -19,7 +19,8 @@ public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
 
     public ThumbnailSetListRenderer(NpContext activity, ThumbnailView thumbnailView, SelectionManager selector) {
         super(activity, thumbnailView);
-        mLabelSpec = ViewConfigs.AlbumSetListPage.get(activity.getActivityContext()).labelSpec;
+        mThumbnailLabelParam = ViewConfigs.AlbumSetListPage.get(activity.getActivityContext()).labelSpec;
+        mThumbnailParam = ViewConfigs.AlbumSetListPage.get(activity.getActivityContext()).albumSetListSpec;
         mListDividerTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_list_divider_color));
         mListDividerTexture.setSize(1, 1);
         mListBorderTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_gallery_border));
@@ -50,7 +51,7 @@ public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
             entry.isWaitLoadingDisplayed = true;
         }
         mListBorderTexture.draw(canvas, 0, 0, width, height);
-        drawContent(canvas, content, width - mLabelSpec.borderSize, height - mLabelSpec.borderSize, entry.rotation, mLabelSpec.borderSize);
+        drawContent(canvas, content, width - mThumbnailParam.thumbnailPadding, height - mThumbnailParam.thumbnailPadding, entry.rotation, mThumbnailParam.thumbnailPadding);
         return renderRequestFlags;
     }
 
@@ -79,7 +80,7 @@ public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
                 drawPressedFrame(canvas, width, height);
             }
         }
-        mListDividerTexture.draw(canvas, 0, height + mLabelSpec.borderSize / 3, width, 1);
+        mListDividerTexture.draw(canvas, 0, height + mThumbnailLabelParam.borderSize / 3, width, 1);
         return renderRequestFlags;
     }
 }

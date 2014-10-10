@@ -41,9 +41,9 @@ public class ThumbnailVideoRenderer extends ThumbnailBaseRender {
     private boolean mAnimatePressedUp;
     private MediaPath mHighlightItemPath = null;
 
-    private LabelSpec mLabelSpec;
+    private ThumbnailLabelParam mLabelSpec;
 
-    public static class LabelSpec {
+    public static class ThumbnailLabelParam {
 
         public int labelHeight;
         public int titleOffset;
@@ -78,7 +78,7 @@ public class ThumbnailVideoRenderer extends ThumbnailBaseRender {
         mIsCameraSource = isCameraSource;
         mThumbnailView = thumbnailView;
         mLabelSpec = ViewConfigs.VideoPage.get(context.getActivityContext()).labelSpec;
-        mWaitLoadingTexture = new ColorTexture(context.getActivityContext().getResources().getColor(R.color.thumbnail_placehoder));
+        mWaitLoadingTexture = new ColorTexture(context.getActivityContext().getResources().getColor(R.color.cp_thumbnail_placehoder));
         mWaitLoadingTexture.setSize(1, 1);
         mVideoOverlay = new ResourceTexture(context.getActivityContext(), R.drawable.ic_video_thumb);
         mVideoPlayIcon = new ResourceTexture(context.getActivityContext(), R.drawable.ic_movie_play);

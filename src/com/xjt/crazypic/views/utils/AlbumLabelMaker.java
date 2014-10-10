@@ -19,7 +19,7 @@ public class AlbumLabelMaker {
     private static final String TAG = AlbumLabelMaker.class.getSimpleName();
     // We keep a border around the album label to prevent aliasing
 
-    private final ThumbnailSetRenderer.LabelSpec mSpec;
+    private final ThumbnailSetRenderer.ThumbnailLabelParam mSpec;
     private final TextPaint mTitlePaint;
     private final TextPaint mDescPaint;
 
@@ -27,7 +27,7 @@ public class AlbumLabelMaker {
     private int mLabelWidth;
     private int mLabelHeight;
 
-    public AlbumLabelMaker(Context context, ThumbnailSetRenderer.LabelSpec spec) {
+    public AlbumLabelMaker(Context context, ThumbnailSetRenderer.ThumbnailLabelParam spec) {
         mSpec = spec;
         mTitlePaint = getTextPaint(spec.titleFontSize, context.getResources().getColor(R.color.cp_gallery_label_major_color), false);
         mDescPaint = getTextPaint(spec.countFontSize, context.getResources().getColor(R.color.cp_gallery_label_minor_color), false);

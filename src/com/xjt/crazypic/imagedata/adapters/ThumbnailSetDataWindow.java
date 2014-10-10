@@ -86,7 +86,7 @@ public class ThumbnailSetDataWindow implements ThumbnailSetDataLoader.DataChange
         private BitmapLoader coverLoader;
     }
 
-    public ThumbnailSetDataWindow(NpContext c, ThumbnailSetDataLoader source, ThumbnailSetRenderer.LabelSpec labelSpec, int cacheSize) {
+    public ThumbnailSetDataWindow(NpContext c, ThumbnailSetDataLoader source, ThumbnailSetRenderer.ThumbnailLabelParam labelSpec, int cacheSize) {
         source.setModelListener(this);
         mSource = source;
         mData = new AlbumSetEntry[cacheSize];

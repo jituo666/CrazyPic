@@ -1,7 +1,6 @@
 package com.xjt.crazypic.animations;
 
 import android.graphics.Rect;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.xjt.crazypic.views.opengl.GLESCanvas;
