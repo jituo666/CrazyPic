@@ -2,20 +2,24 @@
 <resources>
 
     <!-- configuration for album set grid page -->
-    <integer name="albumset_grid_rows_port">3</integer>
+    <integer name="albumset_grid_rows_port">2</integer>
+
+    <integer name="albumset_grid_gravity">0</integer>
 
     <dimen name="albumset_grid_label_height">36dp</dimen>
-    <dimen name="albumset_grid_thumbnail_gap">2dp</dimen>
-    <dimen name="albumset_grid_padding_left">2dp</dimen>
-    <dimen name="albumset_grid_padding_top">2dp</dimen>
-    <dimen name="albumset_grid_padding_bottom">2dp</dimen>
-    <dimen name="albumset_grid_padding_right">2dp</dimen>
+    <dimen name="albumset_grid_thumbnail_gap">8dp</dimen>
+    <dimen name="albumset_grid_padding_left">16dp</dimen>
+    <dimen name="albumset_grid_padding_top">16dp</dimen>
+    <dimen name="albumset_grid_padding_bottom">16dp</dimen>
+    <dimen name="albumset_grid_padding_right">16dp</dimen>
     <dimen name="albumset_grid_title_font_size">15sp</dimen>
     <dimen name="albumset_grid_count_font_size">13sp</dimen>
     <dimen name="albumset_grid_border_size">2sp</dimen>
 
     <!-- configuration for album set list page -->
     <integer name="albumset_list_rows_port">1</integer>
+
+    <integer name="albumset_list_gravity">-1</integer>
 
     <dimen name="albumset_list_label_height">32dp</dimen>
     <dimen name="albumset_list_thumbnail_gap">4dp</dimen>
@@ -25,7 +29,7 @@
     <dimen name="albumset_list_padding_right">4dp</dimen>
     <dimen name="albumset_list_title_font_size">15sp</dimen>
     <dimen name="albumset_list_count_font_size">13sp</dimen>
-    <dimen name="albumset_list_border_size">2sp</dimen>
+    <dimen name="albumset_list_border_size">5dp</dimen>
 
     <!-- configuration for album page -->
     <integer name="album_rows_port">3</integer>

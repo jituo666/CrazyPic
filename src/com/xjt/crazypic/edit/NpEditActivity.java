@@ -197,7 +197,6 @@ public class NpEditActivity extends FragmentActivity implements OnItemClickListe
     public void initActionBar() {
         mTopBar = new NpTopBar(this, (ViewGroup) findViewById(R.id.letool_top_bar_container));
         mTopBar.setOnActionMode(NpTopBar.ACTION_BAR_MODE_IMAGE_EDIT, this);
-        mTopBar.setTitleIcon(R.drawable.ic_action_previous_item);
         View operationPanel = mTopBar.getActionPanel();
         ImageView undo = (ImageView) operationPanel.findViewById(R.id.action_undo);
         ImageView redo = (ImageView) operationPanel.findViewById(R.id.action_redo);

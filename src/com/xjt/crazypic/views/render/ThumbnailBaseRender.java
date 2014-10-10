@@ -27,6 +27,31 @@ public abstract class ThumbnailBaseRender implements ThumbnailView.Renderer {
         mFramePressed = new NinePatchTexture(context, R.drawable.grid_pressed);
     }
 
+    protected void drawContent(GLESCanvas canvas, Texture content, int width, int height, int rotation, int expandPadding) {
+        canvas.save(GLESCanvas.SAVE_FLAG_MATRIX);
+
+        if (rotation != 0) {
+            int value = Math.min((width) / 2, (height) / 2); // 纠正绘制时的宽高不等问题
+            value = value + expandPadding / 2;
+            canvas.translate(value, value);
+            canvas.rotate(rotation, 0, 0, 1);
+            value = value - expandPadding / 2;
+            canvas.translate(-value, -value);
+            if (((rotation % 90) & 1) != 0) {
+                height = width;
+                width = height;
+            }
+            //Log.i(TAG, "----------drawContent with rotation:" + rotation);
+        } else if (expandPadding > 0) {
+            canvas.translate(expandPadding / 2, expandPadding / 2);
+        }
+        // Fit the content into the box
+        float scale = Math.min((float) width / content.getWidth(), (float) height / content.getHeight());
+        canvas.scale(scale, scale, scale);
+        content.draw(canvas, 0, 0);
+        canvas.restore();
+    }
+    
     protected void drawContent(GLESCanvas canvas, Texture content, int width, int height, int rotation) {
         canvas.save(GLESCanvas.SAVE_FLAG_MATRIX);
         // The content is always rendered in to the largest square that fits inside the thumbnail, aligned to the top of the thumbnail.

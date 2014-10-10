@@ -122,9 +122,8 @@ public class CameraSourceSettingFragment extends Fragment implements OnActionMod
     private void initBrowseActionBar() {
         NpTopBar topBar = mLetoolContext.getLetoolTopBar();
         topBar.setOnActionMode(NpTopBar.ACTION_BAR_MODE_SETTINGS, CameraSourceSettingFragment.this);
-        topBar.setTitleIcon(R.drawable.ic_action_previous_item);
         topBar.setTitleText(R.string.camera_source_dirs_title);
-        ViewGroup nativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.navi_buttons);
+        ViewGroup nativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.action_buttons);
         nativeButtons.setVisibility(View.GONE);
     }
 

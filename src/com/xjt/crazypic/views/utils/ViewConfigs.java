@@ -50,10 +50,11 @@ public final class ViewConfigs {
             paddingBottom = r.getDimensionPixelSize(R.dimen.albumset_grid_padding_bottom); // 整个屏幕下边距
 
             labelSpec = new ThumbnailSetRenderer.LabelSpec();
+            labelSpec.gravity = r.getInteger(R.integer.albumset_grid_gravity);
             labelSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_grid_label_height); // 标签的高度
             labelSpec.titleFontSize = r.getDimensionPixelSize(R.dimen.albumset_grid_title_font_size);
             labelSpec.countFontSize = r.getDimensionPixelSize(R.dimen.albumset_grid_count_font_size);
-            labelSpec.borderSize =  r.getDimensionPixelSize(R.dimen.albumset_grid_border_size);
+            labelSpec.borderSize = r.getDimensionPixelSize(R.dimen.albumset_grid_border_size);
             labelSpec.backgroundColor = r.getColor(R.color.albumset_label_background);
             labelSpec.titleColor = r.getColor(R.color.albumset_label_title);
             labelSpec.countColor = r.getColor(R.color.albumset_label_count);
@@ -92,10 +93,11 @@ public final class ViewConfigs {
             paddingBottom = r.getDimensionPixelSize(R.dimen.albumset_list_padding_bottom);
 
             labelSpec = new ThumbnailSetRenderer.LabelSpec();
+            labelSpec.gravity = r.getInteger(R.integer.albumset_list_gravity);
             labelSpec.labelHeight = r.getDimensionPixelSize(R.dimen.albumset_list_label_height);// 标签的高度，这个高度决定了缩略图的绘制范围（宽和高）
             labelSpec.titleFontSize = r.getDimensionPixelSize(R.dimen.albumset_list_title_font_size);
             labelSpec.countFontSize = r.getDimensionPixelSize(R.dimen.albumset_list_count_font_size);
-            labelSpec.borderSize =  r.getDimensionPixelSize(R.dimen.albumset_grid_border_size);
+            labelSpec.borderSize = r.getDimensionPixelSize(R.dimen.albumset_list_border_size);
             labelSpec.backgroundColor = r.getColor(R.color.albumset_label_background);
             labelSpec.titleColor = r.getColor(R.color.albumset_label_title);
             labelSpec.countColor = r.getColor(R.color.albumset_label_count);

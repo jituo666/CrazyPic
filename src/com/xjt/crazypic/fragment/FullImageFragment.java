@@ -434,9 +434,8 @@ public class FullImageFragment extends Fragment implements OnActionModeListener,
     private void initBars() {
         NpTopBar topBar = mLetoolContext.getLetoolTopBar();
         topBar.setOnActionMode(NpTopBar.ACTION_BAR_MODE_FULL_IMAGE, this);
-        topBar.setTitleIcon(R.drawable.ic_action_previous_item);
         topBar.setVisible(View.VISIBLE, false);
-        ViewGroup nativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.navi_buttons);
+        ViewGroup nativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.action_buttons);
         nativeButtons.setVisibility(View.GONE);
         //
         NpBottomBar bottomBar = mLetoolContext.getLetoolBottomBar();

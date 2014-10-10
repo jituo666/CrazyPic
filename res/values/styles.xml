@@ -2,6 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="MainTheme" parent="@android:style/Theme">
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -13,7 +14,7 @@
     <style name="MyWidget.ActionBarPanel">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/letool_action_bar_height</item>
-        <item name="android:background">@color/np_common_bar_bg</item>
+        <item name="android:background">@drawable/cp_main_navi_bar_bg</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 

@@ -29,8 +29,8 @@ public class AlbumLabelMaker {
 
     public AlbumLabelMaker(Context context, ThumbnailSetRenderer.LabelSpec spec) {
         mSpec = spec;
-        mTitlePaint = getTextPaint(spec.titleFontSize, context.getResources().getColor(R.color.np_major_text_color), false);
-        mDescPaint = getTextPaint(spec.countFontSize, context.getResources().getColor(R.color.np_minor_text_color), false);
+        mTitlePaint = getTextPaint(spec.titleFontSize, context.getResources().getColor(R.color.cp_gallery_label_major_color), false);
+        mDescPaint = getTextPaint(spec.countFontSize, context.getResources().getColor(R.color.cp_gallery_label_minor_color), false);
         mBorderSize = spec.borderSize;
     }
 
@@ -101,17 +101,17 @@ public class AlbumLabelMaker {
             if (jc.isCancelled())
                 return null;
 
-            canvas.translate(2 * mBorderSize, (mLabelHeight) / 2 - 2 * mBorderSize);
+            canvas.translate(2 * mBorderSize, (mLabelHeight) / 2 - mBorderSize/2);
             mTitlePaint.setTextAlign(Paint.Align.LEFT);
-            mTitle = TextUtils.ellipsize(mTitle, mTitlePaint, mLabelWidth - 2 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
-            canvas.drawText(mTitle, 0, 0, mTitlePaint);
+            mTitle = TextUtils.ellipsize(mTitle, mTitlePaint, mLabelWidth - 4 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
+            canvas.drawText(mTitle, mSpec.gravity < 0 ? 0 : (mLabelWidth - mTitlePaint.measureText(mTitle)) / 2, 0, mTitlePaint);
             if (jc.isCancelled())
                 return null;
             // draw desc
             canvas.translate(0, (mLabelHeight / 2));
             mDescPaint.setTextAlign(Paint.Align.LEFT);
-            mDesc = TextUtils.ellipsize(mDesc, mDescPaint, mLabelWidth - 2 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
-            canvas.drawText(mDesc, 0, 0, mDescPaint);
+            mDesc = TextUtils.ellipsize(mDesc, mDescPaint, mLabelWidth - 4 * mBorderSize, TextUtils.TruncateAt.MIDDLE).toString();
+            canvas.drawText(mDesc, mSpec.gravity < 0 ? 0 : (mLabelWidth - mDescPaint.measureText(mDesc)) / 2, 0, mDescPaint);
             return bitmap;
         }
     }

@@ -1,8 +1,6 @@
 
 package com.xjt.crazypic.views.render;
 
-import android.content.Context;
-
 import com.xjt.crazypic.NpContext;
 import com.xjt.crazypic.R;
 import com.xjt.crazypic.imagedata.adapters.ThumbnailSetDataWindow;
@@ -49,6 +47,7 @@ public abstract class ThumbnailSetRenderer extends ThumbnailBaseRender {
         public int titleColor;
         public int countColor;
         public int borderSize;
+        public int gravity;
     }
 
     private class MyCacheListener implements ThumbnailSetDataWindow.Listener {

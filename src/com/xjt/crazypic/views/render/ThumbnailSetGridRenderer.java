@@ -1,19 +1,25 @@
+
 package com.xjt.crazypic.views.render;
 
 import com.xjt.crazypic.NpContext;
+import com.xjt.crazypic.R;
 import com.xjt.crazypic.imagedata.adapters.ThumbnailSetDataWindow.AlbumSetEntry;
 import com.xjt.crazypic.selectors.SelectionManager;
 import com.xjt.crazypic.view.ThumbnailView;
 import com.xjt.crazypic.views.opengl.GLESCanvas;
+import com.xjt.crazypic.views.opengl.ResourceTexture;
 import com.xjt.crazypic.views.opengl.Texture;
 import com.xjt.crazypic.views.opengl.UploadedBitmapTexture;
 import com.xjt.crazypic.views.utils.ViewConfigs;
 
 public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
 
+    private ResourceTexture mBorderTexture;
+
     public ThumbnailSetGridRenderer(NpContext activity, ThumbnailView thumbnailView, SelectionManager selector) {
         super(activity, thumbnailView);
         mLabelSpec = ViewConfigs.AlbumSetGridPage.get(activity.getActivityContext()).labelSpec;
+        mBorderTexture = new ResourceTexture(activity.getActivityContext(), R.drawable.ic_gallery_border);
     }
 
     protected static Texture checkLabelTexture(Texture texture) {
@@ -25,9 +31,12 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
         AlbumSetEntry entry = mDataWindow.get(index);
         int renderRequestFlags = 0;
         if (entry != null) {
+            canvas.translate(mLabelSpec.labelHeight / 4, mLabelSpec.labelHeight / 4);
+            width = width - mLabelSpec.labelHeight / 2;
+            height = height - mLabelSpec.labelHeight / 2;
+            renderRequestFlags |= renderOverlay(canvas, entry, index, width, height - mLabelSpec.labelHeight);
             renderRequestFlags |= renderContent(canvas, entry, width, height - mLabelSpec.labelHeight);
             renderRequestFlags |= renderLabel(canvas, entry, width, height);
-            renderRequestFlags |= renderOverlay(canvas, entry, index, width, height - mLabelSpec.labelHeight);
         }
         return renderRequestFlags;
     }
@@ -39,7 +48,7 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
             content = mDefaulTexture;
             entry.isWaitLoadingDisplayed = true;
         }
-        drawContent(canvas, content, width, height, entry.rotation);
+        drawContent(canvas, content, width - mLabelSpec.labelHeight, height - mLabelSpec.labelHeight, entry.rotation, mLabelSpec.labelHeight);
         return renderRequestFlags;
     }
 
@@ -57,6 +66,8 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
     protected int renderOverlay(GLESCanvas canvas, AlbumSetEntry entry, int index, int width, int height) {
         int renderRequestFlags = 0;
 
+        mBorderTexture.draw(canvas, 0, 0, width, height);
+
         if (mPressedIndex == index) {
             if (mAnimatePressedUp) {
                 drawPressedUpFrame(canvas, width, height);
@@ -71,7 +82,5 @@ public class ThumbnailSetGridRenderer extends ThumbnailSetRenderer {
         }
         return renderRequestFlags;
     }
-
-
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="gl_background_color">#FF43494E</color>
+    <color name="gl_background_color">#FFFFFFFF</color>
     <color name="thumbnail_placehoder">#FF4C5357</color>
     <color name="full_image_placeholder">#FF4C5357</color>
 
@@ -36,4 +36,9 @@
     <drawable name="np_slid_menu_divider_bg">#FF363B3F</drawable>
 
 
+    <color name="cp_gallery_list_divider_color">#FFE7D1D7</color>
+    <color name="cp_gallery_label_major_color">#FF383030</color>
+    <color name="cp_gallery_label_minor_color">#FF8C8C8C</color>
+    <color name="cp_gallery_gallery_border">#FF383030</color>
+    <color name="cp_navi_text_color">#FFFFFFFF</color>
 </resources>

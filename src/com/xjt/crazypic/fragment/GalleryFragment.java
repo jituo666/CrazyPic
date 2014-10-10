@@ -107,11 +107,20 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             mEyePosition.resetPosition();
             int paddingLeft = 0, paddingRight = 0, paddingTop = 0, paddingBottom = 0;
-            ViewConfigs.AlbumSetGridPage config = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext());
-            paddingLeft = config.paddingLeft;
-            paddingRight = config.paddingRight;
-            paddingTop = config.paddingTop;
-            paddingBottom = config.paddingBottom;
+            if (mLetoolContext.isImagePicking() || GlobalPreference.isGalleryListMode(getActivity())) {
+                ViewConfigs.AlbumSetListPage config = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext());
+                paddingLeft = config.paddingLeft;
+                paddingRight = config.paddingRight;
+                paddingTop = config.paddingTop;
+                paddingBottom = config.paddingBottom;
+            } else {
+                ViewConfigs.AlbumSetGridPage config = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext());
+                paddingLeft = config.paddingLeft;
+                paddingRight = config.paddingRight;
+                paddingTop = config.paddingTop;
+                paddingBottom = config.paddingBottom;
+            }
+
 
             NpTopBar actionBar = mLetoolContext.getLetoolTopBar();
             int thumbnailViewLeft = left + paddingLeft;
@@ -303,22 +312,21 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
     private void initBars() {
         NpTopBar topBar = mLetoolContext.getLetoolTopBar();
         topBar.setOnActionMode(NpTopBar.ACTION_BAR_MODE_BROWSE, this);
-        topBar.setTitleIcon(R.drawable.ic_action_previous_item);
         if (mLetoolContext.isImagePicking()) {
             topBar.setTitleText(R.string.pick_picture_dir);
         } else {
             topBar.setTitleText(R.string.system_gallery);
         }
-        mNativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.navi_buttons);
+        mNativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.action_buttons);
         if (mLetoolContext.isImagePicking()) {
             mNativeButtons.setVisibility(View.INVISIBLE);
         } else {
             mNativeButtons.setVisibility(View.VISIBLE);
             ImageView naviToPhoto = (ImageView) mNativeButtons.findViewById(R.id.gallery_action);
             if (GlobalPreference.isGalleryListMode(getActivity())) {
-                naviToPhoto.setImageResource(R.drawable.ic_action_feedback);
+                naviToPhoto.setImageResource(R.drawable.ic_gallery_show_grid);
             } else {
-                naviToPhoto.setImageResource(R.drawable.ic_action_delete);
+                naviToPhoto.setImageResource(R.drawable.ic_gallery_show_list);
             }
             naviToPhoto.setOnClickListener(this);
         }
@@ -479,7 +487,7 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.action_navi) {
+        if (v.getId() == R.id.navi_button) {
             getActivity().finish();
         } else {
             if (!mIsSDCardMountedCorreclty)

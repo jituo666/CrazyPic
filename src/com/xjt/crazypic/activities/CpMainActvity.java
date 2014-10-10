@@ -9,6 +9,7 @@ import com.xjt.crazypic.stat.StatConstants;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -38,8 +39,14 @@ public class CpMainActvity extends Activity implements OnClickListener {
         mFeedBack.setOnClickListener(this);
         mBeautify.setOnClickListener(this);
         mBrowse.setOnClickListener(this);
-        mInterest.setOnClickListener(this);
         mGuide.setOnClickListener(this);
+        mInterest.setOnClickListener(this);
+        //
+        ImageViewTouchListener l = new ImageViewTouchListener();
+        mBeautify.setOnTouchListener(l);
+        mBrowse.setOnTouchListener(l);
+        mInterest.setOnTouchListener(l);
+        mGuide.setOnTouchListener(l);
     }
 
     @Override
@@ -78,4 +85,17 @@ public class CpMainActvity extends Activity implements OnClickListener {
         }
     }
 
+    private class ImageViewTouchListener implements View.OnTouchListener {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                ((ImageView) v).setImageResource(R.drawable.ic_main_fun_pressed);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                ((ImageView) v).setImageDrawable(null);
+            }
+            return false;
+        }
+
+    }
 }

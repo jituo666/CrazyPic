@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xjt.crazypic.selectors.SelectionManager;
@@ -45,13 +44,14 @@ public class NpTopBar {
     };
 
     public static final int ACTION_MODE_TITLE_VIEW_ID[] = {
-            R.id.navi_text,
+            R.id.navi_button,
             R.id.selection_counter,
-            R.id.navi_text,
-            R.id.navi_text
+            R.id.navi_button,
+            R.id.navi_button
     };
 
     public static final int ACTION_BUTTON_IDS[] = {
+            R.id.navi_button,
             R.id.action_navi,
             R.id.operation_multi_share,
             R.id.operation_delete,
@@ -101,13 +101,6 @@ public class NpTopBar {
 
     public int getActionBarMode() {
         return mCurActionBarMode;
-    }
-
-    public void setTitleIcon(int resId) {
-        if (mCurActionBarMode != ACTION_BAR_MODE_SELECTION) {
-            ImageView natviButton = (ImageView) mActionModePanel.findViewById(R.id.action_navi_tip);
-            natviButton.setImageResource(resId);
-        }
     }
 
     public void setTitleText(CharSequence title) {

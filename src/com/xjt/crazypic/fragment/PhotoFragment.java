@@ -1,4 +1,3 @@
-
 package com.xjt.crazypic.fragment;
 
 import com.android.gallery3d.common.Utils;
@@ -300,7 +299,7 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
         NpTopBar topBar = mLetoolContext.getLetoolTopBar();
         topBar.setOnActionMode(NpTopBar.ACTION_BAR_MODE_BROWSE, this);
         topBar.setVisible(View.VISIBLE, false);
-        ViewGroup nativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.navi_buttons);
+        ViewGroup nativeButtons = (ViewGroup) topBar.getActionPanel().findViewById(R.id.action_buttons);
 
         if (mLetoolContext.isImagePicking()) {
             topBar.setTitleText(R.string.pick_picture_item);
@@ -310,7 +309,6 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
         }
 
         nativeButtons.setVisibility(View.INVISIBLE);
-        topBar.setTitleIcon(R.drawable.ic_action_previous_item);
         NpBottomBar bottomBar = mLetoolContext.getLetoolBottomBar();
         bottomBar.setVisible(View.GONE, false);
     }
@@ -429,7 +427,7 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
     @Override
     public void onClick(View v) {
         hideGuideTip();
-        if (v.getId() == R.id.action_navi) {
+        if (v.getId() == R.id.navi_button) {
             mLetoolContext.popContentFragment();
         } else {
             if (!mIsSDCardMountedCorreclty)

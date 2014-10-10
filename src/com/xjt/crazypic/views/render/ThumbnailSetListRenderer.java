@@ -14,13 +14,16 @@ import com.xjt.crazypic.views.utils.ViewConfigs;
 
 public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
 
+    protected ColorTexture mListBorderTexture;
     protected ColorTexture mListDividerTexture;
 
     public ThumbnailSetListRenderer(NpContext activity, ThumbnailView thumbnailView, SelectionManager selector) {
         super(activity, thumbnailView);
         mLabelSpec = ViewConfigs.AlbumSetListPage.get(activity.getActivityContext()).labelSpec;
-        mListDividerTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.thumbnail_placehoder));
+        mListDividerTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_list_divider_color));
         mListDividerTexture.setSize(1, 1);
+        mListBorderTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_gallery_border));
+        mListBorderTexture.setSize(1, 1);
     }
 
     protected static Texture checkLabelTexture(Texture texture) {
@@ -46,7 +49,8 @@ public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
             content = mDefaulTexture;
             entry.isWaitLoadingDisplayed = true;
         }
-        drawContent(canvas, content, width, height, entry.rotation);
+        mListBorderTexture.draw(canvas, 0, 0, width, height);
+        drawContent(canvas, content, width - mLabelSpec.borderSize, height - mLabelSpec.borderSize, entry.rotation, mLabelSpec.borderSize);
         return renderRequestFlags;
     }
 
@@ -75,7 +79,7 @@ public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
                 drawPressedFrame(canvas, width, height);
             }
         }
-        mListDividerTexture.draw(canvas, 0, height + 2, width, 4);
+        mListDividerTexture.draw(canvas, 0, height + mLabelSpec.borderSize / 3, width, 1);
         return renderRequestFlags;
     }
 }
