@@ -74,7 +74,7 @@ public class LetoolUtils {
     private static void initializeThumbnailSizes(DisplayMetrics metrics, Resources r) {
         int maxPixels = Math.min(metrics.heightPixels, metrics.widthPixels);
         // For screen-nails, we never need to completely fill the screen
-        MediaItem.setThumbnailSizes(maxPixels / 3 * 2, maxPixels / 3);
+        MediaItem.setThumbnailSizes(maxPixels / 3 * 2, maxPixels / 4);
         TiledScreenNail.setMaxSide(maxPixels / 2);
     }
 

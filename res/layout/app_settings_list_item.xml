@@ -28,7 +28,7 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@id/toggle"
         android:gravity="center_vertical"
-        android:textColor="@color/np_major_text_color"
+        android:textColor="@color/cp_text_major_color"
         android:textSize="@dimen/common_text_size_middle" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_below="@+id/item_major_title"
         android:layout_toLeftOf="@id/toggle"
         android:gravity="center_vertical"
-        android:textColor="@color/np_minor_text_color"
+        android:textColor="@color/cp_text_minor_color"
         android:textSize="@dimen/common_text_size_small" />
 
 </com.xjt.crazypic.settings.NpPreference>

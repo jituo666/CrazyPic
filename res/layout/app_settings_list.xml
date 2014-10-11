@@ -2,13 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/np_main_bg"
+    android:background="@color/cp_main_background_color"
     android:orientation="vertical" >
 
-    <include
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        layout="@layout/cp_title_bar" />
+        android:background="@drawable/cp_navi_bar_bg_color"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/navi_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:drawableLeft="@drawable/ic_action_back"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/common_settings"
+            android:textColor="@color/cp_navi_text_color"
+            android:textSize="@dimen/common_title_text_size" />
+    </LinearLayout>
 
     <ScrollView
         style="@style/MyWidget.ScrollView"
@@ -26,8 +40,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/np_list_divider_bg" />
+                android:layout_height="@dimen/cp_list_divider_height"
+                android:background="@color/cp_list_divider_color" />
 
             <include
                 android:id="@+id/remember_ui_switch"
@@ -35,8 +49,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/np_list_divider_bg" />
+                android:layout_height="@dimen/cp_list_divider_height"
+                android:background="@color/cp_list_divider_color" />
 
             <include
                 android:id="@+id/clear_cache"
@@ -44,8 +58,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/np_list_divider_bg" />
+                android:layout_height="@dimen/cp_list_divider_height"
+                android:background="@color/cp_list_divider_color" />
 
             <include
                 android:id="@+id/version_update_check"
@@ -53,8 +67,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/np_list_divider_bg" />
+                android:layout_height="@dimen/cp_list_divider_height"
+                android:background="@color/cp_list_divider_color" />
 
             <include
                 android:id="@+id/app_about"
@@ -62,8 +76,8 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@drawable/np_list_divider_bg" />
+                android:layout_height="@dimen/cp_list_divider_height"
+                android:background="@color/cp_list_divider_color" />
         </LinearLayout>
     </ScrollView>
 

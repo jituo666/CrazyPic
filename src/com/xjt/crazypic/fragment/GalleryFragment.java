@@ -259,13 +259,13 @@ public class GalleryFragment extends Fragment implements OnActionModeListener, E
         mSelector.setSelectionListener(this);
         boolean isListView = mLetoolContext.isImagePicking();
         ThumbnailLayoutBase layout = null;
-        ThumbnailLayoutParam param = null;
+        ThumbnailLayoutParam layoutParam = null;
         if (isListView || GlobalPreference.isGalleryListMode(getActivity())) {
-            param = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext()).albumSetListSpec;
-            layout = new ThumbnailSetLayout(param, true);
+            layoutParam = ViewConfigs.AlbumSetListPage.get(mLetoolContext.getActivityContext()).albumSetListSpec;
+            layout = new ThumbnailSetLayout(layoutParam, true);
         } else {
-            param = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext()).albumSetGridSpec;
-            layout = new ThumbnailSetLayout(param, false);
+            layoutParam = ViewConfigs.AlbumSetGridPage.get(mLetoolContext.getActivityContext()).albumSetGridSpec;
+            layout = new ThumbnailSetLayout(layoutParam, false);
         }
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setBackgroundColor(

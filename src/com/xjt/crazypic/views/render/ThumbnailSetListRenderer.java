@@ -21,9 +21,9 @@ public class ThumbnailSetListRenderer extends ThumbnailSetRenderer {
         super(activity, thumbnailView);
         mThumbnailLabelParam = ViewConfigs.AlbumSetListPage.get(activity.getActivityContext()).labelSpec;
         mThumbnailParam = ViewConfigs.AlbumSetListPage.get(activity.getActivityContext()).albumSetListSpec;
-        mListDividerTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_list_divider_color));
+        mListDividerTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_list_divider_color));
         mListDividerTexture.setSize(1, 1);
-        mListBorderTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_gallery_border));
+        mListBorderTexture = new ColorTexture(activity.getActivityContext().getResources().getColor(R.color.cp_gallery_list_item_border));
         mListBorderTexture.setSize(1, 1);
     }
 

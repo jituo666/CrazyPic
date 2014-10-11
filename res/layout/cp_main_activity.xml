@@ -85,6 +85,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal" >
 
         <ImageView
@@ -92,6 +93,7 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
             android:scaleType="center"
             android:src="@drawable/cp_asist_fun_settings_bg" />
 

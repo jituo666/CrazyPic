@@ -1,4 +1,3 @@
-
 package com.xjt.crazypic.edit.imageshow;
 
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.drawable.NinePatchDrawable;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
@@ -61,7 +59,7 @@ public class ImageShow extends View implements OnGestureListener, ScaleGestureDe
     private static int UNVEIL_HORIZONTAL = 1;
     private static int UNVEIL_VERTICAL = 2;
 
-    private NinePatchDrawable mShadow = null;
+    protected Paint mShadowPaint = new Paint();
     private Rect mShadowBounds = new Rect();
     private int mShadowMargin = 15; // not scaled, fixed in the asset
     private boolean mShadowDrawn = false;
@@ -158,7 +156,9 @@ public class ImageShow extends View implements OnGestureListener, ScaleGestureDe
         mOriginalTextSize = res.getDimensionPixelSize(R.dimen.photoeditor_original_text_size);
         mBackgroundColor = res.getColor(R.color.background_screen);
         mOriginalText = res.getString(R.string.original);
-        mShadow = (NinePatchDrawable) res.getDrawable(R.drawable.geometry_shadow);
+        mShadowPaint.setColor(Color.BLACK);
+        mShadowPaint.setStrokeWidth(3);
+        mShadowPaint.setStyle(Paint.Style.STROKE);//设置空心
         setupGestureDetector(context);
         mActivity = (NpEditActivity) context;
         if (sMask == null) {
@@ -451,9 +451,8 @@ public class ImageShow extends View implements OnGestureListener, ScaleGestureDe
 
     private void drawShadow(Canvas canvas, Rect d) {
         if (!mShadowDrawn) {
-            mShadowBounds.set(d.left - mShadowMargin, d.top - mShadowMargin, d.right + mShadowMargin, d.bottom + mShadowMargin);
-            mShadow.setBounds(mShadowBounds);
-            mShadow.draw(canvas);
+            mShadowBounds.set(d.left, d.top, d.right, d.bottom);
+            canvas.drawRect(mShadowBounds, mShadowPaint);
             mShadowDrawn = true;
         }
     }

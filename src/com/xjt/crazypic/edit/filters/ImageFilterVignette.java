@@ -117,8 +117,7 @@ public class ImageFilterVignette extends ImageFilterRS {
         if (SIMPLE_ICONS && FilterEnvironment.QUALITY_ICON == quality) {
             if (mOverlayBitmap == null) {
                 Resources res = getEnvironment().getPipeline().getResources();
-                mOverlayBitmap = IconUtilities.getFXBitmap(res,
-                        R.drawable.filtershow_icon_vignette);
+                mOverlayBitmap = IconUtilities.getFXBitmap(res,R.drawable.filtershow_icon_vignette);
             }
 
             Canvas c = new Canvas(bitmap);

@@ -11,7 +11,6 @@
     <dimen name="albumset_grid_padding_top">16dp</dimen>
     <dimen name="albumset_grid_padding_bottom">16dp</dimen>
     <dimen name="albumset_grid_padding_right">16dp</dimen>
-    
     <dimen name="albumset_grid_label_height">36dp</dimen>
     <dimen name="albumset_grid_title_font_size">15sp</dimen>
     <dimen name="albumset_grid_count_font_size">13sp</dimen>
@@ -19,16 +18,14 @@
 
     <!-- configuration for album set list page -->
     <integer name="albumset_list_rows_port">1</integer>
-
     <integer name="albumset_list_gravity">-1</integer>
 
     <dimen name="albumset_list_thumbnail_padding">5.5dp</dimen>
-    <dimen name="albumset_list_thumbnail_gap">3dp</dimen>
-    <dimen name="albumset_list_padding_left">3dp</dimen>
-    <dimen name="albumset_list_padding_top">3dp</dimen>
-    <dimen name="albumset_list_padding_bottom">3dp</dimen>
-    <dimen name="albumset_list_padding_right">3dp</dimen>
-    
+    <dimen name="albumset_list_thumbnail_gap">2dp</dimen>
+    <dimen name="albumset_list_padding_left">2dp</dimen>
+    <dimen name="albumset_list_padding_top">2dp</dimen>
+    <dimen name="albumset_list_padding_bottom">2dp</dimen>
+    <dimen name="albumset_list_padding_right">2dp</dimen>
     <dimen name="albumset_list_label_height">32dp</dimen>
     <dimen name="albumset_list_title_font_size">15sp</dimen>
     <dimen name="albumset_list_count_font_size">13sp</dimen>
@@ -37,11 +34,11 @@
     <!-- configuration for album page -->
     <integer name="album_rows_port">3</integer>
 
-    <dimen name="album_thumbnail_gap">4dp</dimen>
-    <dimen name="album_padding_left">4dp</dimen>
-    <dimen name="album_padding_top">4dp</dimen>
-    <dimen name="album_padding_bottom">4dp</dimen>
-    <dimen name="album_padding_right">4dp</dimen>
+    <dimen name="album_thumbnail_gap">2dp</dimen>
+    <dimen name="album_padding_left">2dp</dimen>
+    <dimen name="album_padding_top">2dp</dimen>
+    <dimen name="album_padding_bottom">2dp</dimen>
+    <dimen name="album_padding_right">2dp</dimen>
 
     <!-- configuration for video set page -->
     <integer name="videoset_rows_port">2</integer>
@@ -96,5 +93,6 @@
     <dimen name="common_scroll_bar_width">10dp</dimen>
     <dimen name="common_scroll_bar_height">48dp</dimen>
     <dimen name="common_action_view_width">56dp</dimen>
+    <dimen name="cp_list_divider_height">1px</dimen>
 
 </resources>

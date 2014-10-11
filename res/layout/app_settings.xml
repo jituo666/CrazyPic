@@ -16,7 +16,7 @@
         android:id="@+id/local_image_browse_main_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/np_main_bg"
+        android:background="@color/cp_main_background_color"
         android:orientation="vertical" >
     </FrameLayout>
 

@@ -11,7 +11,6 @@ import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
 import com.umeng.update.UpdateStatus;
-import com.xjt.crazypic.NpContext;
 import com.xjt.crazypic.R;
 import com.xjt.crazypic.imagedata.blobcache.BlobCacheManager;
 import com.xjt.crazypic.preference.GlobalPreference;
@@ -41,13 +40,14 @@ public class CpSettingsActivity extends Activity implements OnClickListener {
     private NpPreference mClearCache;
     private NpPreference mVersionCheck;
     private NpPreference mAppAbout;
-    private NpContext mLetoolContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_settings_list);
-        setTitle();
+
+        TextView titleView = (TextView) findViewById(R.id.navi_button);
+        titleView.setOnClickListener(this);
         mAnimSwitch = (NpPreference) findViewById(R.id.anim_switch);
         mRememberUISwitch = (NpPreference) findViewById(R.id.remember_ui_switch);
         mClearCache = (NpPreference) findViewById(R.id.clear_cache);
@@ -90,8 +90,6 @@ public class CpSettingsActivity extends Activity implements OnClickListener {
             mRememberUISwitch.setChecked(!mRememberUISwitch.isChecked());
             GlobalPreference.setRememberLastUI(this, mRememberUISwitch.isChecked());
             GlobalPreference.setLastUI(this, "");
-        } else if (v.getId() == R.id.action_navi) {
-            mLetoolContext.popContentFragment();
         } else if (v.getId() == R.id.clear_cache) {
             if (StorageUtils.externalStorageAvailable()) {
                 MobclickAgent.onEvent(this, StatConstants.EVENT_KEY_CLEAR_CAHCE);
@@ -127,7 +125,7 @@ public class CpSettingsActivity extends Activity implements OnClickListener {
             });
             UmengUpdateAgent.setUpdateOnlyWifi(false);
             UmengUpdateAgent.forceUpdate(context);
-            progressDialog.setMessage(mLetoolContext.getActivityContext().getString(R.string.common_update_checking));
+            progressDialog.setMessage(getString(R.string.common_update_checking));
             progressDialog.setIndeterminate(true);
             progressDialog.setCancelable(true);
             progressDialog.show();
@@ -138,11 +136,6 @@ public class CpSettingsActivity extends Activity implements OnClickListener {
         } else if (v.getId() == R.id.navi_button) {
             finish();
         }
-    }
-
-    private void setTitle() {
-        TextView titleView = (TextView) findViewById(R.id.title);
-        titleView.setText(R.string.common_settings);
     }
 
     private String getVersion() {
@@ -175,7 +168,7 @@ public class CpSettingsActivity extends Activity implements OnClickListener {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            BlobCacheManager.clearCachedFiles(mLetoolContext.getActivityContext());
+            BlobCacheManager.clearCachedFiles(CpSettingsActivity.this);
             ImageLoader.getInstance().clearDiscCache();
             return null;
         }

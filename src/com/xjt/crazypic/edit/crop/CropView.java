@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -31,7 +32,6 @@ public class CropView extends View {
     private Bitmap mBitmap;
     private Paint mPaint = new Paint();
 
-    private NinePatchDrawable mShadow;
     private CropObject mCropObj = null;
     private Drawable mCropIndicator;
     private int mIndicatorSize;
@@ -47,6 +47,8 @@ public class CropView extends View {
     private float mSpotY = 0;
     private boolean mDoSpot = false;
 
+
+    protected Paint mShadowPaint = new Paint();
     private int mShadowMargin = 15;
     private int mMargin = 32;
     private int mOverlayShadowColor = 0xCF000000;
@@ -80,7 +82,6 @@ public class CropView extends View {
 
     private void setup(Context context) {
         Resources rsc = context.getResources();
-        mShadow = (NinePatchDrawable) rsc.getDrawable(R.drawable.geometry_shadow);
         mCropIndicator = rsc.getDrawable(R.drawable.camera_crop);
         mIndicatorSize = (int) rsc.getDimension(R.dimen.crop_indicator_size);
         mShadowMargin = (int) rsc.getDimension(R.dimen.shadow_margin);
@@ -92,6 +93,9 @@ public class CropView extends View {
         mWPMarkerColor = (int) rsc.getColor(R.color.crop_wp_markers);
         mDashOnLength = rsc.getDimension(R.dimen.wp_selector_dash_length);
         mDashOffLength = rsc.getDimension(R.dimen.wp_selector_off_length);
+        mShadowPaint.setColor(Color.BLACK);
+        mShadowPaint.setStrokeWidth(3);
+        mShadowPaint.setStyle(Paint.Style.STROKE);//设置空心
     }
 
     public void initialize(Bitmap image, RectF newCropBounds, RectF newPhotoBounds, int rotation) {
@@ -320,8 +324,7 @@ public class CropView extends View {
             mScreenImageBounds.roundOut(mShadowBounds);
             mShadowBounds.set(mShadowBounds.left - margin, mShadowBounds.top -
                     margin, mShadowBounds.right + margin, mShadowBounds.bottom + margin);
-            mShadow.setBounds(mShadowBounds);
-            mShadow.draw(canvas);
+            canvas.drawRect(mShadowBounds, mShadowPaint);
         }
 
         mPaint.setAntiAlias(true);

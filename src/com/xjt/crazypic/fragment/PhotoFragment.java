@@ -270,6 +270,11 @@ public class PhotoFragment extends Fragment implements EyePosition.EyePositionLi
         mSelector.setSelectionListener(this);
         mConfig = ViewConfigs.AlbumPage.get(mLetoolContext.getActivityContext());
         ThumbnailLayoutBase layout;
+        if (mLetoolContext.isImagePicking() || GlobalPreference.isGalleryListMode(getActivity())) {
+            mConfig.albumSpec.rowsPort = 4;
+        } else {
+            mConfig.albumSpec.rowsPort = 3;
+        }
         layout = new ThumbnailLayout(mConfig.albumSpec);
         mThumbnailView = new ThumbnailView(mLetoolContext, layout);
         mThumbnailView.setOverscrollEffect(ThumbnailView.OVERSCROLL_3D);
