@@ -20,7 +20,7 @@
             android:drawableTop="@drawable/ic_action_edit"
             android:gravity="center_horizontal"
             android:text="@string/common_edit"
-            android:textColor="@color/np_minor_button_color"
+            android:textColor="@color/cp_navi_text_color"
             android:textSize="12sp" />
 
         <ImageView
@@ -44,7 +44,7 @@
         android:drawableTop="@drawable/ic_action_share"
         android:gravity="center_horizontal"
         android:text="@string/common_share"
-        android:textColor="@color/np_minor_button_color"
+        android:textColor="@color/cp_navi_text_color"
         android:textSize="12sp" />
 
     <TextView
@@ -57,7 +57,7 @@
         android:drawableTop="@drawable/ic_action_info"
         android:gravity="center_horizontal"
         android:text="@string/common_detail"
-        android:textColor="@color/np_minor_button_color"
+        android:textColor="@color/cp_navi_text_color"
         android:textSize="12sp" />
 
     <TextView
@@ -70,7 +70,7 @@
         android:drawableTop="@drawable/ic_action_delete"
         android:gravity="center_horizontal"
         android:text="@string/common_delete"
-        android:textColor="@color/np_minor_button_color"
+        android:textColor="@color/cp_navi_text_color"
         android:textSize="12sp" />
 
 </LinearLayout>

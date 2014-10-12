@@ -157,7 +157,7 @@ public class ImageShow extends View implements OnGestureListener, ScaleGestureDe
         mBackgroundColor = res.getColor(R.color.background_screen);
         mOriginalText = res.getString(R.string.original);
         mShadowPaint.setColor(Color.BLACK);
-        mShadowPaint.setStrokeWidth(3);
+        mShadowPaint.setStrokeWidth(4);
         mShadowPaint.setStyle(Paint.Style.STROKE);//设置空心
         setupGestureDetector(context);
         mActivity = (NpEditActivity) context;

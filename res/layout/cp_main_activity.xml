@@ -93,7 +93,7 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="12dp"
             android:scaleType="center"
             android:src="@drawable/cp_asist_fun_settings_bg" />
 

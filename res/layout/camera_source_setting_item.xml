@@ -59,6 +59,6 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="12dp"
         android:layout_toRightOf="@id/text_count"
-        android:background="@drawable/np_list_divider_bg" />
+        android:background="@color/cp_list_divider_color" />
 
 </RelativeLayout>

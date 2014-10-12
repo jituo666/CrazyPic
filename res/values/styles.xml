@@ -41,7 +41,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:cacheColorHint">#00000000</item>
-        <item name="android:divider">@drawable/np_list_divider_bg</item>
+        <item name="android:divider">@@color/cp_list_divider_color</item>
         <item name="android:dividerHeight">1dp</item>
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:fadeScrollbars">true</item>

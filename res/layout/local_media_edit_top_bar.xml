@@ -57,7 +57,8 @@
             android:enabled="false"
             android:gravity="center"
             android:text="@string/common_reset"
-            android:textSize="@dimen/common_text_size_middle" />
+            android:textColor="@drawable/cp_edit_action_button_bg"
+            android:textSize="17dp" />
 
         <TextView
             android:id="@+id/action_save"
@@ -67,7 +68,8 @@
             android:enabled="false"
             android:gravity="center"
             android:text="@string/common_save"
-            android:textSize="@dimen/common_text_size_middle" />
+            android:textColor="@drawable/cp_edit_action_button_bg"
+            android:textSize="17dp" />
     </LinearLayout>
 
 </RelativeLayout>

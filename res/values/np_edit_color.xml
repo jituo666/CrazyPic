@@ -23,4 +23,8 @@
     <color name="crop_shadow_color">#CF000000</color>
     <color name="crop_shadow_wp_color">#4F000000</color>
     <color name="crop_wp_markers">#7FFFFFFF</color>
+    
+    <color name="cp_editor_background_color">#FF7B5D48</color>
+    
+    <color name="cp_editor_action_bar_color">#FF413024</color>
 </resources>

@@ -3,6 +3,7 @@
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/cp_editor_background_color"
     android:orientation="vertical"
     android:visibility="visible" >
 
@@ -35,7 +36,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/np_common_bar_bg"
+            android:background="@color/cp_editor_action_bar_color"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:visibility="visible" >
@@ -48,10 +49,10 @@
                 android:src="@drawable/ic_menu_cancel_holo_light"
                 android:textSize="18dp" />
 
-            <ImageView
+            <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/filtershow_vertical_bar" />
+                android:background="@color/cp_edit_divider_color" />
 
             <LinearLayout
                 android:id="@+id/panelAccessoryViewList"
@@ -66,17 +67,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:background="@drawable/np_common_pressed_bg"
-                    android:drawableRight="@drawable/filtershow_menu_marker_rtl"
+                    android:background="@drawable/cp_edit_editor_apply"
                     android:text="@string/apply_effect"
-                    android:textColor="@color/np_minor_button_color"
+                    android:textColor="@color/cp_navi_text_color"
                     android:textSize="18dp" />
             </LinearLayout>
 
-            <ImageView
+            <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/filtershow_vertical_bar" />
+                android:background="@color/cp_edit_divider_color" />
 
             <ImageButton
                 android:id="@+id/applyFilter"

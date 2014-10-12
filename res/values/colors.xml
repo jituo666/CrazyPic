@@ -28,14 +28,15 @@
     <color name="np_minor_button_color">#FFb9b9b9</color>
     <color name="np_dialog_bg_color">#FF3B4145</color>
     <drawable name="np_pressed_drawable">#337492A0</drawable>
-    <drawable name="np_list_divider_bg">#FF3C4447</drawable>
     <drawable name="np_panel_divider_bg">#FF171F26</drawable>
     <drawable name="np_slid_menu_divider_bg">#FF363B3F</drawable>
 
     <drawable name="cp_navi_bar_bg_color">#FF413024</drawable>
     <color name="cp_list_divider_color">#FFE7D1D7</color>
+    <color name="cp_edit_divider_color">#FF2F2319</color>
     <color name="cp_gallery_list_item_border">#FF413024</color>
     <color name="cp_navi_text_color">#FFFFFFFF</color>
+    <color name="cp_navi_text_disabled_color">#88FFFFFF</color>
     <color name="cp_text_major_color">#FF383030</color>
     <color name="cp_text_minor_color">#FF8C8C8C</color>
     <color name="cp_main_background_color">#FFF4F4F4</color>
