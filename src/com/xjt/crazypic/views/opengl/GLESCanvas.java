@@ -1,4 +1,3 @@
-
 package com.xjt.crazypic.views.opengl;
 
 import android.graphics.Bitmap;

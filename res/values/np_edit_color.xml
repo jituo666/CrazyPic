@@ -6,7 +6,6 @@
     <color name="toolbar_separation_line">#FF363B3F</color>
     <color name="slider_dot_color">#646464</color>
     <color name="slider_line_color">#888888</color>
-    <color name="filtershow_categoryview_background">#FF28130A</color>
     <color name="filtershow_categoryview_text">#a7a7a7</color>
     <color name="gradcontrol_point_center">#ffffffff</color>
     <color name="gradcontrol_point_edge">#ffffffff</color>
@@ -27,4 +26,6 @@
     <color name="cp_editor_background_color">#FF7B5D48</color>
     
     <color name="cp_editor_action_bar_color">#FF413024</color>
+    
+    <color name="cp_filtershow_categoryview_background">#FF553E2E</color>
 </resources>

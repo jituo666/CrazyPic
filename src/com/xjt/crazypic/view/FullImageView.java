@@ -191,7 +191,7 @@ public class FullImageView extends GLView {
         mTileView = new TiledImageView(context);
         addComponent(mTileView);
         mContext = context.getActivityContext();
-        mPlaceholderColor = mContext.getResources().getColor(R.color.full_image_placeholder);
+        mPlaceholderColor = mContext.getResources().getColor(R.color.cp_thumbnail_placehoder);
         mEdgeView = new EdgeView(mContext);
         addComponent(mEdgeView);
         mNoThumbnailText = StringTexture.newInstance(mContext.getString(R.string.no_thumbnail), DEFAULT_TEXT_SIZE, Color.WHITE);

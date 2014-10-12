@@ -3,7 +3,7 @@
     android:id="@+id/dlg_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/cp_navi_bar_bg_color"
+    android:background="@drawable/common_dialog_bg"
     android:minWidth="280dp"
     android:orientation="vertical" >
 
@@ -46,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/cp_edit_divider_color"
         android:gravity="center"
         android:horizontalSpacing="1dp"
         android:listSelector="@null"

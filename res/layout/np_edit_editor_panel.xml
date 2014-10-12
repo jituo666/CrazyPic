@@ -3,7 +3,7 @@
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cp_editor_background_color"
+    android:background="@color/cp_filtershow_categoryview_background"
     android:orientation="vertical"
     android:visibility="visible" >
 

@@ -67,7 +67,6 @@ public class LetoolUtils {
         sPixelDensity = metrics.density;
         LLog.i("letooltag", " resume sPixelDensity:" + sPixelDensity);
         Resources r = context.getResources();
-        TiledScreenNail.setPlaceholderColor(r.getColor(R.color.full_image_placeholder));
         initializeThumbnailSizes(metrics, r);
     }
 

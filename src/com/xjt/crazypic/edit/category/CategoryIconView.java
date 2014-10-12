@@ -57,7 +57,7 @@ public class CategoryIconView extends View {
     private void setup(Context context) {
         Resources res = getResources();
         mTextColor = res.getColor(R.color.filtershow_categoryview_text);
-        mBackgroundColor = res.getColor(R.color.filtershow_categoryview_background);
+        mBackgroundColor = res.getColor(R.color.cp_filtershow_categoryview_background);
         mMargin = res.getDimensionPixelOffset(R.dimen.category_panel_margin);
         mTextSize = res.getDimensionPixelSize(R.dimen.category_panel_text_size);
     }

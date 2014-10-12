@@ -32,7 +32,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
     public static int DEFAULT_STYLE3 = R.drawable.brush_gauss;
     public static int DEFAULT_STYLE4 = R.drawable.brush_marker;
     public static int DEFAULT_STYLE5 = R.drawable.brush_spatter;
-    
+
     public static int DEFAULT_COLOR1 = Color.RED & 0x80FFFFFF;
     public static int DEFAULT_COLOR2 = Color.GREEN & 0x80FFFFFF;
     public static int DEFAULT_COLOR3 = Color.BLUE & 0x80FFFFFF;
@@ -47,7 +47,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
     private static final String SERIAL_PATH = "path";
 
     private ParameterColor mParamColor = new ParameterColor(PARAM_COLOR, DEFAULT_COLOR1);
-    private BasicParameterInt mParamSize = new BasicParameterInt(PARAM_SIZE, 6, 2, 300);
+    private BasicParameterInt mParamSize = new BasicParameterInt(PARAM_SIZE, 18, 2, 300);
     private ParameterStyle mParamStyle = new ParameterStyle(PARAM_STYLE, R.drawable.brush_flat);
     private int mParamMode;
 
