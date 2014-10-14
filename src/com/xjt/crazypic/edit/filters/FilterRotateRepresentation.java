@@ -47,8 +47,8 @@ public class FilterRotateRepresentation extends FilterRepresentation {
         }
     }
 
-    public FilterRotateRepresentation(Rotation rotation, int sr) {
-        super(SERIALIZATION_NAME, sr);
+    public FilterRotateRepresentation(Rotation rotation) {
+        super(SERIALIZATION_NAME);
         setSerializationName(SERIALIZATION_NAME);
         setShowParameterValue(false);
         setFilterClass(FilterRotateRepresentation.class);
@@ -56,17 +56,16 @@ public class FilterRotateRepresentation extends FilterRepresentation {
         setSupportsPartialRendering(true);
         setTextId(R.string.rotate);
         setEditorId(ImageOnlyEditor.ID);
-        setSampleResource(R.drawable.effect_sample_24);
         setRotation(rotation);
     }
 
     public FilterRotateRepresentation(FilterRotateRepresentation r) {
-        this(r.getRotation(), r.getSampleResource());
+        this(r.getRotation());
         setName(r.getName());
     }
 
-    public FilterRotateRepresentation(int sr) {
-        this(getNil(), sr);
+    public FilterRotateRepresentation() {
+        this(getNil());
     }
 
     public Rotation getRotation() {

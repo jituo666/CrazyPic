@@ -4,6 +4,7 @@ package com.xjt.crazypic.activities;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
 import com.xjt.crazypic.R;
+import com.xjt.crazypic.fb.ConversationActivity;
 import com.xjt.crazypic.stat.StatConstants;
 
 import android.app.Activity;
@@ -23,6 +24,7 @@ public class CpMainActvity extends Activity implements OnClickListener {
     private ImageView mBrowse;
     private ImageView mInterest;
     private ImageView mGuide;
+    private FeedbackAgent mFB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class CpMainActvity extends Activity implements OnClickListener {
         mBrowse.setOnTouchListener(l);
         mInterest.setOnTouchListener(l);
         mGuide.setOnTouchListener(l);
+        mFB = new FeedbackAgent(this);
+        mFB.sync();
     }
 
     @Override
@@ -63,8 +67,9 @@ public class CpMainActvity extends Activity implements OnClickListener {
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         } else if (v == mFeedBack) {
             MobclickAgent.onEvent(this, StatConstants.EVENT_KEY_EDIT_FEEDBACK);
-            FeedbackAgent agent = new FeedbackAgent(this);
-            agent.startFeedbackActivity();
+            Intent it = new Intent();
+            it.setClass(this, ConversationActivity.class);
+            startActivity(it);
             overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
         } else if (v == mBeautify) {
             Intent it = new Intent();

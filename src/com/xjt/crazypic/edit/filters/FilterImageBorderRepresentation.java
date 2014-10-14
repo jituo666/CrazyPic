@@ -7,8 +7,8 @@ public class FilterImageBorderRepresentation extends FilterRepresentation {
 
     private int mDrawableResource = 0;
 
-    public FilterImageBorderRepresentation(int drawableResource, int sr) {
-        super("ImageBorder", sr);
+    public FilterImageBorderRepresentation(int drawableResource) {
+        super("ImageBorder");
         setFilterClass(ImageFilterImageBorder.class);
         mDrawableResource = drawableResource;
         setFilterType(FilterRepresentation.TYPE_BORDER);
@@ -22,7 +22,7 @@ public class FilterImageBorderRepresentation extends FilterRepresentation {
 
     @Override
     public FilterRepresentation copy() {
-        FilterImageBorderRepresentation representation = new FilterImageBorderRepresentation(mDrawableResource, 0);
+        FilterImageBorderRepresentation representation = new FilterImageBorderRepresentation(mDrawableResource);
         copyAllParameters(representation);
         return representation;
     }

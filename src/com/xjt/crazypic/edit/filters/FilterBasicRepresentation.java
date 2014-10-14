@@ -20,8 +20,8 @@ public class FilterBasicRepresentation extends FilterRepresentation implements P
     public static final String SERIAL_VALUE = "Value";
     private boolean mLogVerbose = Log.isLoggable(LOGTAG, Log.VERBOSE);
 
-    public FilterBasicRepresentation(String name, int sampleResource, int minimum, int value, int maximum) {
-        super(name, sampleResource);
+    public FilterBasicRepresentation(String name, int minimum, int value, int maximum) {
+        super(name);
         mMinimum = minimum;
         mMaximum = maximum;
         setValue(value);
@@ -34,7 +34,7 @@ public class FilterBasicRepresentation extends FilterRepresentation implements P
 
     @Override
     public FilterRepresentation copy() {
-        FilterBasicRepresentation representation = new FilterBasicRepresentation(getName(), 0, 0, 0, 0);
+        FilterBasicRepresentation representation = new FilterBasicRepresentation(getName(), 0, 0, 0);
         copyAllParameters(representation);
         return representation;
     }

@@ -26,7 +26,6 @@ public class ImageFilterHue extends SimpleImageFilter {
         representation.setTextId(R.string.hue);
         representation.setEditorId(BasicEditor.ID);
         representation.setSupportsPartialRendering(true);
-        representation.setSampleResource(R.drawable.effect_sample_38);
         return representation;
     }
 

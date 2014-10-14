@@ -7,12 +7,12 @@ import com.xjt.crazypic.R;
 
 public class ImageFilterCurves extends ImageFilter {
 
-    private static final String LOGTAG = "ImageFilterCurves";
-    FilterCurvesRepresentation mParameters = new FilterCurvesRepresentation(0);
+    private static final String TAG = "ImageFilterCurves";
+    FilterCurvesRepresentation mParameters = new FilterCurvesRepresentation();
 
     @Override
     public FilterRepresentation getDefaultRepresentation() {
-        return new FilterCurvesRepresentation(R.drawable.effect_sample_37);
+        return new FilterCurvesRepresentation();
     }
 
     @Override

@@ -255,7 +255,7 @@ public class FullImageFragment extends Fragment implements OnActionModeListener,
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.action_navi) {
+        if (v.getId() == R.id.navi_button) {
             mLetoolContext.popContentFragment();
         } else if (v.getId() == R.id.action_edit) {
             launchPhotoEditor();

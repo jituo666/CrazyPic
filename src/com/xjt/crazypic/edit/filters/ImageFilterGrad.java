@@ -21,7 +21,7 @@ public class ImageFilterGrad extends ImageFilterRS {
 
     private static final int STRIP_SIZE = 64;
 
-    FilterGradRepresentation mParameters = new FilterGradRepresentation(0);
+    FilterGradRepresentation mParameters = new FilterGradRepresentation();
 
     public ImageFilterGrad() {
         mName = "grad";
@@ -29,7 +29,7 @@ public class ImageFilterGrad extends ImageFilterRS {
 
     @Override
     public FilterRepresentation getDefaultRepresentation() {
-        return new FilterGradRepresentation(R.drawable.effect_sample_31);
+        return new FilterGradRepresentation();
     }
 
     @Override

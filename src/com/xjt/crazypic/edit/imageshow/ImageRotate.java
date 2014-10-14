@@ -16,7 +16,7 @@ public class ImageRotate extends ImageShow {
     private static final String TAG = ImageRotate.class.getSimpleName();
 
     private EditorRotate mEditorRotate;
-    private FilterRotateRepresentation mLocalRep = new FilterRotateRepresentation(0);
+    private FilterRotateRepresentation mLocalRep = new FilterRotateRepresentation();
     private GeometryHolder mDrawHolder = new GeometryHolder();
 
     public ImageRotate(Context context, AttributeSet attrs) {
@@ -28,7 +28,7 @@ public class ImageRotate extends ImageShow {
     }
 
     public void setFilterRotateRepresentation(FilterRotateRepresentation rep) {
-        mLocalRep = (rep == null) ? new FilterRotateRepresentation(0) : rep;
+        mLocalRep = (rep == null) ? new FilterRotateRepresentation() : rep;
     }
 
     public void rotate() {

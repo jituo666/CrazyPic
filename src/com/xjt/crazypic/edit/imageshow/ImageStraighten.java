@@ -95,7 +95,7 @@ public class ImageStraighten extends ImageShow {
         ArrayList<FilterRepresentation> reps = new ArrayList<FilterRepresentation>(2);
         reps.add(mLocalRep);
         if (mInitialAngle != mLocalRep.getStraighten()) {
-            reps.add(new FilterCropRepresentation(mCrop,0));
+            reps.add(new FilterCropRepresentation(mCrop));
         }
         return reps;
     }

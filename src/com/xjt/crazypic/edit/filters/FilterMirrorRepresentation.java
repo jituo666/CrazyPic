@@ -47,26 +47,25 @@ public class FilterMirrorRepresentation extends FilterRepresentation {
         }
     }
 
-    public FilterMirrorRepresentation(Mirror mirror, int sr) {
-        super(SERIALIZATION_NAME, 0);
+    public FilterMirrorRepresentation(Mirror mirror) {
+        super(SERIALIZATION_NAME);
         setSerializationName(SERIALIZATION_NAME);
         setShowParameterValue(false);
         setFilterClass(FilterMirrorRepresentation.class);
         setFilterType(FilterRepresentation.TYPE_GEOMETRY);
         setSupportsPartialRendering(true);
-        setSampleResource(R.drawable.effect_sample_23);
         setTextId(R.string.mirror);
         setEditorId(ImageOnlyEditor.ID);
         setMirror(mirror);
     }
 
     public FilterMirrorRepresentation(FilterMirrorRepresentation m) {
-        this(m.getMirror(), m.getSampleResource());
+        this(m.getMirror());
         setName(m.getName());
     }
 
-    public FilterMirrorRepresentation(int sr) {
-        this(getNil(), 0);
+    public FilterMirrorRepresentation() {
+        this(getNil());
     }
 
     @Override

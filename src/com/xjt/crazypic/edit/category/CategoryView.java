@@ -95,6 +95,7 @@ public class CategoryView extends CategoryIconView implements View.OnClickListen
         return super.needsCenterText();
     }
 
+    
     public void onDraw(Canvas canvas) {
         if (mAction != null) {
             if (mAction.getType() == CategoryAction.SPACER) {
@@ -104,18 +105,14 @@ public class CategoryView extends CategoryIconView implements View.OnClickListen
             if (mAction.isDoubleAction()) {
                 return;
             }
-            mTempRect.set(0, 0, getWidth(), getHeight());
-            mAction.setImageFrame(mTempRect, getOrientation());
-            Bitmap image = mAction.getImage();
-            if (image != null) {
-                setBitmap(image);
-            } else {
-                LLog.i(TAG, "**************** ondraw image is null");
+            mAction.setImageFrame(new Rect(0, 0, getWidth(), getHeight()), getOrientation());
+            if (mAction.getImage() != null) {
+                setBitmap(mAction.getImage()); // 设置
             }
         }
         super.onDraw(canvas);
         if (mAdapter.isSelected(this)) {
-            SelectionRenderer.drawSelection(canvas, 0, 0, getWidth(), getHeight(), mSelectionStroke, mSelectPaint, mBorderStroke, mBorderPaint);
+            SelectionRenderer.drawSelection(canvas, 0, 0,getWidth(), getHeight(),mSelectionStroke, mSelectPaint, mBorderStroke, mBorderPaint);
         }
     }
 

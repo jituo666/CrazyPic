@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.xjt.crazypic.common.LLog;
 import com.xjt.crazypic.edit.NpEditActivity;
@@ -81,7 +82,11 @@ public class CategoryAdapter extends ArrayAdapter<CategoryAction> {
                 height = height / 2;
             }
         }
-        view.setLayoutParams(new LayoutParams(width, height));
+        if (action.getType() == CategoryAction.ADD_ACTION
+                && mOrientation == CategoryView.VERTICAL) {
+            height = height / 2;
+        }
+        view.setLayoutParams( new ListView.LayoutParams(width, height));
         view.setTag(position);
         view.invalidate();
         return view;

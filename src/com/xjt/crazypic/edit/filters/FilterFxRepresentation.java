@@ -9,8 +9,8 @@ public class FilterFxRepresentation extends FilterRepresentation {
     private int mBitmapResource = 0;
     private int mNameResource = 0;
 
-    public FilterFxRepresentation(String name, int bitmapResource, int sampleResource, int nameResource) {
-        super(name,bitmapResource);
+    public FilterFxRepresentation(String name, int bitmapResource, int nameResource) {
+        super(name);
         setFilterClass(ImageFilterFx.class);
         mBitmapResource = bitmapResource;
         mNameResource = nameResource;
@@ -28,7 +28,7 @@ public class FilterFxRepresentation extends FilterRepresentation {
 
     @Override
     public FilterRepresentation copy() {
-        FilterFxRepresentation representation = new FilterFxRepresentation(getName(), 0, 0, 0);
+        FilterFxRepresentation representation = new FilterFxRepresentation(getName(), 0, 0);
         copyAllParameters(representation);
         return representation;
     }

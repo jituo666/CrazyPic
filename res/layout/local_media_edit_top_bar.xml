@@ -4,7 +4,7 @@
     style="@style/MyWidget.ActionBarPanel" >
 
     <LinearLayout
-        android:id="@+id/action_navi"
+        android:id="@+id/navi_button"
         android:layout_width="48dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"

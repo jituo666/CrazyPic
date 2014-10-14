@@ -2,6 +2,7 @@
 package com.xjt.crazypic.edit.imageshow;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -62,6 +63,7 @@ public class ImageManager implements RenderingRequestCaller {
     private Bitmap mOriginalBitmapSmall = null;
     private Bitmap mOriginalBitmapLarge = null;
     private Bitmap mOriginalBitmapHighres = null;
+    private Bitmap mTemporaryThumbnail = null;
 
     private Uri mUri = null;
     private int mOrientation;
@@ -712,6 +714,16 @@ public class ImageManager implements RenderingRequestCaller {
         invalidatePartialPreview();
     }
 
+    public Bitmap getTemporaryThumbnailBitmap() {
+        if (mTemporaryThumbnail == null
+                && getOriginalBitmapSmall() != null) {
+            mTemporaryThumbnail = getOriginalBitmapSmall().copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(mTemporaryThumbnail);
+            canvas.drawARGB(200, 80, 80, 80);
+        }
+        return mTemporaryThumbnail;
+    }
+    
     public Bitmap getThumbnailBitmap() {
         return getOriginalBitmapSmall();
     }

@@ -47,7 +47,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
     private static final String SERIAL_PATH = "path";
 
     private ParameterColor mParamColor = new ParameterColor(PARAM_COLOR, DEFAULT_COLOR1);
-    private BasicParameterInt mParamSize = new BasicParameterInt(PARAM_SIZE, 18, 2, 300);
+    private BasicParameterInt mParamSize = new BasicParameterInt(PARAM_SIZE, 12, 2, 100);
     private ParameterStyle mParamStyle = new ParameterStyle(PARAM_STYLE, R.drawable.brush_flat);
     private int mParamMode;
 
@@ -60,8 +60,8 @@ public class FilterDrawRepresentation extends FilterRepresentation {
             mParamColor
     };
 
-    public FilterDrawRepresentation(int sr) {
-        super("Draw", sr);
+    public FilterDrawRepresentation() {
+        super("Draw");
         setFilterClass(ImageFilterDraw.class);
         setSerializationName("DRAW");
         setFilterType(FilterRepresentation.TYPE_VIGNETTE);
@@ -172,7 +172,7 @@ public class FilterDrawRepresentation extends FilterRepresentation {
 
     @Override
     public FilterRepresentation copy() {
-        FilterDrawRepresentation representation = new FilterDrawRepresentation(0);
+        FilterDrawRepresentation representation = new FilterDrawRepresentation();
         copyAllParameters(representation);
         return representation;
     }

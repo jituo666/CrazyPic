@@ -29,7 +29,7 @@ public class ImageFilterDraw extends ImageFilter {
     private int mCachedStrokes = -1;
     private int mCurrentStyle = 0;
 
-    FilterDrawRepresentation mRepresentation = new FilterDrawRepresentation(0);
+    FilterDrawRepresentation mRepresentation = new FilterDrawRepresentation();
 
     public ImageFilterDraw() {
         mName = "Image Draw";
@@ -37,7 +37,7 @@ public class ImageFilterDraw extends ImageFilter {
 
     @Override
     public FilterRepresentation getDefaultRepresentation() {
-        return new FilterDrawRepresentation(R.drawable.effect_sample_26);
+        return new FilterDrawRepresentation();
     }
 
     @Override

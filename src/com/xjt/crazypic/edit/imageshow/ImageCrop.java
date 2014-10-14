@@ -47,7 +47,7 @@ public class ImageCrop extends ImageShow {
 
     private Mode mState = Mode.NONE;
     private boolean mValidDraw = false;
-    FilterCropRepresentation mLocalRep = new FilterCropRepresentation(0);
+    FilterCropRepresentation mLocalRep = new FilterCropRepresentation();
     EditorCrop mEditorCrop;
 
     public ImageCrop(Context context) {
@@ -74,7 +74,7 @@ public class ImageCrop extends ImageShow {
     }
 
     public void setFilterCropRepresentation(FilterCropRepresentation crop) {
-        mLocalRep = (crop == null) ? new FilterCropRepresentation(0) : crop;
+        mLocalRep = (crop == null) ? new FilterCropRepresentation() : crop;
         GeometryMathUtils.initializeHolder(mUpdateHolder, mLocalRep);
         mValidDraw = true;
     }

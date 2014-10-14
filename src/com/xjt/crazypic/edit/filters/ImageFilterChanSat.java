@@ -21,7 +21,7 @@ public class ImageFilterChanSat extends ImageFilterRS {
 
     private static final int STRIP_SIZE = 64;
 
-    FilterChanSatRepresentation mParameters = new FilterChanSatRepresentation(0);
+    FilterChanSatRepresentation mParameters = new FilterChanSatRepresentation();
 
     public ImageFilterChanSat() {
         mName = "ChannelSat";
@@ -29,7 +29,7 @@ public class ImageFilterChanSat extends ImageFilterRS {
 
     @Override
     public FilterRepresentation getDefaultRepresentation() {
-        return new FilterChanSatRepresentation(R.drawable.effect_sample_39);
+        return new FilterChanSatRepresentation();
     }
 
     @Override

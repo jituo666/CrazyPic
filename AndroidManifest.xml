@@ -130,10 +130,10 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.umeng.fb.ConversationActivity"
+            android:name="com.xjt.crazypic.fb.ConversationActivity"
             android:theme="@style/MainTheme" />
         <activity
-            android:name="com.umeng.fb.ContactActivity"
+            android:name="com.xjt.crazypic.fb.ContactActivity"
             android:theme="@style/MainTheme" />
 
         <!-- End Umeng sdk requirement -->

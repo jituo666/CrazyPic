@@ -41,8 +41,8 @@ public class FilterVignetteRepresentation extends FilterRepresentation implement
             mParamFalloff};
     private int mParameterMode;
 
-    public FilterVignetteRepresentation(int sr) {
-        super("Vignette",sr);
+    public FilterVignetteRepresentation() {
+        super("Vignette");
         setSerializationName("VIGNETTE");
         setShowParameterValue(true);
         setFilterType(FilterRepresentation.TYPE_VIGNETTE);
@@ -82,7 +82,7 @@ public class FilterVignetteRepresentation extends FilterRepresentation implement
 
     @Override
     public FilterRepresentation copy() {
-        FilterVignetteRepresentation representation = new FilterVignetteRepresentation(0);
+        FilterVignetteRepresentation representation = new FilterVignetteRepresentation();
         copyAllParameters(representation);
         return representation;
     }

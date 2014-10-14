@@ -18,8 +18,8 @@ public class FilterStraightenRepresentation extends FilterRepresentation {
 
     float mStraighten;
 
-    public FilterStraightenRepresentation(float straighten, int sr) {
-        super(SERIALIZATION_NAME, sr);
+    public FilterStraightenRepresentation(float straighten) {
+        super(SERIALIZATION_NAME);
         setSerializationName(SERIALIZATION_NAME);
         setShowParameterValue(true);
         setFilterClass(FilterStraightenRepresentation.class);
@@ -28,16 +28,15 @@ public class FilterStraightenRepresentation extends FilterRepresentation {
         setTextId(R.string.straighten);
         setEditorId(EditorStraighten.ID);
         setStraighten(straighten);
-        setSampleResource(R.drawable.effect_sample_25);
     }
 
     public FilterStraightenRepresentation(FilterStraightenRepresentation s) {
-        this(s.getStraighten(),s.getSampleResource());
+        this(s.getStraighten());
         setName(s.getName());
     }
 
-    public FilterStraightenRepresentation(int sr) {
-        this(getNil(),sr);
+    public FilterStraightenRepresentation() {
+        this(getNil());
     }
 
     public void set(FilterStraightenRepresentation r) {

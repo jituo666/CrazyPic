@@ -45,8 +45,6 @@ public class NpMainActivity extends CpPictureActivity {
 //        AnalyticsConfig.setChannel(StatConstants.UMENG_CHANNEL_WOSHOP); // "LETOOL0000001022";//联通沃商店
 //        AnalyticsConfig.setChannel(StatConstants.UMENG_CHANNEL_NOKIA); // "LETOOL0000001023";// 诺基亚
 //        AnalyticsConfig.setChannel(StatConstants.UMENG_CHANNEL_OTHERS); // "LETOOL0000001111";//其它
-        FeedbackAgent agent = new FeedbackAgent(this);
-        agent.sync();
         UmengUpdateAgent.silentUpdate(this);
         super.onCreate(b);
     }

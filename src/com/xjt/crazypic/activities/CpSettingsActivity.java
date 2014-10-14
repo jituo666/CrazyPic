@@ -46,8 +46,10 @@ public class CpSettingsActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_settings_list);
 
-        TextView titleView = (TextView) findViewById(R.id.navi_button);
+        TextView titleView = (TextView) findViewById(R.id.main_title_text);
         titleView.setOnClickListener(this);
+        View navi = findViewById(R.id.navi_button);
+        navi.setOnClickListener(this);
         mAnimSwitch = (NpPreference) findViewById(R.id.anim_switch);
         mRememberUISwitch = (NpPreference) findViewById(R.id.remember_ui_switch);
         mClearCache = (NpPreference) findViewById(R.id.clear_cache);

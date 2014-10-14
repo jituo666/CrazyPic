@@ -5,7 +5,7 @@ public class SimpleImageFilter extends ImageFilter {
     private FilterBasicRepresentation mParameters;
 
     public FilterRepresentation getDefaultRepresentation() {
-        FilterRepresentation representation = new FilterBasicRepresentation("Default", 0, 0, 50, 100);
+        FilterRepresentation representation = new FilterBasicRepresentation("Default", 0, 50, 100);
         representation.setShowParameterValue(true);
         return representation;
     }

@@ -16,7 +16,7 @@ public class ImageFilterSharpen extends ImageFilterRS {
     }
 
     public FilterRepresentation getDefaultRepresentation() {
-        FilterRepresentation representation = new FilterBasicRepresentation("Sharpen",0, 0, 0, 100);
+        FilterRepresentation representation = new FilterBasicRepresentation("Sharpen", 0, 0, 100);
         representation.setSerializationName(SERIALIZATION_NAME);
         representation.setShowParameterValue(true);
         representation.setFilterClass(ImageFilterSharpen.class);
@@ -24,7 +24,6 @@ public class ImageFilterSharpen extends ImageFilterRS {
         representation.setOverlayId(R.drawable.filtershow_button_colors_sharpen);
         representation.setEditorId(BasicEditor.ID);
         representation.setSupportsPartialRendering(true);
-        representation.setSampleResource(R.drawable.effect_sample_36);
         return representation;
     }
 

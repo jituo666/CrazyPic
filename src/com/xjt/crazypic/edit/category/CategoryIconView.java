@@ -62,18 +62,6 @@ public class CategoryIconView extends View {
         mTextSize = res.getDimensionPixelSize(R.dimen.category_panel_text_size);
     }
 
-    protected void computeTextPosition(String text) {
-        if (text == null) {
-            return;
-        }
-        mPaint.setTextSize(mTextSize);
-        if (getOrientation() == VERTICAL) {
-            text = text.toUpperCase();
-            mPaint.setTypeface(Typeface.DEFAULT_BOLD);
-        }
-        mPaint.getTextBounds(text, 0, text.length(), mTextBounds);
-    }
-
     public boolean needsCenterText() {
         if (mOrientation == HORIZONTAL) {
             return true;
@@ -171,6 +159,18 @@ public class CategoryIconView extends View {
                 mBitmapBounds = new Rect(mMargin / 2, mMargin, getWidth() - mMargin / 2, getHeight());
             }
         }
+    }
+
+    protected void computeTextPosition(String text) {
+        if (text == null) {
+            return;
+        }
+        mPaint.setTextSize(mTextSize);
+        if (getOrientation() == VERTICAL) {
+            text = text.toUpperCase();
+            mPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        }
+        mPaint.getTextBounds(text, 0, text.length(), mTextBounds);
     }
 
     @Override

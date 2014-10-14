@@ -20,7 +20,6 @@ public class ImageFilterNegative extends ImageFilter {
         representation.setEditorId(ImageOnlyEditor.ID);
         representation.setSupportsPartialRendering(true);
         representation.setIsBooleanFilter(true);
-        representation.setSampleResource(R.drawable.effect_sample_41);
         return representation;
     }
 

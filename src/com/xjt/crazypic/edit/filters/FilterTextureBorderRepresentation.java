@@ -37,8 +37,8 @@ public class FilterTextureBorderRepresentation extends FilterRepresentation {
     };
     private int mPramMode;
 
-    public FilterTextureBorderRepresentation(int texture, int size, int radius, int sr) {
-        super(SERIALIZATION_NAME, sr);
+    public FilterTextureBorderRepresentation(int texture, int size, int radius) {
+        super(SERIALIZATION_NAME);
         setSerializationName(SERIALIZATION_NAME);
         setFilterType(FilterRepresentation.TYPE_BORDER);
         setTextId(R.string.texure_border);
@@ -63,7 +63,7 @@ public class FilterTextureBorderRepresentation extends FilterRepresentation {
 
     @Override
     public FilterRepresentation copy() {
-        FilterTextureBorderRepresentation representation = new FilterTextureBorderRepresentation(0, 0, 0, 0);
+        FilterTextureBorderRepresentation representation = new FilterTextureBorderRepresentation(0, 0, 0);
         copyAllParameters(representation);
         return representation;
     }

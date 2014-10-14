@@ -9,8 +9,8 @@ public class FilterUserPresetRepresentation extends FilterRepresentation {
     private ImagePreset mPreset;
     private int mId;
 
-    public FilterUserPresetRepresentation(String name, int sr, ImagePreset preset, int id) {
-        super(name, sr);
+    public FilterUserPresetRepresentation(String name, ImagePreset preset, int id) {
+        super(name);
         setEditorId(ImageOnlyEditor.ID);
         setFilterType(FilterRepresentation.TYPE_FX);
         setSupportsPartialRendering(true);
@@ -27,7 +27,7 @@ public class FilterUserPresetRepresentation extends FilterRepresentation {
     }
 
     public FilterRepresentation copy() {
-        FilterRepresentation representation = new FilterUserPresetRepresentation(getName(), 0, new ImagePreset(mPreset), mId);
+        FilterRepresentation representation = new FilterUserPresetRepresentation(getName(), new ImagePreset(mPreset), mId);
         return representation;
     }
 

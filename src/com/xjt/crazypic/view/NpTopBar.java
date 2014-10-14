@@ -44,15 +44,14 @@ public class NpTopBar {
     };
 
     public static final int ACTION_MODE_TITLE_VIEW_ID[] = {
-            R.id.navi_button,
-            R.id.navi_button,
-            R.id.navi_button,
-            R.id.navi_button
+            R.id.main_title_text,
+            R.id.main_title_text,
+            R.id.main_title_text,
+            R.id.main_title_text
     };
 
     public static final int ACTION_BUTTON_IDS[] = {
             R.id.navi_button,
-            R.id.action_navi,
             R.id.action_share,
             R.id.action_delete,
             R.id.action_style,

@@ -23,7 +23,6 @@ public class ImageFilterWBalance extends ImageFilter {
         representation.setEditorId(ImageOnlyEditor.ID);
         representation.setSupportsPartialRendering(true);
         representation.setIsBooleanFilter(true);
-        representation.setSampleResource(R.drawable.effect_sample_28);
         return representation;
     }
 

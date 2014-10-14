@@ -144,7 +144,7 @@ public class FilterStackSource {
 
                     ImagePreset preset = new ImagePreset();
                     preset.readJsonFromString(json);
-                    FilterUserPresetRepresentation representation = new FilterUserPresetRepresentation(name, 0, preset, id);
+                    FilterUserPresetRepresentation representation = new FilterUserPresetRepresentation(name, preset, id);
                     ret.add(representation);
                     loopCheck = c.moveToNext();
                 }

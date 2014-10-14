@@ -13,7 +13,7 @@ import com.xjt.crazypic.edit.imageshow.GeometryMathUtils.GeometryHolder;
 public class ImageMirror extends ImageShow {
     private static final String TAG = ImageMirror.class.getSimpleName();
     private EditorMirror mEditorMirror;
-    private FilterMirrorRepresentation mLocalRep = new FilterMirrorRepresentation(0);
+    private FilterMirrorRepresentation mLocalRep = new FilterMirrorRepresentation();
     private GeometryHolder mDrawHolder = new GeometryHolder();
 
     public ImageMirror(Context context, AttributeSet attrs) {
@@ -25,7 +25,7 @@ public class ImageMirror extends ImageShow {
     }
 
     public void setFilterMirrorRepresentation(FilterMirrorRepresentation rep) {
-        mLocalRep = (rep == null) ? new FilterMirrorRepresentation(0) : rep;
+        mLocalRep = (rep == null) ? new FilterMirrorRepresentation() : rep;
     }
 
     public void flip() {

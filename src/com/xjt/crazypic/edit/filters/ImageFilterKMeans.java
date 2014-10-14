@@ -30,7 +30,6 @@ public class ImageFilterKMeans extends SimpleImageFilter {
         representation.setPreviewValue(4);
         representation.setTextId(R.string.kmeans);
         representation.setSupportsPartialRendering(true);
-        representation.setSampleResource(R.drawable.effect_sample_43);
         return representation;
     }
 

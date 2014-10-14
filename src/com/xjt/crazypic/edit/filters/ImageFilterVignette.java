@@ -35,7 +35,7 @@ public class ImageFilterVignette extends ImageFilterRS {
 
     @Override
     public FilterRepresentation getDefaultRepresentation() {
-        FilterVignetteRepresentation representation = new FilterVignetteRepresentation(R.drawable.effect_sample_30);
+        FilterVignetteRepresentation representation = new FilterVignetteRepresentation();
         return representation;
     }
 

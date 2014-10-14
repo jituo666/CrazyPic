@@ -17,7 +17,7 @@ public class FilterDirectRepresentation extends FilterRepresentation {
     }
 
     public FilterDirectRepresentation(String name, int sr) {
-        super(name, sr);
+        super(name);
     }
 
 }

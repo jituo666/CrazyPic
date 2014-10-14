@@ -54,7 +54,6 @@ import com.xjt.crazypic.edit.editors.EditorGrad;
 import com.xjt.crazypic.edit.editors.EditorManager;
 import com.xjt.crazypic.edit.editors.EditorMirror;
 import com.xjt.crazypic.edit.editors.EditorPanel;
-import com.xjt.crazypic.edit.editors.EditorRedEye;
 import com.xjt.crazypic.edit.editors.EditorRotate;
 import com.xjt.crazypic.edit.editors.EditorStraighten;
 import com.xjt.crazypic.edit.editors.EditorTextureBorder;
@@ -187,7 +186,6 @@ public class NpEditActivity extends FragmentActivity implements OnItemClickListe
         mEditorPlaceHolder.addEditor(new EditorTextureBorder());
         mEditorPlaceHolder.addEditor(new BasicEditor());
         mEditorPlaceHolder.addEditor(new ImageOnlyEditor());
-        mEditorPlaceHolder.addEditor(new EditorRedEye());
         mEditorPlaceHolder.addEditor(new EditorCrop());
         mEditorPlaceHolder.addEditor(new EditorMirror());
         mEditorPlaceHolder.addEditor(new EditorRotate());
@@ -339,7 +337,7 @@ public class NpEditActivity extends FragmentActivity implements OnItemClickListe
             }
         }
         if (!found) {
-            FilterRepresentation representation = new FilterDrawRepresentation(0);
+            FilterRepresentation representation = new FilterDrawRepresentation();
             CategoryAction action = new CategoryAction(this, representation);
             action.setIsDoubleAction(true);
             mCategoryGeometryAdapter.add(new CategoryAction(this, CategoryAction.SPACER));

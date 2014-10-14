@@ -5,6 +5,6 @@ package com.xjt.crazypic.edit.filters;
  */
 public class ParametericFilterRepresentation extends FilterRepresentation {
     public ParametericFilterRepresentation(String name) {
-        super(name,0);
+        super(name);
     }
 }

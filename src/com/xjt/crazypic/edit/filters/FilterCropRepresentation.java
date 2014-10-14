@@ -21,8 +21,8 @@ public class FilterCropRepresentation extends FilterRepresentation {
 
     RectF mCrop = getNil();
 
-    public FilterCropRepresentation(RectF crop, int sr) {
-        super(SERIALIZATION_NAME, sr);
+    public FilterCropRepresentation(RectF crop) {
+        super(SERIALIZATION_NAME);
         setSerializationName(SERIALIZATION_NAME);
         setShowParameterValue(true);
         setFilterClass(FilterCropRepresentation.class);
@@ -31,16 +31,15 @@ public class FilterCropRepresentation extends FilterRepresentation {
         setTextId(R.string.crop);
         setEditorId(EditorCrop.ID);
         setCrop(crop);
-        setSampleResource(R.drawable.effect_sample_22);
     }
 
     public FilterCropRepresentation(FilterCropRepresentation m, int sr) {
-        this(m.mCrop, sr);
+        this(m.mCrop);
         setName(m.getName());
     }
 
-    public FilterCropRepresentation(int sr) {
-        this(sNilRect, sr);
+    public FilterCropRepresentation() {
+        this(sNilRect);
     }
 
     public void set(FilterCropRepresentation r) {
